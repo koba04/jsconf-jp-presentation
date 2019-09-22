@@ -1,0 +1,12 @@
+{
+  "name": "slide",
+  "version": "1.0.0",
+  "dependencies": {},
+  "license": "MIT",
+  "scripts": {
+    "start": "fusuma start"
+  },
+  "devDependencies": {
+    "fusuma": "^1.15.0"
+  }
+}

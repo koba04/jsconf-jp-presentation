@@ -22,6 +22,23 @@ https://reactjs.org
 
 ---------------
 
+# SwiftUI
+
+```
+import SwiftUI
+
+struct Content: View {
+    var body: some View {
+        Text("Hello")
+            .font(.title)
+    }
+}
+```
+
+https://developer.apple.com/documentation/swiftui/
+
+---------------
+
 # DOM manipuration is based on imperative operations
 
 ---------------
@@ -144,4 +161,40 @@ ReactDOM.render(
 
 # What React does
 
-- React interprets diffs for a update and transforms the diffs to imperative operations
+React interprets diffs for updates and transforms the diffs to imperative operations
+
+```
+Declarative
+↓
+React
+↓
+Imperative
+```
+
+----------------------
+
+# You can represent imperative operations declaratively other than DOM
+
+Do you know `react-native`, `ink`, `react-konva`?
+You can create own renderer with React!!!
+
+- `react-native` ... Native Apps
+- `ink` ... CLI Output
+- `react-konva` ... Canvas
+
+----------------------
+
+```js
+YourRenderer.render(
+    <Hello>
+        <jsconf country="japan">
+            <talk
+                title="Make it Declative with React"
+                speaker="koba04"
+            >
+                Let's create a your custom renderer!!!
+            </talk>
+        </jsconf>
+    </Hello>
+)
+```

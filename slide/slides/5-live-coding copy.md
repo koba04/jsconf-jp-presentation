@@ -2,4 +2,4 @@
 
 ---------------
 
-# Foo
+# Let's create a tiny custom renderer!

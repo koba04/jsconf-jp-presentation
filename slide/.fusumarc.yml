@@ -1,11 +1,11 @@
 meta:
-  title:
+  title: Make it Declarative with React
   thumbnail:
   description:
   sns:
     - twitter
 slide:
-  loop: true
+  loop: false
   sidebar: true
   targetBlank: true
   showIndex: true

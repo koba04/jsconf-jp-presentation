@@ -64,7 +64,7 @@ updateButton.addEventListener('click', () => {
 
 # Declarative
 
-Describing whathow to update the view
+Describing what to update the view
 
 ```js
 const view = document.querySelector('.view');
@@ -82,7 +82,7 @@ updateButton.addEventListener('click', () => {
     render(state);
 });
 
-// describing what the view should display declaratively
+// describing declaratively what the view should display
 const render = state => {
     view.innerHTML = state.map(s => `<span>${s}</span>`).join('');
 }
@@ -90,19 +90,19 @@ const render = state => {
 
 ---------------
 
-# Benifits
+# Benefits
 
 - You can separate application logic and view logic
     - easy to test
-    - reuseable
-- View is just a function without side-effects
+    - reusable
+- View is just a function
     - `👀 = View(State)`
 
 ----------------------
 
 # But....
 
-Do you create an entire views each updates...?
+Do you create an entire view each updates...?
 
 ----------------------
 
@@ -110,11 +110,13 @@ Do you create an entire views each updates...?
 
 - a.k.a Virtual DOM
 
-```jsx
+```js
 let count = 1;
 ReactDOM.render(
     <div>
+        <Header />
         <p>{count}</p>
+        <Footer />
     </div>,
     container
 );
@@ -122,7 +124,9 @@ ReactDOM.render(
 count = 2;
 ReactDOM.render(
     <div>
+        <Header />
         <p>{count}</p>
+        <Footer />
     </div>,
     container
 )
@@ -134,7 +138,7 @@ ReactDOM.render(
 
 # Change the index in a list
 
-```jsx
+```js
 ReactDOM.render(
     <ul>
         <li key="a">a</li>
@@ -164,16 +168,20 @@ ReactDOM.render(
 React interprets diffs for updates and transforms the diffs to imperative operations
 
 ```text
-Declarative
-↓
-React
-↓
-Imperative
+Component ... Declarative
+
+↓ <div>hello</div>
+
+React ... Imperative
+
+↓ div.textContent = 'hello';
+
+👀
 ```
 
 ----------------------
 
-# You can represent imperative operations declaratively other than DOM
+# You can describe imperative operations as declarative
 
 Do you know `react-native`, `ink`, `react-konva`?
 
@@ -182,6 +190,43 @@ You can create own renderer with React!!!
 - `react-native` ... Native Apps
 - `ink` ... CLI Output
 - `react-konva` ... Canvas
+
+----------------------
+
+# ReactNative
+
+```js
+<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <Text>Hello, world!</Text>
+</View>
+```
+
+----------------------
+
+# Ink
+
+```js
+Ink.render(
+    <Box>
+        <Color green>Hello world!</Color>
+    </Box>
+);
+```
+
+----------------------
+
+# ReactKonva
+
+```js
+ReactKonva.render(
+    <Stage width={100} height={100}>
+        <Layer>
+            <Text text="Hello world!" />
+        </Layer>
+    </Stage>,
+    el
+);
+```
 
 ----------------------
 

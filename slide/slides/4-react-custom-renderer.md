@@ -4,11 +4,19 @@
 
 # Architecture of React
 
-- Component
-    - Host
-    - Custom
-- Reconcler
-- Renderer
+```text
+-------------
+| Component | -- Host, Custom
+-------------
+      |
+--------------
+| Reconciler | - Fiber, (Stack)
+--------------
+      |
+------------
+| Renderer | - ReactDOM, ReactNative, ...
+------------
+```
 
 ---------------
 

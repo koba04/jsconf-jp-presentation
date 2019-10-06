@@ -14,7 +14,7 @@
 
 # react-reconciler
 
-```
+```shell
 npm install react-reconciler
 ```
 
@@ -25,7 +25,7 @@ https://github.com/facebook/react/tree/master/packages/react-reconciler
 
 # How to use
 
-```
+```js
 import Reconciler from "react-reconciler";
 const renderer = Reconciler(hostconfig);
 ```
@@ -80,3 +80,54 @@ https://github.com/koba04/react-custom-renderer-starter/blob/master/src/json-ren
     - https://github.com/vadimdemedes/ink/blob/master/src/reconciler.js
 - react-konva
     - https://github.com/konvajs/react-konva/blob/master/src/ReactKonvaHostConfig.js
+
+----------------------
+
+# Change the index in a list
+
+```js
+ReactDOM.render(
+    <ul>
+        <li key="a">a</li>
+        <li key="b">b</li>
+        <li key="c">c</li>
+    </ul>,
+    container
+);
+
+ReactDOM.render(
+    <ul>
+        <li key="b">b</li>
+        <li key="a">a</li>
+        <li key="c">c</li>
+    </ul>,
+    container
+)
+// React update the DOM like the following
+// li.removeChild(b);
+// li.insertBefore(b, a);
+```
+
+----------------------
+
+# Change the index in a list
+
+```js
+export function insertBefore(
+  parentInstance: Instance,
+  child: Instance | TextInstance,
+  beforeChild: Instance | TextInstance
+): void {
+  // we have to remove a current instance at first
+  const index = parentInstance.children.indexOf(child);
+  if (index !== -1) {
+    parentInstance.children.splice(index, 1);
+  }
+  // And then, we insert a new instance into a new index
+  const beforeIndex = parentInstance.children.indexOf(beforeChild);
+  parentInstance.children.splice(beforeIndex, 0, child);
+}
+```
+
+### Mutation(optional)
+- appendChild, appendChildToContainer, commitTextUpdate, commitMount, commitUpdate, **insertBefore**, insertInContainerBefore, removeChild, removeChildFromContainer,  resetTextContent

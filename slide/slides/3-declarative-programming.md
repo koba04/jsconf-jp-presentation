@@ -24,7 +24,7 @@ https://reactjs.org
 
 # SwiftUI
 
-```
+```swift
 import SwiftUI
 
 struct Content: View {
@@ -163,7 +163,7 @@ ReactDOM.render(
 
 React interprets diffs for updates and transforms the diffs to imperative operations
 
-```
+```text
 Declarative
 ↓
 React

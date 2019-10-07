@@ -270,3 +270,13 @@ YourRenderer.render(
     </Hello>
 )
 ```
+
+----------------------
+
+# DOM as a Second-class Citizen
+
+<Card>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Zemce4Y1Y-A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</Card>
+
+Sebastian Markbåge / React Europe 2015

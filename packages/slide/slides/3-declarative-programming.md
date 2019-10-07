@@ -50,6 +50,7 @@ Decribing how to update the view
 ```js
 const view = document.querySelector('.view');
 const addButton = document.querySelector('.add-button');
+
 // You have to implement how to update the view
 addButton.addEventListener('click', () => {
     view.appendChild(child)
@@ -75,12 +76,14 @@ Describing what to update the view
 const view = document.querySelector('.view');
 const addButton = document.querySelector('.add-button');
 const state = [];
+
 addButton.addEventListener('click', () => {
     // update the state impleratively
     state.push(child);
     // describe the view declaratively based on the state
     render(state);
 });
+
 // describing what the view should display
 const render = state => {
     view.innerHTML = state.map(s => `<span>${s}</span>`).join('');
@@ -106,12 +109,16 @@ You have to update the state imperatively but don't have to care about how to up
     - reusable
 - View is just a function
     - `👀 = View(State)`
+    - React components are basically just idempotent functions
+    - Describing your UI at any point in time, just like a server-rendered app
 
 ----------------------
 
 # But....
 
 Do you create an entire view each updates...?
+
+You have to keep track of scroll position and focus management and so on.
 
 ----------------------
 
@@ -239,6 +246,13 @@ ReactKonva.render(
     el
 );
 ```
+
+----------------------
+
+# Abstract your application components
+
+- DOM is an implementation detail
+- You can build own layers for your application on any hosts other than DOM
 
 ----------------------
 

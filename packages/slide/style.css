@@ -6,7 +6,7 @@
 
 html {
   /* set the base font-size */
-  font-size: 62.5%;
+  font-size: 70%;
 }
 
 body {
@@ -48,6 +48,7 @@ blockquote > p {
 
 h1 {
   color: var(--color-cyan);
+  padding: 15px;
 }
 
 /* https://hiroppy.github.io/fusuma/docs/guides/slide-syntax#declaring-section-title */

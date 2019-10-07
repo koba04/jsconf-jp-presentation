@@ -50,15 +50,20 @@ Decribing how to update the view
 ```js
 const view = document.querySelector('.view');
 const addButton = document.querySelector('.add-button');
+// You have to implement how to update the view
 addButton.addEventListener('click', () => {
     view.appendChild(child)
 });
-const updateButton = document.querySelector('.update-button');
-updateButton.addEventListener('click', () => {
-    // write logic to update the view
-});
-// You have to implement these logic each operations
 ```
+
+---------------
+
+# Imperative
+
+- `view.appendChild(child)`
+- `view.removeChild(child)`
+- `child.textContent = 'foo'`
+- ...
 
 ---------------
 
@@ -73,20 +78,24 @@ const state = [];
 addButton.addEventListener('click', () => {
     // update the state impleratively
     state.push(child);
+    // describe the view declaratively based on the state
     render(state);
 });
-const updateButton = document.querySelector('.update-button');
-updateButton.addEventListener('click', () => {
-    // update the state impleratively
-    // ...
-    render(state);
-});
-
-// describing declaratively what the view should display
+// describing what the view should display
 const render = state => {
     view.innerHTML = state.map(s => `<span>${s}</span>`).join('');
 }
 ```
+
+---------------
+
+# Declarative
+
+- `view.innerHTML = state.map(s => `<span>${s}</span>`).join('');`
+
+Describing that the view should be displayed based on the state
+
+You have to update the state imperatively but don't have to care about how to update the view.
 
 ---------------
 
@@ -206,10 +215,13 @@ You can create own renderer with React!!!
 # Ink
 
 ```js
-Ink.render(
-    <Box>
-        <Color green>Hello world!</Color>
-    </Box>
+import React from 'react';
+import {render, Box, Color} from 'ink';
+
+render(
+  <Box>
+      <Color green>Hello world!</Color>
+  </Box>
 );
 ```
 

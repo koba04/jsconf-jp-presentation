@@ -1,0 +1,13 @@
+{
+  "name": "ink-demo",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node index.tsx"
+  },
+  "keywords": [],
+  "author": "koba04",
+  "license": "MIT"
+}

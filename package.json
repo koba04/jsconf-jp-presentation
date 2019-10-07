@@ -1,11 +1,9 @@
 {
   "private": true,
-  "workspaces": [
-    "slide",
-    "ink-demo"
-  ],
+  "workspaces": ["packages/*"],
   "scripts": {
-    "lint": "eslint './**/*.ts{,x}'",
+    "lint": "eslint 'packages/**/*.ts{,x}'",
+    "start": "yarn workspace slide start",
     "run-ink": "yarn workspace ink-demo start"
   },
   "dependencies": {

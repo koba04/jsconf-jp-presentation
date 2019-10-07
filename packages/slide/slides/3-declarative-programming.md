@@ -4,9 +4,9 @@
 
 # Declarative Programming
 
-> In computer science, declarative programming is a programming paradigm—a style of building the structure and elements of computer programs—that expresses the logic of a computation without describing its control flow.
+> In computer science, declarative programming is a programming paradigm—a style of building the structure and elements of computer programs—that expresses **the logic of a computation without describing its control flow**.
 
-> Many languages that apply this style attempt to minimize or eliminate side effects by describing what the program must accomplish in terms of the problem domain, rather than describe how to accomplish it as a sequence of the programming language primitives
+> Many languages that apply this style attempt to minimize or eliminate side effects by **describing what the program must accomplish in terms of the problem domain**, rather than describe how to accomplish it as a sequence of the programming language primitives
 
 https://en.wikipedia.org/wiki/Declarative_programming
 
@@ -16,7 +16,7 @@ https://en.wikipedia.org/wiki/Declarative_programming
 
 > React makes it painless to create interactive UIs. Design simple views for each state in your application, and React will efficiently update and render just the right components when your data changes.
 
-> Declarative views make your code more predictable and easier to debug.
+> **Declarative views make your code more predictable and easier to debug**.
 
 https://reactjs.org
 
@@ -63,7 +63,7 @@ addButton.addEventListener('click', () => {
 
 - `view.appendChild(child)`
 - `view.removeChild(child)`
-- `child.textContent = 'foo'`
+- `view.insertBefore(child)`
 - ...
 
 ---------------
@@ -98,19 +98,21 @@ const render = state => {
 
 Describing that the view should be displayed based on the state
 
-You have to update the state imperatively but don't have to care about how to update the view.
+You still have to update the state imperatively but don't have to care about how to update the view.
 
 ---------------
 
 # Benefits
 
-- You can separate application logic and view logic
+- You can treat updating a state as imperative and updating views as declarative
     - easy to test
+        - state is a JavaScript object and the view is described declaratively
     - reusable
+        - because updating a state and describing a view are loose coupled
 - View is just a function
     - `👀 = View(State)`
     - React components are basically just idempotent functions
-    - Describing your UI at any point in time, just like a server-rendered app
+    - You can think just like a server-rendered app
 
 ----------------------
 
@@ -118,7 +120,7 @@ You have to update the state imperatively but don't have to care about how to up
 
 Do you create an entire view each updates...?
 
-You have to keep track of scroll position and focus management and so on.
+You have to keep track of scroll position and focus management and so on, don't you.
 
 ----------------------
 
@@ -252,7 +254,7 @@ ReactKonva.render(
 # Abstract your application components
 
 - DOM is an implementation detail
-- You can build own layers for your application on any hosts other than DOM
+- You can build own layers for your application on top of any hosts not only DOM
 
 ----------------------
 

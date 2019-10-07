@@ -131,7 +131,7 @@ export function insertBefore(
   if (index !== -1) {
     parentInstance.children.splice(index, 1);
   }
-  // And then, we insert a new instance into a new index
+  // And then, we insert the instance into a new index
   const beforeIndex = parentInstance.children.indexOf(beforeChild);
   parentInstance.children.splice(beforeIndex, 0, child);
 }

@@ -9,5 +9,8 @@
   },
   "keywords": [],
   "author": "koba04",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "ink": "^2.5.0"
+  }
 }

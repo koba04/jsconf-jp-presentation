@@ -199,6 +199,13 @@ React ... Imperative
 
 ----------------------
 
+# So
+
+- You dont' have to write how to chage the view
+- Describe what the view should be
+
+----------------------
+
 # You can describe imperative operations as declarative
 
 Do you know `react-native`, `ink`, `react-konva`?

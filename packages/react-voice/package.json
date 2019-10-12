@@ -1,0 +1,21 @@
+{
+  "name": "react-voice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "hello": "ts-node scripts/hello.tsx",
+    "increment": "ts-node scripts/increment.tsx"
+
+  },
+  "dependencies": {
+    "react": "^16.10.2",
+    "react-reconciler": "^0.22.2"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.5",
+    "@types/react-reconciler": "^0.18.0",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.4"
+  }
+}

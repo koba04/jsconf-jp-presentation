@@ -11,6 +11,12 @@
   "author": "koba04",
   "license": "MIT",
   "dependencies": {
-    "ink": "^2.5.0"
+    "ink": "^2.5.0",
+    "react": "^16.10.2"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.5",
+    "ts-node": "^8.4.1",
+    "typescript": "^3.6.4"
   }
 }

@@ -6,7 +6,6 @@
   "scripts": {
     "hello": "ts-node scripts/hello.tsx",
     "increment": "ts-node scripts/increment.tsx"
-
   },
   "dependencies": {
     "react": "^16.10.2",

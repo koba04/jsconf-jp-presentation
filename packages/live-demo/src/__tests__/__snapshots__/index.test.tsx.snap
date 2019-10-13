@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReactJSON should be able to handle swapping list items 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        "b",
+      ],
+      "props": Object {},
+      "type": "li",
+    },
+    Object {
+      "children": Array [
+        "a",
+      ],
+      "props": Object {},
+      "type": "li",
+    },
+    Object {
+      "children": Array [
+        "c",
+      ],
+      "props": Object {},
+      "type": "li",
+    },
+  ],
+  "props": Object {},
+  "type": "ul",
+}
+`;
+
+exports[`ReactJSON should be able to render composite components 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        "click",
+      ],
+      "props": Object {},
+      "type": "button",
+    },
+    Object {
+      "children": Array [
+        "World",
+      ],
+      "props": Object {},
+      "type": "p",
+    },
+    Object {
+      "children": Array [
+        "memo",
+      ],
+      "props": Object {},
+      "type": "button",
+    },
+  ],
+  "props": Object {},
+  "type": "section",
+}
+`;
+
+exports[`ReactJSON should be able to render host components and text 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "children": Array [
+            "bar",
+          ],
+          "props": Object {
+            "className": "em",
+          },
+          "type": "span",
+        },
+      ],
+      "props": Object {
+        "className": "paragraph",
+      },
+      "type": "p",
+    },
+  ],
+  "props": Object {
+    "className": "bar",
+    "id": "foo",
+  },
+  "type": "div",
+}
+`;

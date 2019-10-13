@@ -1,6 +1,6 @@
 import React from "react";
 import { JSONRenderer } from "./json-renderer";
-import { Container, Instance, TextInstance, Type } from "./json-renderer-types";
+import { Container, Instance, TextInstance } from "./json-renderer-types";
 import ReactReconciler from "react-reconciler";
 
 export type RootContainer = {

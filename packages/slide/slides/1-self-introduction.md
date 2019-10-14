@@ -1,5 +1,9 @@
 # koba04
 
+<!-- note
+
+-->
+
 - TODO: Picture
 - Toru Kobayashi
 - @koba04 [Twitter](https://twitter.com/koba04) / [GitHub](https://github.com/koba04)

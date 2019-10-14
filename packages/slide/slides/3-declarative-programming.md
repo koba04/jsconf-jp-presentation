@@ -39,6 +39,15 @@ https://developer.apple.com/documentation/swiftui/
 
 ---------------
 
+# SwiftUI
+
+- SwiftUI Essentials
+    - https://developer.apple.com/videos/play/wwdc2019/216/
+- Data Flow Through SwiftUI
+    - https://developer.apple.com/videos/play/wwdc2019/226
+
+---------------
+
 # DOM manipuration is based on imperative operations
 
 ---------------
@@ -113,6 +122,9 @@ You still have to update the state imperatively but don't have to care about how
     - `👀 = View(State)`
     - React components are basically just idempotent functions
     - You can think just like a server-rendered app
+    - Data Driven
+    - Single Source of the Truth
+    - mutation state not view
 
 ----------------------
 

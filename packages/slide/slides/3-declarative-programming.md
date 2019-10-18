@@ -22,9 +22,15 @@ https://en.wikipedia.org/wiki/Declarative_programming
 
 ---------------
 
-<!-- note
+# Declarative
 
--->
+- what you want to do, not how you want to do it
+    - how to do is jobs of a compiler
+- It's an abstraction layer
+    - Be able to Optimize in the underlying the layer
+    - Describe on own domain logic layer
+
+---------------
 
 # Declarative in React
 

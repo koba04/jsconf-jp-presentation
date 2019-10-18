@@ -1,6 +1,16 @@
+<!-- note
+
+Let's move on to the first part.
+
+-->
+
 # Declarative Programming for UI
 
 ---------------
+
+<!-- note
+
+-->
 
 # Declarative Programming
 
@@ -12,6 +22,10 @@ https://en.wikipedia.org/wiki/Declarative_programming
 
 ---------------
 
+<!-- note
+
+-->
+
 # Declarative in React
 
 > React makes it painless to create interactive UIs. Design simple views for each state in your application, and React will efficiently update and render just the right components when your data changes.
@@ -21,6 +35,10 @@ https://en.wikipedia.org/wiki/Declarative_programming
 https://reactjs.org
 
 ---------------
+
+<!-- note
+
+-->
 
 # SwiftUI
 
@@ -39,6 +57,10 @@ https://developer.apple.com/documentation/swiftui/
 
 ---------------
 
+<!-- note
+
+-->
+
 # SwiftUI
 
 - SwiftUI Essentials
@@ -48,9 +70,17 @@ https://developer.apple.com/documentation/swiftui/
 
 ---------------
 
+<!-- note
+
+-->
+
 # DOM manipuration is based on imperative operations
 
 ---------------
+
+<!-- note
+
+-->
 
 # Imperative
 
@@ -68,6 +98,10 @@ addButton.addEventListener('click', () => {
 
 ---------------
 
+<!-- note
+
+-->
+
 # Imperative
 
 - `view.appendChild(child)`
@@ -76,6 +110,10 @@ addButton.addEventListener('click', () => {
 - ...
 
 ---------------
+
+<!-- note
+
+-->
 
 # Declarative
 
@@ -101,6 +139,10 @@ const render = state => {
 
 ---------------
 
+<!-- note
+
+-->
+
 # Declarative
 
 - `view.innerHTML = state.map(s => `<span>${s}</span>`).join('');`
@@ -110,6 +152,10 @@ Describing that the view should be displayed based on the state
 You still have to update the state imperatively but don't have to care about how to update the view.
 
 ---------------
+
+<!-- note
+
+-->
 
 # Benefits
 
@@ -128,6 +174,10 @@ You still have to update the state imperatively but don't have to care about how
 
 ----------------------
 
+<!-- note
+
+-->
+
 # But....
 
 Do you create an entire view each updates...?
@@ -135,6 +185,10 @@ Do you create an entire view each updates...?
 You have to keep track of scroll position and focus management and so on, don't you.
 
 ----------------------
+
+<!-- note
+
+-->
 
 # React updates view efficiently
 
@@ -166,6 +220,10 @@ ReactDOM.render(
 
 ----------------------
 
+<!-- note
+
+-->
+
 # Change the index in a list
 
 ```js
@@ -193,6 +251,10 @@ ReactDOM.render(
 
 ----------------------
 
+<!-- note
+
+-->
+
 # What React does
 
 React interprets diffs for updates and transforms the diffs to imperative operations
@@ -211,12 +273,20 @@ React ... Imperative
 
 ----------------------
 
+<!-- note
+
+-->
+
 # So
 
 - You dont' have to write how to chage the view
 - Describe what the view should be
 
 ----------------------
+
+<!-- note
+
+-->
 
 # You can describe imperative operations as declarative
 
@@ -230,6 +300,10 @@ You can create own renderer with React!!!
 
 ----------------------
 
+<!-- note
+
+-->
+
 # ReactNative
 
 ```js
@@ -239,6 +313,10 @@ You can create own renderer with React!!!
 ```
 
 ----------------------
+
+<!-- note
+
+-->
 
 # Ink
 
@@ -255,6 +333,10 @@ render(
 
 ----------------------
 
+<!-- note
+
+-->
+
 # ReactKonva
 
 ```js
@@ -270,12 +352,20 @@ ReactKonva.render(
 
 ----------------------
 
+<!-- note
+
+-->
+
 # Abstract your application components
 
 - DOM is an implementation detail
 - You can build own layers for your application on top of any hosts not only DOM
 
 ----------------------
+
+<!-- note
+
+-->
 
 ```js
 YourRenderer.render(
@@ -293,6 +383,10 @@ YourRenderer.render(
 ```
 
 ----------------------
+
+<!-- note
+
+-->
 
 # DOM as a Second-class Citizen
 

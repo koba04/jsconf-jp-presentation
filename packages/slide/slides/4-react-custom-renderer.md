@@ -1,6 +1,14 @@
+<!-- note
+
+-->
+
 # React Custom Renderer
 
 ---------------
+
+<!-- note
+
+-->
 
 # Architecture of React
 
@@ -20,6 +28,10 @@
 
 ---------------
 
+<!-- note
+
+-->
+
 # react-reconciler
 
 ```shell
@@ -31,6 +43,10 @@ https://github.com/facebook/react/tree/master/packages/react-reconciler
 
 ---------------
 
+<!-- note
+
+-->
+
 # How to use
 
 ```js
@@ -41,6 +57,10 @@ const renderer = Reconciler(hostconfig);
 https://github.com/koba04/react-custom-renderer-starter/blob/master/src/json-renderer/index.ts
 
 ---------------
+
+<!-- note
+
+-->
 
 # HostConfig Interface
 
@@ -62,9 +82,17 @@ https://github.com/koba04/react-custom-renderer-starter/blob/master/src/json-ren
 
 ---------------
 
+<!-- note
+
+-->
+
 # 😇
 
 ---------------
+
+<!-- note
+
+-->
 
 # What we implement in HostConfig
 
@@ -74,6 +102,10 @@ https://github.com/koba04/react-custom-renderer-starter/blob/master/src/json-ren
 - Hydration logic if you need
 
 ----------------------
+
+<!-- note
+
+-->
 
 # HostConfig of renderers
 
@@ -90,6 +122,10 @@ https://github.com/koba04/react-custom-renderer-starter/blob/master/src/json-ren
     - https://github.com/konvajs/react-konva/blob/master/src/ReactKonvaHostConfig.js
 
 ----------------------
+
+<!-- note
+
+-->
 
 # Change the index in a list
 
@@ -117,6 +153,10 @@ ReactDOM.render(
 ```
 
 ----------------------
+
+<!-- note
+
+-->
 
 # Change the index in a list
 

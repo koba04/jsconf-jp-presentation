@@ -22,6 +22,10 @@ https://en.wikipedia.org/wiki/Declarative_programming
 
 ---------------
 
+<!-- note
+
+-->
+
 # Declarative
 
 - what you want to do, not how you want to do it
@@ -31,6 +35,10 @@ https://en.wikipedia.org/wiki/Declarative_programming
     - Describe on own domain logic layer
 
 ---------------
+
+<!-- note
+
+-->
 
 # Declarative in React
 

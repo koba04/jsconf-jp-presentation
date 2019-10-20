@@ -9,6 +9,8 @@ Let's move on to the first part.
 ---------------
 
 <!-- note
+According to Wikipedia, Declarative Programming is described like this.
+I think "the logic of a computation without describing its control flow" and "describing what the program must accomplish in terms of the problem domain" are important as describing what Declarative Programming is.
 
 -->
 
@@ -23,21 +25,9 @@ https://en.wikipedia.org/wiki/Declarative_programming
 ---------------
 
 <!-- note
-
--->
-
-# Declarative
-
-- what you want to do, not how you want to do it
-    - how to do is jobs of a compiler
-- It's an abstraction layer
-    - Be able to Optimize in the underlying the layer
-    - Describe on own domain logic layer
-
----------------
-
-<!-- note
-
+This is the description cited from Desclarative section in the official website of React.
+The documentation says that "Declarative views make your code more predictable and easier to debug"
+We cal also see declarative programming in other programming languages.
 -->
 
 # Declarative in React
@@ -51,6 +41,8 @@ https://reactjs.org
 ---------------
 
 <!-- note
+SwiftUI is a new UI framework by Apple.
+SwiftUI is similar to React, it describes views declaratively.
 
 -->
 
@@ -61,8 +53,12 @@ import SwiftUI
 
 struct Content: View {
     var body: some View {
-        Text("Hello")
-            .font(.title)
+        VStack {
+            Text("Hello")
+                .font(.title)
+            Text("World!")
+                .font(.body)
+        }
     }
 }
 ```
@@ -72,7 +68,12 @@ https://developer.apple.com/documentation/swiftui/
 ---------------
 
 <!-- note
+I don't describe SwitUI today,
+So if you are interested in SwiftUI I recommend to watch SwiftUI Essentilals.
+You can see many similar concepts with React on the video.
 
+I also recommend to watch Data Flow Through SwiftUI if you are intested in managing data on applications.
+SwiftUI has some ideas to manage data like Bindable Object, Environment Object.
 -->
 
 # SwiftUI
@@ -85,7 +86,29 @@ https://developer.apple.com/documentation/swiftui/
 ---------------
 
 <!-- note
+With Declarative Programming, you write what you want to do rather than how you want to do it.
+How to do is a job for a compiler, not for you.
 
+It also create an abstraction layer that is declarative.
+It hides a underlying layer how to do it so a compiler can optimize the underlying layer.
+In addition to that, you can define primitives on the declarative layer as domain logic layer.
+So it makes possible to provide a high level abstraction.
+-->
+
+# Why Declarative?
+
+- what you want to do, not how you want to do it
+    - how to do is jobs of a compiler
+- It's an abstraction layer
+    - Be able to Optimize in the underlying the layer
+    - Describe on own domain logic layer
+
+---------------
+
+<!-- note
+OK, let's move on more specific topics.
+For application running on browsers, DOM is a primitive and you would write DOM manipuration to update your views.
+As you may know, DOM manipuration is based on imperative operations, isn't it.
 -->
 
 # DOM manipuration is based on imperative operations
@@ -93,7 +116,9 @@ https://developer.apple.com/documentation/swiftui/
 ---------------
 
 <!-- note
-
+Let's take an example to update a view when a button is clicked.
+It writes a DOM manipuration in the event listener of the click event.
+This is an imperative operation and describes how to update the view, not what the view should be.
 -->
 
 # Imperative
@@ -113,20 +138,29 @@ addButton.addEventListener('click', () => {
 ---------------
 
 <!-- note
-
+These are imperative operations.
+They chage the DOM based on the caller DOM objects so the results depends on the caller itself not only the arguments.
+appendChild appends the argument into the caller view object.
+removeChild remvoves the argument from the caller view object.
+insertBefore appends the 1st argument before the 2nd argument.
 -->
 
 # Imperative
 
 - `view.appendChild(child)`
 - `view.removeChild(child)`
-- `view.insertBefore(child)`
+- `view.insertBefore(child, child2)`
 - ...
 
 ---------------
 
 <!-- note
-
+Let's look at Declarative version.
+This becomes longer than the imperative version.
+I've separated updating the state and displaying the view.
+the render function is displaying the view, which describes what the view should be, not how to update the view.
+So the render function is declarative, which is based on the passed state.
+Of course, we still need an imperative operation to update the state but the updating the state part is now separated from the view.
 -->
 
 # Declarative
@@ -154,37 +188,67 @@ const render = state => {
 ---------------
 
 <!-- note
+This is an application with React.
+This is of course declarative.
+This includes how to update the state, but doesn't include how to update the view.
+So the view is only based on the state. If the state is same, the view must be same, which means that we can only focus on the state.
+the view is a mirror of the state
+If you want to add a feature to remove an item, what you have to do are writing removing an item from the state and adding a UI to call the function.
 
+This also shows an interesting point.
+React provides an abstraction layer for DOM operations,
+But you can create own abstraction layer like this.
+DOM might be too low level your application. So you can build your component layer on top of DOM.
 -->
 
-# Declarative
+# Declarative with React
 
-- `view.innerHTML = state.map(s => `<span>${s}</span>`).join('');`
+```js
+const view = document.querySelector('.view');
 
-Describing that the view should be displayed based on the state
+// describing what the view should display
+const App = () => {
+    const [items, setItems] = useState([]);
+    return (
+        <Layout>
+            <Header>title</Header>
+            <ItemList>
+                {items.map(item => <Item key={item.id} item={item} />)}
+            </ItemList>
+            <AddItem onAddItem={(item) => {
+                setItems(items.concat(item));
+            }} />
+        </Layout>
+    );
+}
 
-You still have to update the state imperatively but don't have to care about how to update the view.
+ReactDOM.render(<App />, view);
+```
 
 ---------------
 
 <!-- note
-
+You can treat updating a state as imperative and updating views as declarative.
+- easy to test
+    State is a JavaScript object and the view is described declaratively.
+    Mutation is only for state, not for views.
+- reuseable
+    Because updating a state and describing a view are loose coupled.
+- `👀 = View(State)`
+    View is just a function.
+    React components are basically just idempotent functions.
+    You can think just like a server-rendered app.
+    You can think as data driven way and treat the state as single source of the truth.
 -->
 
 # Benefits
 
-- You can treat updating a state as imperative and updating views as declarative
-    - easy to test
-        - state is a JavaScript object and the view is described declaratively
-    - reusable
-        - because updating a state and describing a view are loose coupled
-- View is just a function
-    - `👀 = View(State)`
-    - React components are basically just idempotent functions
-    - You can think just like a server-rendered app
-    - Data Driven
-    - Single Source of the Truth
-    - mutation state not view
+- Easy to test
+    - State is just a JavaScript Object
+- Reusable
+    - View is loose coupled from State
+- 👀 = View(State)
+    - View is just an idempotent function
 
 ----------------------
 

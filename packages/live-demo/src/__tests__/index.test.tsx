@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { ReactJSON, RootContainer } from "../index";
+import { ReactJSON } from "../index";
 
-const waitEffect = () => new Promise(r => setTimeout(r));
+const waitEffect = () => new Promise(r => setTimeout(r, 0));
 
 describe("ReactJSON", () => {
   it("should be able to render host components and text", () => {
-    const container: RootContainer = {};
+    const rootContainer = ReactJSON.createRootContainer();
     expect(() => {
       ReactJSON.render(
         <div id="foo">
@@ -13,7 +13,7 @@ describe("ReactJSON", () => {
             <span>foo</span>
           </p>
         </div>,
-        container
+        rootContainer
       );
       ReactJSON.render(
         <div id="foo" className="bar">
@@ -21,14 +21,14 @@ describe("ReactJSON", () => {
             <span className="em">bar</span>
           </p>
         </div>,
-        container
+        rootContainer
       );
     }).not.toThrow();
-    expect(ReactJSON.toJSON(container.container)).toMatchSnapshot();
+    expect(ReactJSON.toJSON(rootContainer.container)).toMatchSnapshot();
   });
 
   it("should be able to handle swapping list items", () => {
-    const container: RootContainer = {};
+    const rootContainer = ReactJSON.createRootContainer();
     expect(() => {
       ReactJSON.render(
         <ul>
@@ -36,7 +36,7 @@ describe("ReactJSON", () => {
           <li key="b">b</li>
           <li key="c">c</li>
         </ul>,
-        container
+        rootContainer
       );
       ReactJSON.render(
         <ul>
@@ -44,11 +44,11 @@ describe("ReactJSON", () => {
           <li key="a">a</li>
           <li key="c">c</li>
         </ul>,
-        container
+        rootContainer
       );
     }).not.toThrow();
-    const json: any = ReactJSON.toJSON(container.container);
-    expect(json.children.map(child => child.children[0])).toEqual([
+    const json: any = ReactJSON.toJSON(rootContainer.container);
+    expect(json.children.map((child: any) => child.children[0])).toEqual([
       "b",
       "a",
       "c"
@@ -66,26 +66,26 @@ describe("ReactJSON", () => {
         <MemoizedButton text="memo" />
       </section>
     );
-    const container: RootContainer = {};
+    const rootContainer = ReactJSON.createRootContainer();
     expect(() => {
-      ReactJSON.render(<App message="Hello" />, container);
-      ReactJSON.render(<App message="World" />, container);
+      ReactJSON.render(<App message="Hello" />, rootContainer);
+      ReactJSON.render(<App message="World" />, rootContainer);
     }).not.toThrow();
-    expect(ReactJSON.toJSON(container.container)).toMatchSnapshot();
+    expect(ReactJSON.toJSON(rootContainer.container)).toMatchSnapshot();
   });
 
   it("should be able to get logs from a container", () => {
-    const container: RootContainer = {};
-    ReactJSON.render(<div id="foo">foo</div>, container);
-    ReactJSON.render(<div id="foo">foo</div>, container);
-    expect(container.container.logs.map(([operation]) => operation)).toEqual([
+    const rootContainer = ReactJSON.createRootContainer();
+    ReactJSON.render(<div id="foo">foo</div>, rootContainer);
+    ReactJSON.render(<div id="foo">foo</div>, rootContainer);
+    expect(rootContainer.container.logs.map(([operation]: any[]) => operation)).toEqual([
       "commitMount",
       "commitUpdate"
     ]);
   });
 
   it("should be able to use Hooks", async () => {
-    const container: RootContainer = {};
+    const rootContainer = ReactJSON.createRootContainer();
     const Counter = () => {
       const [count, setCount] = useState(0);
       useEffect(() => {
@@ -93,12 +93,12 @@ describe("ReactJSON", () => {
       }, []);
       return <div>{count}</div>;
     };
-    ReactJSON.render(<Counter />, container);
-    let json: any = ReactJSON.toJSON(container.container);
+    ReactJSON.render(<Counter />, rootContainer);
+    let json: any = ReactJSON.toJSON(rootContainer.container);
     expect(json.children[0]).toBe("0");
     // TODO: implement .act();
     await waitEffect();
-    json = ReactJSON.toJSON(container.container);
+    json = ReactJSON.toJSON(rootContainer.container);
     expect(json.children[0]).toBe("1");
   });
 });

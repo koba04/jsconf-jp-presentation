@@ -2,10 +2,11 @@ import React from "react";
 import { JSONRenderer } from "./json-renderer";
 import { Container, Instance, TextInstance } from "./json-renderer-types";
 import ReactReconciler from "react-reconciler";
+import blessed from "blessed";
 
 export type RootContainer = {
   fiberRoot?: ReactReconciler.FiberRoot;
-  container?: Container;
+  container: Container;
 };
 
 const toJSON = (instance: Instance | TextInstance): object | string => {
@@ -25,30 +26,31 @@ const toJSON = (instance: Instance | TextInstance): object | string => {
 };
 
 export const ReactJSON = {
-  render(
-    element: React.ReactNode,
-    container: RootContainer,
-    callback = () => {}
-  ) {
-    let rootContainer: Container;
-    if (container.container) {
-      rootContainer = container.container;
-    } else {
-      rootContainer = {
+  createRootContainer(): RootContainer {
+    return {
+      container: {
         name: "container",
         logs: [],
-        children: []
-      };
-      container.container = rootContainer;
-    }
-    if (typeof container.fiberRoot === "undefined") {
-      container.fiberRoot = JSONRenderer.createContainer(
-        rootContainer,
+        children: [],
+        screen: blessed.screen({
+          smartCSR: true
+        })
+      }
+    };
+  },
+  render(
+    element: React.ReactNode,
+    rootContainer: RootContainer,
+    callback = () => {}
+  ) {
+    if (typeof rootContainer.fiberRoot === "undefined") {
+      rootContainer.fiberRoot = JSONRenderer.createContainer(
+        rootContainer.container,
         false,
         false
       );
     }
-    JSONRenderer.updateContainer(element, container.fiberRoot, null, () => {
+    JSONRenderer.updateContainer(element, rootContainer.fiberRoot, null, () => {
       callback();
     });
   },

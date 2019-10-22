@@ -98,10 +98,10 @@ So it makes possible to provide a high level abstraction.
 # Why Declarative?
 
 - what you want to do, not how you want to do it
-    - how to do is jobs of a compiler
+    - How to do is a job of compiler
 - It's an abstraction layer
-    - Be able to Optimize in the underlying the layer
-    - Describe on own domain logic layer
+    - Be able to optimize in the underlying the layer
+    - Your domain as a primitive
 
 ---------------
 
@@ -244,9 +244,9 @@ You can treat updating a state as imperative and updating views as declarative.
 # Benefits
 
 - Easy to test
-    - State is just a JavaScript Object
+    - State is just a JavaScript object
 - Reusable
-    - View is loose coupled from State
+    - View is loose coupled from the state
 - 👀 = View(State)
     - View is just an idempotent function
 
@@ -260,7 +260,7 @@ You can treat updating a state as imperative and updating views as declarative.
 
 Do you create an entire view each updates...?
 
-You have to keep track of scroll position and focus management and so on, don't you.
+You have to keep track of scroll position and focus management and so on, don't you?
 
 ----------------------
 

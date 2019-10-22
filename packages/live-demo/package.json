@@ -4,20 +4,25 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "start": "ts-node src/script.tsx",
     "test": "jest"
   },
   "dependencies": {
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^4.8.18",
     "react-reconciler": "^0.22.2"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
     "@babel/preset-typescript": "^7.6.0",
+    "@types/blessed": "^0.1.12",
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.12",
     "@types/react": "^16.9.5",
     "@types/react-reconciler": "^0.18.0",
     "jest": "^24.9.0",
+    "ts-node": "^8.4.1",
     "typescript": "^3.6.4"
   }
 }

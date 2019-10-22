@@ -1,4 +1,6 @@
 import Reconciler, { OpaqueHandle } from "react-reconciler";
+import blessed from "blessed";
+import blessedContrib from "blessed-contrib";
 
 import {
   Type,
@@ -152,6 +154,8 @@ export function commitTextUpdate(
 ) {
   debug("commitTextUpdate", { textInstance, oldText, newText });
   if (oldText !== newText) {
+    textInstance.inst.setText(newText);
+    textInstance.rootContainerInstance.screen.render();
     textInstance.text = newText;
   }
 }
@@ -162,6 +166,10 @@ export function appendInitialChild(
   child: Instance | TextInstance
 ): void {
   debug("appendInitialChild", { parentInstance, child });
+  if (child.tag === "TEXT") {
+    child.rootContainerInstance.screen.append(child.inst);
+    child.rootContainerInstance.screen.render();
+  }
   parentInstance.children.push(child);
 }
 
@@ -228,6 +236,8 @@ export function shouldDeprioritizeSubtree(type: Type, props: Props): boolean {
   return false;
 }
 
+// FIXME: this is a temporary hack
+let top = 0;
 export function createTextInstance(
   text: string,
   rootContainerInstance: Container,
@@ -235,10 +245,15 @@ export function createTextInstance(
   internalInstanceHandle: OpaqueHandle
 ): TextInstance {
   debug("createTextInstance");
+  top += 1;
   return {
     tag: "TEXT",
     text,
-    rootContainerInstance
+    rootContainerInstance,
+    inst: blessed.box({
+      top: `${top}%`,
+      content: text
+    })
   };
 }
 

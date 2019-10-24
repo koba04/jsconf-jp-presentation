@@ -76,7 +76,7 @@ I don't talk about SwitUI today,
 So if you are interested in SwiftUI I recommend to watch the video of SwiftUI Essentilals.
 You can see many similar concepts with React on the video.
 
-I also recommend to watch the video of Data Flow Through SwiftUI if you are intested in managing data on applications.
+if you are intested in managing data on applications, I also recommend to watch the video of Data Flow Through SwiftUI.
 SwiftUI has some interesting ideas to manage data like Bindable Object, Environment Object.
 -->
 
@@ -94,7 +94,7 @@ With Declarative Programming, you write what you want to do rather than how you 
 How to do is a job for a compiler, not for you.
 
 TODO: it's not clear
-It also create an abstraction layer that is declarative.
+It also creates an abstraction layer that is declarative.
 It hides an underlying layer how to do it so a compiler can optimize the underlying layer.
 In addition to that, you can define primitives in the declarative layer as domain logic.
 So it makes possible to provide a high level abstraction.
@@ -111,10 +111,18 @@ So it makes possible to provide a high level abstraction.
 ---------------
 
 <!-- note
-OK, let's move on more specific topics.
+I'm going to focus on the sentence.
+"The logic of a computation without describing its control flow"
+-->
 
+
+# The logic of a computation without describing its control flow
+
+---------------
+
+<!-- note
 For application running on browsers, DOM is a primitive and you would write DOM manipurations to update your views.
-As you may know, DOM manipuration is based on an imperative operation, isn't it.
+As you may know, DOM manipuration is based on imperative operations.
 -->
 
 # DOM manipuration is based on imperative operations
@@ -203,16 +211,9 @@ This is an application with React.
 
 This is of course declarative.
 This includes how to update the state, but doesn't include how to update the view.
-So the view is only based on the state. If the state is same, the view must be same, which means that we can only focus on the state.
+So the view is only based on the state. If the state is the same, the view must be the same, which means that we can only focus on the state.
 
 the view is a mirror of the state
-If you want to add a feature to remove an item, you have to write removing an item from the state and add a UI to call the function.
-
-This also shows an interesting point.
-React provides an abstraction layer for DOM operations,
-But you can create own abstraction layer like this.
-
-DOM might be too low level your application. So you can build your component layer on top of DOM.
 -->
 
 # Declarative with React
@@ -449,10 +450,65 @@ ReactKonva.render(
 
 -->
 
+# Describing what the program must accomplish in terms of the problem domain
+
+----------------------
+
+<!-- note
+
+-->
+
 # Abstract your application components
 
 - DOM is an implementation detail
-- You can build own layers for your application on top of any hosts not only DOM
+- You can build own domain layers for your application on top of any hosts not only DOM
+
+----------------------
+
+<!-- note
+React provides an abstraction layer for DOM operations,
+But you can create own abstraction layer like this.
+
+DOM might be too low level your application. So you can build your component layer on top of DOM.
+-->
+
+# Build own domain layers with React
+
+```js
+const view = document.querySelector('.view');
+
+// describing what the view should display
+const App = () => {
+    const [items, setItems] = useState([]);
+    return (
+        <Layout>
+            <Header>title</Header>
+            <ItemList>
+                {items.map(item => <Item key={item.id} item={item} />)}
+            </ItemList>
+            <AddItem onAddItem={(item) => {
+                setItems(items.concat(item));
+            }} />
+        </Layout>
+    );
+}
+
+ReactDOM.render(<App />, view);
+```
+
+----------------------
+
+<!-- note
+
+-->
+
+# DOM as a Second-class Citizen
+
+<Card>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Zemce4Y1Y-A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</Card>
+
+Sebastian Markbåge / React Europe 2015
 
 ----------------------
 
@@ -474,17 +530,3 @@ YourRenderer.render(
     </Hello>
 )
 ```
-
-----------------------
-
-<!-- note
-
--->
-
-# DOM as a Second-class Citizen
-
-<Card>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Zemce4Y1Y-A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</Card>
-
-Sebastian Markbåge / React Europe 2015

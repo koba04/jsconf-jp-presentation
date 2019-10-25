@@ -1,7 +1,6 @@
 <!-- note
 
-Let's move on to the first part.
-
+Let's start!
 -->
 
 # Declarative Programming for UI
@@ -9,10 +8,11 @@ Let's move on to the first part.
 ---------------
 
 <!-- note
-According to Wikipedia, Declarative Programming is described like this.
-
-I think "the logic of a computation without describing its control flow" and "describing what the program must accomplish in terms of the problem domain" are important to describe what Declarative Programming is.
-
+On this slide, we have the Wikipedia definition of Declarative Programming.
+Please take a look at these two points in bold
+because they are important to understand what Declarative Programming
+"the logic of a computation without describing its control flow"
+"describing what the program must accomplish in terms of the problem domain"
 -->
 
 # Declarative Programming
@@ -26,10 +26,8 @@ https://en.wikipedia.org/wiki/Declarative_programming
 ---------------
 
 <!-- note
-This is the description cited from the Desclarative section in the official website of React.
-
-The documentation says that "Declarative views make your code more predictable and easier to debug"
-TODO: something
+Now let's take a look at what React official website says.
+Please keep these words in mind as I will later talk more about it.
 
 We can also see declarative programming in other programming languages.
 -->
@@ -73,10 +71,10 @@ https://developer.apple.com/documentation/swiftui/
 
 <!-- note
 I don't talk about SwitUI today,
-So if you are interested in SwiftUI I recommend to watch the video of SwiftUI Essentilals.
+So if you are interested in SwiftUI I recommend to watch the video SwiftUI Essentilals.
 You can see many similar concepts with React on the video.
 
-if you are intested in managing data on applications, I also recommend to watch the video of Data Flow Through SwiftUI.
+if you are intested in managing data on applications, I also recommend to watch the video Data Flow Through SwiftUI.
 SwiftUI has some interesting ideas to manage data like Bindable Object, Environment Object.
 -->
 
@@ -102,17 +100,16 @@ So it makes possible to provide a high level abstraction.
 
 # Why Declarative?
 
-- what you want to do, not how you want to do it
-    - How to do is a job of compiler
-- It's an abstraction layer
-    - Be able to optimize in the underlying the layer
-    - Your domain as a primitive
+- What Not How
+    - How -> Compiler
+- Abstraction layer
+    - Optimization in the underlying layer
+    - Primitive as domain
 
 ---------------
 
 <!-- note
-I'm going to focus on the sentence.
-"The logic of a computation without describing its control flow"
+With briefly go back to the Wikipedia definition
 -->
 
 
@@ -121,24 +118,22 @@ I'm going to focus on the sentence.
 ---------------
 
 <!-- note
-For application running on browsers, DOM is a primitive and you would write DOM manipurations to update your views.
-As you may know, DOM manipuration is based on imperative operations.
+For application running on browsers, DOM is a primitive and you would write DOM manipulations to update your views.
+As you may know, DOM manipulation is based on imperative operations.
 -->
 
-# DOM manipuration is based on imperative operations
+# DOM manipulation is based on imperative operations
 
 ---------------
 
 <!-- note
-Let's take an example to update a view when a button is clicked.
+Let's take for an example the view update when a button is clicked.
 
-You whould write a DOM manipuration in the event listener of the click event.
+You whould write a DOM manipulation in the event listener of the click event.
 This is an imperative operation and describes how to update the view, not what the view should be.
 -->
 
 # Imperative
-
-Decribing how to update the view
 
 ```js
 const view = document.querySelector('.view');
@@ -176,10 +171,10 @@ Let's look at Declarative version.
 
 This becomes longer than the imperative version.
 
-I've separated updating the state and displaying the view.
-the render function is displaying the view, which describes what the view should be, not how to update the view.
+I've separated the state update and the view display.
+the render function displays the view, which describes what the view should be, not how to update the view.
 So the render function is declarative, which is based on the passed state.
-Of course, we still need an imperative operation to update the state but the updating the state part is now separated from the view.
+Of course, we still need an imperative operation to update the state but the state update part is now separated from the view.
 -->
 
 # Declarative
@@ -211,7 +206,7 @@ This is an application with React.
 
 This is of course declarative.
 This includes how to update the state, but doesn't include how to update the view.
-So the view is only based on the state. If the state is the same, the view must be the same, which means that we can only focus on the state.
+So the view is only based on the state. If the state is the same, the view must be the same, which means that we can focus on the state only.
 
 the view is a mirror of the state
 -->
@@ -255,6 +250,10 @@ You can update a state imperatively and you can update a view declaratively.
     React components are basically just idempotent functions.
     You can think just like a server-rendered app.
     You can think as data driven way and treat the state as single source of the truth.
+
+Do you create an entire view each updates...?
+Do you have to keep track of the scroll position and focus management and so on?
+
 -->
 
 # Benefits
@@ -265,18 +264,6 @@ You can update a state imperatively and you can update a view declaratively.
     - View is loose coupled from the state
 - 👀 = View(State)
     - View is just an idempotent function
-
-----------------------
-
-<!-- note
-
--->
-
-# But....
-
-Do you create an entire view each updates...?
-
-You have to keep track of scroll position and focus management and so on, don't you?
 
 ----------------------
 

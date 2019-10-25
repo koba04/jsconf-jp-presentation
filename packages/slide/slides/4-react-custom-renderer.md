@@ -4,6 +4,75 @@
 
 # React Custom Renderer
 
+----------------------
+
+<!-- note
+Do you know `react-native`, `ink`, `react-konva`?
+
+-->
+
+# Renderers
+
+You can describe imperative operations as declarative with your domain components as primitive.
+
+You can create own renderer with React!!!
+
+- `react-native` ... Native Apps
+- `ink` ... CLI Output
+- `react-konva` ... Canvas
+
+----------------------
+
+<!-- note
+
+-->
+
+# ReactNative
+
+```js
+<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+    <Text>Hello, world!</Text>
+</View>
+```
+
+----------------------
+
+<!-- note
+
+-->
+
+# Ink
+
+```js
+import React from 'react';
+import {render, Box, Color} from 'ink';
+
+render(
+  <Box>
+      <Color green>Hello world!</Color>
+  </Box>
+);
+```
+
+----------------------
+
+<!-- note
+
+-->
+
+# ReactKonva
+
+```js
+ReactKonva.render(
+    <Stage width={100} height={100}>
+        <Layer>
+            <Text text="Hello world!" />
+        </Layer>
+    </Stage>,
+    el
+);
+```
+
 ---------------
 
 <!-- note

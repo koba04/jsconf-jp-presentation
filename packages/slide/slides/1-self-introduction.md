@@ -1,4 +1,4 @@
-# koba04
+import { Card } from '@fusuma/client';
 
 <!-- note
 
@@ -10,9 +10,18 @@ I'm also one of the organizers of React.js meetup in Tokyo and a contributor of 
 I've been working with React for 5years.
 -->
 
-- TODO: Picture
-- Toru Kobayashi
-- @koba04 [Twitter](https://twitter.com/koba04) / [GitHub](https://github.com/koba04)
-- Web Application Developer
-    - Frontend Expert Team at Cybozu
-    - Frontend Advisor at SmartHR
+<Card
+    right={<img src="../images/self.jpg" />}
+    left={
+        <>
+            <h3>Toru Kobayashi</h3>
+            <ul>
+                <li　className="self-introduction"> @koba04 <br /><a href="https://twitter.com/koba04">Twitter</a> / <a href="https://github.com/koba04">GitHub</a></li>
+                <li className="self-introduction">Web Developer<br />2007〜</li>
+                <li className="self-introduction">Cybozu<br />→Frontend Expert Team</li>
+                <li className="self-introduction">SmartHR<br />→Frontend Advisor</li>
+            </ul>
+        </>
+  }
+/>
+

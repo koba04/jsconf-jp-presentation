@@ -14,6 +14,6 @@ Finally, I'm going to give a live demo on how to use a custom renderer.
 I'm going to create a tiny custom renderer on live coding!
 -->
 
-- What's the benefits of Declarative Programming for UI
-- What's the custom renderer of React
-- Live Demo to create a tiny custom renderer
+- Benefits of Declarative Programming for UI
+- Custom renderer of React
+- Live Demo!

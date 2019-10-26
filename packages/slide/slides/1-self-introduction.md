@@ -7,7 +7,7 @@ I work as a frontend developer for Cybozu and I work as a frontend advisor for S
 
 I'm also one of the organizers of React.js meetup in Tokyo and a contributor of React.
 
-I've been working with React for 5years
+I've been working with React for 5years.
 -->
 
 - TODO: Picture

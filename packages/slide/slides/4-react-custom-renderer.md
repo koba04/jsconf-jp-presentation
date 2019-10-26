@@ -1,5 +1,5 @@
 <!-- note
-
+Before explaining Custom Renderer, I'd like to introduce existing renderers.
 -->
 
 # React Custom Renderer
@@ -13,13 +13,14 @@ Do you know `react-native`, `ink`, `react-konva`?
 
 # Renderers
 
-You can describe imperative operations as declarative with your domain components as primitive.
-
-You can create own renderer with React!!!
-
 - `react-native` ... Native Apps
+- `react-test-renderer` ... For testing components
 - `ink` ... CLI Output
 - `react-konva` ... Canvas
+- `react-three-fiber` ... Threejs
+- `react-ast` ... AST
+
+and so on...
 
 ----------------------
 
@@ -30,8 +31,16 @@ You can create own renderer with React!!!
 # ReactNative
 
 ```js
-<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-    <Text>Hello, world!</Text>
+<View
+    style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center"
+    }}
+>
+    <Text style={{ fontSize: 50 }}>
+        Hello, world!
+    </Text>
 </View>
 ```
 
@@ -79,21 +88,86 @@ ReactKonva.render(
 
 -->
 
+# ReactThreeFiber
+
+```js
+import React, { useRef } from 'react'
+import ReactDOM from 'react-dom'
+import { Canvas, useFrame } from 'react-three-fiber'
+
+const Cube = () => {
+    const ref = useRef()
+    useFrame(() => (ref.current.rotation.x = ref.current.rotation.y += 0.01))
+    return (
+        <mesh ref={ref}>
+            <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+            <meshNormalMaterial attach="material" />
+        </mesh>
+    )
+}
+ReactDOM.render(<Canvas><Cube /></Canvas>, el);
+```
+
+
+---------------
+
+<!-- note
+
+-->
+
+# ReactAST
+
+```js
+import React from 'react';
+import {
+    renderAst,
+    Code,
+    ClassDeclaration,
+    FunctionDeclaration
+} from 'react-ast';
+
+const ast = renderAst(
+    <ClassDeclaration name="Hello" superClassName="Array">
+        <Code>const hello = 'world'</Code>
+        <FunctionDeclaration name="foo">
+            <Code>return 'bar'</Code>
+        </FunctionDeclaration>
+    </ClassDeclaration>
+);
+
+console.log(ast);
+```
+
+---------------
+<!-- note
+You can create alternative React DOM implementation
+-->
+
+# React DOM Lite
+
+- https://github.com/jquense/react-dom-lite
+
+---------------
+
+
+<!-- note
+
+-->
+
 # Architecture of React
 
-```text
--------------
-| Component | -- Host, Custom
--------------
-      |
---------------
-| Reconciler | - Fiber, (Stack)
---------------
-      |
-------------
-| Renderer | - ReactDOM, ReactNative, ...
-------------
-```
+
+<img src="../images/architecture.png" />
+
+---------------
+<!-- note
+
+-->
+
+# Algorithms in React
+
+- https://speakerdeck.com/koba04/algorithms-in-react
+
 
 ---------------
 
@@ -107,7 +181,7 @@ ReactKonva.render(
 npm install react-reconciler
 ```
 
-https://github.com/facebook/react/tree/master/packages/react-reconciler
+[packages/react-reconciler](https://github.com/facebook/react/tree/master/packages/react-reconciler)
 
 
 ---------------
@@ -123,7 +197,7 @@ import Reconciler from "react-reconciler";
 const renderer = Reconciler(hostconfig);
 ```
 
-https://github.com/koba04/react-custom-renderer-starter/blob/master/src/json-renderer/index.ts
+[koba04/react-custom-renderer-starter](https://github.com/koba04/react-custom-renderer-starter/blob/master/src/json-renderer/index.ts)
 
 ---------------
 
@@ -131,21 +205,32 @@ https://github.com/koba04/react-custom-renderer-starter/blob/master/src/json-ren
 
 -->
 
-# HostConfig Interface
+# HostConfig Interface \#1
 
-- getPublicInstance, getRootHostContext, getChildHostContext, prepareForCommit, resetAfterCommit, createInstance, appendInitialChild, finalizeInitialChildren, prepareUpdate, shouldSetTextContent, shouldDeprioritizeSubtree, createTextInstance scheduleDeferredCallback, cancelDeferredCallback, setTimeout, clearTimeout, noTimeout, now, isPrimaryRenderer supportsMutation, supportsPersistence, supportsHydration
+
+> getPublicInstance, getRootHostContext, getChildHostContext, prepareForCommit, resetAfterCommit, createInstance, appendInitialChild, finalizeInitialChildren, prepareUpdate, shouldSetTextContent, shouldDeprioritizeSubtree, createTextInstance scheduleDeferredCallback, cancelDeferredCallback, setTimeout, clearTimeout, noTimeout, now, isPrimaryRenderer supportsMutation, supportsPersistence, supportsHydration
 
 
 ### Mutation(optional)
-- appendChild, appendChildToContainer, commitTextUpdate, commitMount, commitUpdate, insertBefore, insertInContainerBefore, removeChild, removeChildFromContainer,  resetTextContent
 
+> appendChild, appendChildToContainer, commitTextUpdate, commitMount, commitUpdate, insertBefore, insertInContainerBefore, removeChild, removeChildFromContainer,  resetTextContent
+
+---------------
+
+<!-- note
+
+-->
+
+# HostConfig Interface \#2
 
 ### Persistence(optional)
-- cloneInstance, createContainerChildSet, appendChildToContainerChildSet, finalizeContainerChildren, replaceContainerChildren
+
+> cloneInstance, createContainerChildSet, appendChildToContainerChildSet, finalizeContainerChildren, replaceContainerChildren
 
 
 ### Hydration(optional)
-- canHydrateInstance, canHydrateTextInstance, getNextHydratableSibling, getFirstHydratableChild, hydrateInstance hydrateTextInstance,didNotMatchHydratedContainerTextInstance, didNotMatchHydratedTextInstance, didNotHydrateContainerInstance, didNotHydrateInstance,didNotFindHydratableContainerInstance, didNotFindHydratableContainerTextInstance, didNotFindHydratableInstance, didNotFindHydratableTextInstance
+
+> canHydrateInstance, canHydrateTextInstance, getNextHydratableSibling, getFirstHydratableChild, hydrateInstance hydrateTextInstance,didNotMatchHydratedContainerTextInstance, didNotMatchHydratedTextInstance, didNotHydrateContainerInstance, didNotHydrateInstance,didNotFindHydratableContainerInstance, didNotFindHydratableContainerTextInstance, didNotFindHydratableInstance, didNotFindHydratableTextInstance
 
 *from @types/react-reconciler*
 
@@ -157,19 +242,6 @@ https://github.com/koba04/react-custom-renderer-starter/blob/master/src/json-ren
 
 # 😇
 
----------------
-
-<!-- note
-
--->
-
-# What we implement in HostConfig
-
-- Apply diffs into a host environment
-- Create a public instance
-- Define the mode you want to use
-- Hydration logic if you need
-
 ----------------------
 
 <!-- note
@@ -179,19 +251,39 @@ https://github.com/koba04/react-custom-renderer-starter/blob/master/src/json-ren
 # HostConfig of renderers
 
 - ReactDOM
-    - https://github.com/facebook/react/blob/master/packages/react-dom/src/client/ReactDOMHostConfig.js
+    - [packages/react-dom/src/client/ReactDOMHostConfig.js](https://github.com/facebook/react/blob/master/packages/react-dom/src/client/ReactDOMHostConfig.js)
 - ReactNative
-    - https://github.com/facebook/react/blob/master/packages/react-native-renderer/src/ReactNativeHostConfig.js
-    - https://github.com/facebook/react/blob/master/packages/react-native-renderer/src/ReactFabricHostConfig.js
+    - [packages/react-native-renderer/src/ReactNativeHostConfig.js](https://github.com/facebook/react/blob/master/packages/react-native-renderer/src/ReactNativeHostConfig.js)
+    - [packages/react-native-renderer/src/ReactFabricHostConfig.js](https://github.com/facebook/react/blob/master/packages/react-native-renderer/src/ReactFabricHostConfig.js)
 - ReactTestRenderer
-    - https://github.com/facebook/react/blob/master/packages/react-test-renderer/src/ReactTestHostConfig.js
+    - [packages/react-test-renderer/src/ReactTestHostConfig.js](https://github.com/facebook/react/blob/master/packages/react-test-renderer/src/ReactTestHostConfig.js)
 - ink
-    - https://github.com/vadimdemedes/ink/blob/master/src/reconciler.js
-- react-konva
-    - https://github.com/konvajs/react-konva/blob/master/src/ReactKonvaHostConfig.js
+    - [vadimdemedes/ink/blob/master/src/reconciler.js](https://github.com/vadimdemedes/ink/blob/master/src/reconciler.js)
+- react-konva)
+    - [konvajs/react-konva/blob/master/src/ReactKonvaHostConfig.js](https://github.com/konvajs/react-konva/blob/master/src/ReactKonvaHostConfig.js)
 
 ----------------------
 
+<!-- note
+
+-->
+
+# HostConfig?
+
+- Side effects for a Host environment
+- Define public instance
+- Define the mode for a renderer
+- Hydration logic (if you need)
+
+---------------
+
+<!-- note
+
+-->
+
+# Side effects for a Host environment
+
+---------------
 <!-- note
 
 -->
@@ -224,6 +316,7 @@ ReactDOM.render(
 ----------------------
 
 <!-- note
+### Mutation(optional)
 
 -->
 
@@ -246,5 +339,46 @@ export function insertBefore(
 }
 ```
 
-### Mutation(optional)
-- appendChild, appendChildToContainer, commitTextUpdate, commitMount, commitUpdate, **insertBefore**, insertInContainerBefore, removeChild, removeChildFromContainer,  resetTextContent
+> appendChild, appendChildToContainer, commitTextUpdate, commitMount, commitUpdate, **insertBefore**, insertInContainerBefore, removeChild, removeChildFromContainer,  resetTextContent
+
+
+----------------------
+
+<!-- note
+
+-->
+
+# Define public instance
+
+---------------
+<!-- note
+
+-->
+
+# Define the mode for a renderer
+
+---------------
+<!-- note
+
+-->
+
+# Hydration logic (if you need)
+
+---------------
+<!-- note
+
+
+-->
+
+# Type Definition for custom host config
+
+```js
+namespace JSX {
+  interface IntrinsicElements {
+    text: {
+      color: string;
+      children?: React.ReactNode;
+    };
+  }
+}
+```

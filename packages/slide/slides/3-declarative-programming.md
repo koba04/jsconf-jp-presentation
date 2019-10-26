@@ -47,7 +47,6 @@ https://reactjs.org
 <!-- note
 SwiftUI is a new UI framework by Apple.
 SwiftUI is similar to React, it describes views declaratively.
-TODO: something
 -->
 
 # SwiftUI
@@ -72,7 +71,6 @@ https://developer.apple.com/documentation/swiftui/
 ---------------
 
 <!-- note
-I don't talk about SwitUI today,
 So if you are interested in SwiftUI I recommend watching the video SwiftUI Essentilals.
 You can see many similar concepts with React on the video.
 
@@ -93,9 +91,10 @@ SwiftUI has some interesting ideas to manage data like Bindable Object, Environm
 With Declarative Programming, you write what you want to do rather than how you want to do it.
 How to do is a job for a compiler, not for you.
 
-TODO: it's not clear
 It also creates an abstraction layer that is declarative.
-It hides an underlying layer how to do it so a compiler can optimize the underlying layer.
+The abstraction layer hides an underlying layer that manages how to do it.
+So a compiler can optimize on the underlying layer.
+
 In addition to that, you can define primitives in the declarative layer as domain logic.
 So it makes possible to provide a high level abstraction.
 -->
@@ -112,7 +111,7 @@ So it makes possible to provide a high level abstraction.
 
 <!-- note
 With briefly go back to the Wikipedia definition
-"The logic of a computation without describing its control flow
+"The logic of a computation without describing its control flow"
 -->
 
 
@@ -130,9 +129,9 @@ As you may know, DOM manipulation is based on imperative operations.
 ---------------
 
 <!-- note
-Let's take for an example the view update when a button is clicked.
+Let's take an example for the view update when a button is clicked.
 
-You whould write a DOM manipulation in the event listener of the click event.
+You would write a DOM manipulation in the event listener of the click event.
 This is an imperative operation and describes how to update the view, not what the view should be.
 -->
 
@@ -153,8 +152,8 @@ addButton.addEventListener('click', () => {
 <!-- note
 These are imperative operations.
 
-TODO: unclear
 They change the DOM based on the caller DOM objects so the results depends on the caller itself not only the arguments.
+
 appendChild appends the argument into the caller view object.
 removeChild remvoves the argument from the caller view object.
 insertBefore appends the 1st argument before the 2nd argument.
@@ -177,7 +176,8 @@ This becomes longer than the imperative version.
 I've separated the state update and the view display.
 the render function displays the view, which describes what the view should be, not how to update the view.
 So the render function is declarative, which is based on the passed state.
-Of course, we still need an imperative operation to update the state but the state update part is now separated from the view.
+Of course, we still need an imperative operation to update the state.
+But the state update part is now separated from the view.
 -->
 
 # Declarative
@@ -207,7 +207,7 @@ const render = state => {
 <!-- note
 This is an application with React.
 
-This is of course declarative.
+This is definitely declarative.
 This includes how to update the state, but doesn't include how to update the view.
 So the view is only based on the state. If the state is the same, the view must be the same, which means that we can focus on the state only.
 

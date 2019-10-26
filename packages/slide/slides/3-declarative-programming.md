@@ -10,7 +10,7 @@ Let's start!
 <!-- note
 On this slide, we have the Wikipedia definition of Declarative Programming.
 Please take a look at these two points in bold
-because they are important to understand what Declarative Programming
+because they are important to understand what Declarative Programming is.
 "the logic of a computation without describing its control flow"
 "describing what the program must accomplish in terms of the problem domain"
 -->

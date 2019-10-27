@@ -278,7 +278,7 @@ const renderer = Reconciler(hostconfig);
 ---------------
 
 <!-- note
-
+APIs for side effects are very similar with DOM APIs
 -->
 
 # Side effects for a Host environment
@@ -320,7 +320,7 @@ ReactDOM.render(
 
 -->
 
-# Change the index in a list
+# insertBefore
 
 ```js
 export function insertBefore(
@@ -339,10 +339,20 @@ export function insertBefore(
 }
 ```
 
-> appendChild, appendChildToContainer, commitTextUpdate, commitMount, commitUpdate, **insertBefore**, insertInContainerBefore, removeChild, removeChildFromContainer,  resetTextContent
-
-
 ----------------------
+
+<!-- note
+
+-->
+
+# Others
+
+- appendChild, appendInitialChild, appendChildToContainer
+- commitTextUpdate, commitMount, commitUpdate
+- insertBefore, insertInContainerBefore
+- removeChild, removeChildFromContainer, resetTextContent
+
+---------------
 
 <!-- note
 
@@ -351,22 +361,69 @@ export function insertBefore(
 # Define public instance
 
 ---------------
+
+<!-- note
+
+-->
+
+# createInstance, createTextInstance
+
+```js
+export function createInstance(
+  type: Type,
+  props: Props,
+  rootContainerInstance: Container,
+  hostContext: HostContext,
+  internalInstanceHandle: OpaqueHandle
+): Instance {
+  return createYourHostInstance(type, props);
+}
+
+export function createTextInstance(
+  text: string,
+  rootContainerInstance: Container,
+  hostContext: HostContext,
+  internalInstanceHandle: OpaqueHandle
+): TextInstance {
+  return createYourTextInstacne(text);
+}
+```
+
+---------------
+
+<!-- note
+
+-->
+
+# getPublicInstance
+
+```js
+export function getPublicInstance(
+  instance: Instance | TextInstance
+): PublicInstance {
+  return convertToPublicInstance(instance);
+  // react-dom
+  // return instance;
+}
+```
+
+---------------
+
 <!-- note
 
 -->
 
 # Define the mode for a renderer
 
+```js
+export const isPrimaryRenderer = true;
+export const supportsMutation = true;
+export const supportsPersistence = false;
+export const supportsHydration = false;
+```
+
 ---------------
 <!-- note
-
--->
-
-# Hydration logic (if you need)
-
----------------
-<!-- note
-
 
 -->
 
@@ -382,3 +439,5 @@ namespace JSX {
   }
 }
 ```
+
+https://www.typescriptlang.org/docs/handbook/jsx.html#intrinsic-elements

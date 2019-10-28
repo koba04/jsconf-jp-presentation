@@ -7,8 +7,10 @@ Before explaining Custom Renderer, I'd like to introduce existing renderers.
 ----------------------
 
 <!-- note
-Do you know `react-native`, `ink`, `react-konva`?
+I guess that you already know `react-native`, `react-test-renderer`.
+There are more renderers that are for various environments.
 
+So I'd like to introduce these renderers briefly.
 -->
 
 # Renderers
@@ -25,7 +27,13 @@ and so on...
 ----------------------
 
 <!-- note
+React Native is a renderer for Native Apps like iOS and Android.
+Of course, This is implemented as a custom renderer.
 
+React Native has a project for a new architecture called Fabric,
+which uses Persistence mode of custom renderer.
+
+React Native provides primitive components like View, Text, Image and so on.
 -->
 
 # ReactNative
@@ -47,7 +55,10 @@ and so on...
 ----------------------
 
 <!-- note
+Ink is a custom renderer for CLI output.
+This makes it easy to create interactive command line applications.
 
+Ink provides primitive components like Box, Text, Static, and so on.
 -->
 
 # Ink
@@ -66,7 +77,9 @@ render(
 ----------------------
 
 <!-- note
-
+React Konva is a custom renderer for Canvas.
+This makes it possible to draw canvas graphics declaratively.
+React Konva provides primitive components like Stage, Layer, Text and so on.
 -->
 
 # ReactKonva
@@ -85,7 +98,10 @@ ReactKonva.render(
 ---------------
 
 <!-- note
+React Three Fiber is a custom renderer for Three.js.
+This makes it possible to draw 3D graphics declaratively.
 
+React Three Fiber provides primitive components like mesh, boxBufferGeometry, meshNormalMaterial, and so on.
 -->
 
 # ReactThreeFiber
@@ -112,7 +128,15 @@ ReactDOM.render(<Canvas><Cube /></Canvas>, el);
 ---------------
 
 <!-- note
+This is an interesting renderer.
+React AST is a custom renderer for AST. What??
 
+You can define abstract syntax tree declaratively as JSX.
+This can generate source code and an AST object from JSX.
+
+This provides primitives components like ClassDeclaration, FunctionDeclaration, FunctionDeclaration, and so on.
+I'm not sure whether it's useful or not.
+But It's fun!
 -->
 
 # ReactAST
@@ -140,18 +164,45 @@ console.log(ast);
 
 ---------------
 <!-- note
-You can create alternative React DOM implementation
+Custom renderer is useful even on the browser environment.
+If you feel that The size of React DOM is so big.
+You can create alternative lightweight React DOM implementation as a custom renderer.
+
+React DOM is the one of this.
+If you are interested in creating a custom renderer for DOM.
+I recommend watching the video that Sophie's talk at this year's React Conf.
+
+Before describing custom renderer, I'd like to introduce
 -->
 
 # React DOM Lite
 
 - https://github.com/jquense/react-dom-lite
+- Building a Custom React Renderer
+    - https://conf.reactjs.org/event.html?sophiebits
 
 ---------------
 
 
 <!-- note
+This is the overview of the architecture of React.
 
+Component is a layer to define components.
+Host components are provided by a renderer.
+ReactDOM provides DOM components as its host components.
+these components start with a lower case.
+
+Custom components are built by application developers.
+These are what you create for your applications.
+
+Reconciler is a layer of React core.
+It schedules updates and calls host config functions.
+It makes possible many features like Hooks, Suspense, and Concurrent Mode.
+
+Finally, Renderer is a layer to implement anything depends on a host environment.
+So when we create a custom renderer, we have to implement this layer.
+
+In other words, you can enable Hooks, Suspense, and Concurrent Mode on your custom renderer without implementing them yourself.
 -->
 
 # Architecture of React
@@ -161,7 +212,7 @@ You can create alternative React DOM implementation
 
 ---------------
 <!-- note
-
+If you are interested in the architecure, please see the slide I've present last year.
 -->
 
 # Algorithms in React
@@ -172,7 +223,9 @@ You can create alternative React DOM implementation
 ---------------
 
 <!-- note
+Ok, It's time to imeplement a custom renderer!
 
+At first, we have to install `react-reconcier` package from npm.
 -->
 
 # react-reconciler
@@ -187,22 +240,51 @@ npm install react-reconciler
 ---------------
 
 <!-- note
+And then, we can create a renderer by passing a hostconfig to the reconciler.
+I'll focus on the interface of host config.
 
+After creating a renderer, we create a container of a rendering at the first rendering.
+After that, we update the container so that rendering the passed element.
+
+Next, let's see the host config interface.
 -->
 
 # How to use
 
 ```js
 import Reconciler from "react-reconciler";
-const renderer = Reconciler(hostconfig);
-```
 
-[koba04/react-custom-renderer-starter](https://github.com/koba04/react-custom-renderer-starter/blob/master/src/json-renderer/index.ts)
+const renderer = Reconciler(hostconfig);
+
+export const YourReact = {
+  render(
+    element: React.ReactNode,
+    rootContainer: RootContainer,
+    callback = () => {}
+  ) {
+    if (!rootContainer.container) {
+      rootContainer.container = {}
+      rootContainer.container.fiberRoot = renderer.createContainer(
+        container,
+        false,
+        false
+      );
+    }
+    renderer.updateContainer(element, container.fiberRoot, null, callback);
+  }
+}
+```
 
 ---------------
 
 <!-- note
+You have to implement many interfaces to create a custom renderer.
+These are the interfaces.
 
+The first part is the interfaces you must implement.
+The second part is an optional interfaces related to mutation.
+
+#1 means that there is #2...
 -->
 
 # HostConfig Interface \#1
@@ -218,7 +300,21 @@ const renderer = Reconciler(hostconfig);
 ---------------
 
 <!-- note
+Let's move on #2.
+The first part is an optional interfaces related to persistence.
+If you'd like to impelement your custom renderer as persistence, you have to implement these interfaces.
+The persistence mode is a mode to treat the instances as immutable.
 
+React Native Fabric is a renderer enabling persistence mode.
+
+The second part is an optional interfaces related to hydration.
+If you'd like to support hydration on your renderer, you have to implement these interfaces.
+
+I don't describe Persistence and Hydration mode on this talk.
+So if you are interested in the modes,
+Please see the HostConfig of ReactNativeFabrice to understand the persistence mode, the HostConfig of ReactDOM to understand the hydration mode.
+
+These interfaces are from @types/react-reconciler
 -->
 
 # HostConfig Interface \#2
@@ -237,7 +333,10 @@ const renderer = Reconciler(hostconfig);
 ---------------
 
 <!-- note
-
+Does it seems to be too complecated?
+I see...
+But you don't have to impelement all interfaces!!
+You can impelement the interfaces incrementally.
 -->
 
 # 😇
@@ -245,7 +344,8 @@ const renderer = Reconciler(hostconfig);
 ----------------------
 
 <!-- note
-
+They are host configs of each renderers.
+So I recommend referencing the host config while implementing your custom renderer, which are very useful.
 -->
 
 # HostConfig of renderers
@@ -265,7 +365,11 @@ const renderer = Reconciler(hostconfig);
 ----------------------
 
 <!-- note
+But the way, what Do we have to implement on the host config?
+we have to implement side-effects for the host environment and define a public instance and internal instance.
+And we have to define the mode which mode your renderer works and hydration logics if you need it.
 
+Let's go over them.
 -->
 
 # HostConfig?
@@ -278,7 +382,7 @@ const renderer = Reconciler(hostconfig);
 ---------------
 
 <!-- note
-APIs for side effects are very similar with DOM APIs
+The APIs for side effects are very similar with DOM APIs
 -->
 
 # Side effects for a Host environment

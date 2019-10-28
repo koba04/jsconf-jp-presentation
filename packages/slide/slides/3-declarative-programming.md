@@ -314,8 +314,7 @@ This changes the order in the list.
 This updates item b from second to first.
 
 React determines the change by the key props.
-So At first, React removes the item b from the list by removeChild function.
-Next, React inserts the item b before item a by insertBefore function.
+React moves the item b before item a by insertBefore function.
 
 These are jobs for React DOM renderer.
 -->
@@ -341,7 +340,6 @@ ReactDOM.render(
     container
 )
 // React update the DOM like the following
-// li.removeChild(b);
 // li.insertBefore(b, a);
 ```
 

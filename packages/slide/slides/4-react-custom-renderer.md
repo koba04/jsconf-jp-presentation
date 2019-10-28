@@ -375,7 +375,7 @@ Let's go over them.
 # HostConfig?
 
 - Side effects for a Host environment
-- Define public instance
+- Define instances
 - Define the mode for a renderer
 - Hydration logic (if you need)
 
@@ -383,13 +383,18 @@ Let's go over them.
 
 <!-- note
 The APIs for side effects are very similar with DOM APIs
+So if you are faimilar with DOM APIs, you can realize them easily.
 -->
 
 # Side effects for a Host environment
 
 ---------------
 <!-- note
+Before describing APIs, let's take a look at a previous example.
+This is an example moving the second item to the top.
+With ReactDOM, this change is processed as an insertBefore function.
 
+What if we implement the function as a custom renderer?
 -->
 
 # Change the index in a list
@@ -413,15 +418,17 @@ ReactDOM.render(
     container
 )
 // React update the DOM like the following
-// li.removeChild(b);
 // li.insertBefore(b, a);
 ```
 
 ----------------------
 
 <!-- note
-### Mutation(optional)
+we can implement the function as the insertBefore function.
+At first, we remove the child from the parentInstance that is a parent of list items.
+Second, we insert the child before the beforeChild.
 
+This is an example that I've implemented the operations as JavaScript.
 -->
 
 # insertBefore
@@ -446,7 +453,12 @@ export function insertBefore(
 ----------------------
 
 <!-- note
-
+You can implement these functions as well as insertBefore.
+You can imagine the implementation of many functions from the name.
+But commitMount is not.
+commitMount is only called when finalizeInitialChildren returns true.
+ReactDOM uses the function to implement autoFocus attrivbute.
+finalizeInitialChildren returns true the tag is button or input or select or textarea and autoFucos prop is true.
 -->
 
 # Others
@@ -459,7 +471,7 @@ export function insertBefore(
 ---------------
 
 <!-- note
-
+Let's move on to the defining instances.
 -->
 
 # Define public instance
@@ -467,7 +479,10 @@ export function insertBefore(
 ---------------
 
 <!-- note
+createInstance and createTextInstance are important, which are instances that we use in functions of the host config.
+You can define the interface of instances like you want.
 
+ReactDOM uses DOM APIs like createElement and createTextNode for this functions.
 -->
 
 # createInstance, createTextInstance
@@ -496,7 +511,11 @@ export function createTextInstance(
 ---------------
 
 <!-- note
+getPublicInstance is a function to define the public instance of instance or textInstance.
+If you don't want to expose the instance and the textInstance for users,
+you can convert the instance and the textInstance to what you want to expose.
 
+ReactDOM returns a passed instance without doing anything.
 -->
 
 # getPublicInstance
@@ -514,7 +533,8 @@ export function getPublicInstance(
 ---------------
 
 <!-- note
-
+They are flags to determine how your custom renderer works.
+You can define whether your host instance is a immutable mode or mutation model and whether supporting hydration or not and whether your renderer is running on other renderers or not.
 -->
 
 # Define the mode for a renderer
@@ -528,7 +548,8 @@ export const supportsHydration = false;
 
 ---------------
 <!-- note
-
+For TypeScript users, you can define type definition for your host components like this.
+You can override type definition for IntrisicElements.
 -->
 
 # Type Definition for custom host config

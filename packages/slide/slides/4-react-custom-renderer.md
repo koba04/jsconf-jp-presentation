@@ -550,6 +550,9 @@ export const supportsHydration = false;
 <!-- note
 For TypeScript users, you can define type definition for your host components like this.
 You can override type definition for IntrisicElements.
+
+OK, let's move on the final part.
+Live coding.
 -->
 
 # Type Definition for custom host config

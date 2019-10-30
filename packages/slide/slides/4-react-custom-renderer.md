@@ -31,7 +31,7 @@ React Native is a renderer for Native Apps like iOS and Android.
 Of course, This is implemented as a custom renderer.
 
 React Native has a project for a new architecture called Fabric,
-which uses Persistence mode of custom renderer.
+which uses Persistence mode for custom renderer.
 
 React Native provides primitive components like View, Text, Image and so on.
 -->
@@ -131,7 +131,7 @@ ReactDOM.render(<Canvas><Cube /></Canvas>, el);
 This is an interesting renderer.
 React AST is a custom renderer for AST. What??
 
-You can define abstract syntax tree declaratively as JSX.
+You can define an abstract syntax tree declaratively as JSX.
 This can generate source code and an AST object from JSX.
 
 This provides primitives components like ClassDeclaration, FunctionDeclaration, FunctionDeclaration, and so on.
@@ -164,13 +164,13 @@ console.log(ast);
 
 ---------------
 <!-- note
-Custom renderer is useful even on the browser environment.
+Custom renderer is useful even on browser environments.
 If you feel that The size of React DOM is so big.
 You can create alternative lightweight React DOM implementation as a custom renderer.
 
-React DOM is the one of this.
+ReactDOMLite is an example of these.
 If you are interested in creating a custom renderer for DOM.
-I recommend watching the video that Sophie's talk at this year's React Conf.
+I recommend watching the video of Sophie's talk at this year's React Conf.
 
 Before describing custom renderer, I'd like to introduce
 -->
@@ -199,7 +199,7 @@ Reconciler is a layer of React core.
 It schedules updates and calls host config functions.
 It makes possible many features like Hooks, Suspense, and Concurrent Mode.
 
-Finally, Renderer is a layer to implement anything depends on a host environment.
+Finally, Renderer is a layer to implement anything that depends on a host environment.
 So when we create a custom renderer, we have to implement this layer.
 
 In other words, you can enable Hooks, Suspense, and Concurrent Mode on your custom renderer without implementing them yourself.
@@ -212,7 +212,7 @@ In other words, you can enable Hooks, Suspense, and Concurrent Mode on your cust
 
 ---------------
 <!-- note
-If you are interested in the architecure, please see the slide I've present last year.
+If you are interested in the architecure, please see the slide I presented last year at this link.
 -->
 
 # Algorithms in React
@@ -225,7 +225,7 @@ If you are interested in the architecure, please see the slide I've present last
 <!-- note
 Ok, It's time to imeplement a custom renderer!
 
-At first, we have to install `react-reconcier` package from npm.
+First, we have to install `react-reconciler` package from npm.
 -->
 
 # react-reconciler
@@ -244,7 +244,7 @@ And then, we can create a renderer by passing a hostconfig to the reconciler.
 I'll focus on the interface of host config.
 
 After creating a renderer, we create a container of a rendering at the first rendering.
-After that, we update the container so that rendering the passed element.
+After that, we update the container in order to render the passed element.
 
 Next, let's see the host config interface.
 -->
@@ -284,7 +284,7 @@ These are the interfaces.
 The first part is the interfaces you must implement.
 The second part is an optional interfaces related to mutation.
 
-#1 means that there is #2...
+#1 means that there is a #2...
 -->
 
 # HostConfig Interface \#1
@@ -301,7 +301,7 @@ The second part is an optional interfaces related to mutation.
 
 <!-- note
 Let's move on #2.
-The first part is an optional interfaces related to persistence.
+The first part includes optional interfaces related to persistence.
 If you'd like to impelement your custom renderer as persistence, you have to implement these interfaces.
 The persistence mode is a mode to treat the instances as immutable.
 
@@ -310,7 +310,7 @@ React Native Fabric is a renderer enabling persistence mode.
 The second part is an optional interfaces related to hydration.
 If you'd like to support hydration on your renderer, you have to implement these interfaces.
 
-I don't describe Persistence and Hydration mode on this talk.
+I won't talk about Persistence and Hydration mode in this talk.
 So if you are interested in the modes,
 Please see the HostConfig of ReactNativeFabrice to understand the persistence mode, the HostConfig of ReactDOM to understand the hydration mode.
 
@@ -425,7 +425,7 @@ ReactDOM.render(
 
 <!-- note
 we can implement the function as the insertBefore function.
-At first, we remove the child from the parentInstance that is a parent of list items.
+First, we remove the child from the parentInstance that is a parent of list items.
 Second, we insert the child before the beforeChild.
 
 This is an example that I've implemented the operations as JavaScript.
@@ -480,7 +480,7 @@ Let's move on to the defining instances.
 
 <!-- note
 createInstance and createTextInstance are important, which are instances that we use in functions of the host config.
-You can define the interface of instances like you want.
+You can define the interface of instances as you want.
 
 ReactDOM uses DOM APIs like createElement and createTextNode for this functions.
 -->

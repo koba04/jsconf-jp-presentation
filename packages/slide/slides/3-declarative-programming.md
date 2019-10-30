@@ -110,7 +110,7 @@ So it makes possible to provide a high level abstraction.
 ---------------
 
 <!-- note
-With briefly go back to the Wikipedia definition
+Let's briefly go back to the Wikipedia definition
 "The logic of a computation without describing its control flow"
 -->
 
@@ -247,7 +247,7 @@ You can update a state imperatively and you can update a view declaratively.
     State is a JavaScript object and the view is described declaratively.
     Mutation is only for state, not for views, which means we can write tests for state and view easily.
 - reuseable
-    Because updating a state and describing a view are loose coupled.
+    Because updating a state and describing a view are loose coupling.
 - `👀 = View(State)`
     View is just a function.
     React components are basically just idempotent functions.
@@ -272,12 +272,12 @@ Do you have to keep track of the scroll position and focus management and so on?
 
 <!-- note
 No, React updates views efficiently.
-The feature is called Virtual DOM, which calculates the diffs and applies the diffs.
+The feature is called Virtual DOM, which calculates the diffs and then applies the diffs.
 So the scroll position and the focus status aren't lost.
 
 Please take a look at the slide,
 This updates the textContent of p tag only.
-So the second render, React calculates the diffs between the render functions,
+So in the second render, React calculates the diffs between the render functions,
 and applies the diff by p.textContent = 2;
 -->
 
@@ -310,8 +310,7 @@ ReactDOM.render(
 
 <!-- note
 Let's take another example.
-This changes the order in the list.
-This updates item b from second to first.
+This changes the order in the list, updating item b from second to first.
 
 React determines the change by the key props.
 React moves the item b before item a by insertBefore function.
@@ -346,7 +345,7 @@ ReactDOM.render(
 ----------------------
 
 <!-- note
-React DOM calculates the diffs for an update by comparing components between previous and current one.
+React DOM calculates the diffs for an update by comparing components between previous and current ones.
 React interprets the diffs to transform them to imperative operations
 
 So we are able to write components declaratively without caring about actual imperative operations.
@@ -362,7 +361,7 @@ We can focus on what the view should be
 ----------------------
 
 <!-- note
-With briefly go back to the Wikipedia definition
+Let's briefly go back to the Wikipedia definition
 "Describing what the program must accomplish in terms of the problem domain"
 -->
 
@@ -376,9 +375,9 @@ Even though we write div tag as JSX, it's not a div tag of DOM.
 It's a React Element.
 React creates an abstraction layer using React Element on top of the DOM.
 
-But it might be too low level as primitivies for your application.
+But the level might be too low as primitivies for your application.
 You can build your abstraction layer on the layer React creates.
-It makes your applications clean and keep consistency.
+It makes your applications clean and keeps consistency.
 -->
 
 # Abstract your application components
@@ -395,13 +394,13 @@ This App isn't using any DOM Components directly.
 It uses components based on DOM Components.
 
 This makes it possible to hide many details like styles, markups and so on.
-Of course you have to create these primitive components, but developers who creates an application don't care about it.
-Just use them.
+Of course you have to create these primitive components, but developers who create an application don't care about it.
+They just use them.
 
 Designing primitive components is very hard.
-Which props should be expose or not...
+Which props should be exposed or not...
 
-If primitive components are too high-level abstraction, they wouldn't be used...
+If primitive components are too high-level abstractions, they wouldn't be used...
 If primitive components are leaking details unnecessarily, the application would lose consistency...
 
 So thinking about your domain primitives is your job,
@@ -435,10 +434,10 @@ ReactDOM.render(<App />, view);
 ----------------------
 
 <!-- note
-This is a great talk about this topic.
-He involves the design of React architecure.
+Here is a great talk about this topic.
+Sebastian decides the design of React architecure.
 
-I'm recommend watching the video.
+I recommend watching the video.
 -->
 
 # DOM as a Second-class Citizen
@@ -455,8 +454,8 @@ Sebastian Markbåge / React Europe 2015
 I've talked about React on the DOM environment.
 But React is not only for DOM.
 
-Of course, ReactNative is one of them, which is not for DOM environment.
-So on the next, I'm talk about React for other environments and how to create a custom renderer!
+Of course, ReactNative is not for DOM.
+So next, I'm going to talk about React for other environments and how to create a custom renderer!
 -->
 
 # React is not only for DOM

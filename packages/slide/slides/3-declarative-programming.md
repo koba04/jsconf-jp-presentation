@@ -3,6 +3,7 @@ import { Img } from '@fusuma/client';
 <!-- note
 
 Let's start!
+The first part is "Declarative Programming for UI"
 -->
 
 # Declarative Programming for UI
@@ -155,7 +156,7 @@ These are imperative operations.
 They change the DOM based on the caller DOM objects so the results depends on the caller itself not only the arguments.
 
 appendChild appends the argument into the caller view object.
-removeChild remvoves the argument from the caller view object.
+removeChild removes the argument from the caller view object.
 insertBefore appends the 1st argument before the 2nd argument.
 -->
 
@@ -169,7 +170,7 @@ insertBefore appends the 1st argument before the 2nd argument.
 ---------------
 
 <!-- note
-Let's look at Declarative version.
+Let's look at declarative version.
 
 This becomes longer than the imperative version.
 
@@ -254,6 +255,7 @@ You can update a state imperatively and you can update a view declaratively.
     You can think just like a server-rendered app.
     You can think as data driven way and treat the state as single source of the truth.
 
+But...
 Do you create an entire view each updates...?
 Do you have to keep track of the scroll position and focus management and so on?
 
@@ -376,7 +378,7 @@ It's a React Element.
 React creates an abstraction layer using React Element on top of the DOM.
 
 But the level might be too low as primitivies for your application.
-You can build your abstraction layer on the layer React creates.
+You can build your abstraction layer on the layer that React creates.
 It makes your applications clean and keeps consistency.
 -->
 
@@ -391,16 +393,16 @@ It makes your applications clean and keeps consistency.
 Let's take a look.
 
 This App isn't using any DOM Components directly.
-It uses components based on DOM Components.
+It uses components that I've created.
 
 This makes it possible to hide many details like styles, markups and so on.
-Of course you have to create these primitive components, but developers who create an application don't care about it.
+Of course you have to create these primitive components like Layout, Button, List, and so on, but developers who create an application don't care about it.
 They just use them.
 
-Designing primitive components is very hard.
+Designing your primitive components is very hard.
 Which props should be exposed or not...
 
-If primitive components are too high-level abstractions, they wouldn't be used...
+If primitive components are too high-level abstractions, they wouldn't be used because they are not covered developer's usecases...
 If primitive components are leaking details unnecessarily, the application would lose consistency...
 
 So thinking about your domain primitives is your job,
@@ -435,7 +437,7 @@ ReactDOM.render(<App />, view);
 
 <!-- note
 Here is a great talk about this topic.
-Sebastian decides the design of React architecure.
+Sebastian is a core member of React, he decides the design of React architecure.
 
 I recommend watching the video.
 -->

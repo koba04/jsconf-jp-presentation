@@ -8,7 +8,7 @@ Before explaining Custom Renderer, I'd like to introduce existing renderers.
 
 <!-- note
 I guess that you already know `react-native`, `react-test-renderer`.
-There are more renderers that are for various environments.
+There are more renderers for various environments.
 
 So I'd like to introduce these renderers briefly.
 -->
@@ -31,7 +31,8 @@ React Native is a renderer for Native Apps like iOS and Android.
 Of course, This is implemented as a custom renderer.
 
 React Native has a project for a new architecture called Fabric,
-which uses Persistence mode for custom renderer.
+which uses Persistence mode that custom renderer supports.
+I'm going to talk about Persistence mode later.
 
 React Native provides primitive components like View, Text, Image and so on.
 -->
@@ -134,7 +135,7 @@ React AST is a custom renderer for AST. What??
 You can define an abstract syntax tree declaratively as JSX.
 This can generate source code and an AST object from JSX.
 
-This provides primitives components like ClassDeclaration, FunctionDeclaration, FunctionDeclaration, and so on.
+This provides primitives components like ClassDeclaration, FunctionDeclaration, CallExpression, and so on.
 I'm not sure whether it's useful or not.
 But It's fun!
 -->
@@ -165,14 +166,14 @@ console.log(ast);
 ---------------
 <!-- note
 Custom renderer is useful even on browser environments.
-If you feel that The size of React DOM is so big.
-You can create alternative lightweight React DOM implementation as a custom renderer.
+If you feel that the size of React DOM is so big.
+You can create an alternative lightweight React DOM implementation as a custom renderer.
 
 ReactDOMLite is an example of these.
 If you are interested in creating a custom renderer for DOM.
 I recommend watching the video of Sophie's talk at this year's React Conf.
 
-Before describing custom renderer, I'd like to introduce
+Before going over React custom renderer, I'd like to introduce the architecture of React.
 -->
 
 # React DOM Lite
@@ -185,22 +186,22 @@ Before describing custom renderer, I'd like to introduce
 
 
 <!-- note
-This is the overview of the architecture of React.
+This is an overview of the architecture of React.
 
 Component is a layer to define components.
 Host components are provided by a renderer.
-ReactDOM provides DOM components as its host components.
+ReactDOM provides DOM components as host components.
 these components start with a lower case.
 
 Custom components are built by application developers.
 These are what you create for your applications.
 
 Reconciler is a layer of React core.
-It schedules updates and calls host config functions.
+It schedules updates and calls functions in host config.
 It makes possible many features like Hooks, Suspense, and Concurrent Mode.
 
-Finally, Renderer is a layer to implement anything that depends on a host environment.
-So when we create a custom renderer, we have to implement this layer.
+Finally, Renderer is a layer for an implementation depending on a host environment.
+So when we create a custom renderer, we have to implement this.
 
 In other words, you can enable Hooks, Suspense, and Concurrent Mode on your custom renderer without implementing them yourself.
 -->
@@ -240,10 +241,9 @@ npm install react-reconciler
 ---------------
 
 <!-- note
-And then, we can create a renderer by passing a hostconfig to the reconciler.
-I'll focus on the interface of host config.
+And then, we can create a renderer by passing a host config to the reconciler.
 
-After creating a renderer, we create a container of a rendering at the first rendering.
+After creating a renderer, we create a container for the renderer at the first rendering.
 After that, we update the container in order to render the passed element.
 
 Next, let's see the host config interface.
@@ -279,12 +279,14 @@ export const YourReact = {
 
 <!-- note
 You have to implement many interfaces to create a custom renderer.
-These are the interfaces.
+Here is the interfaces.
 
 The first part is the interfaces you must implement.
 The second part is an optional interfaces related to mutation.
+We have to implement them if we'd like to use a mutation mode.
 
 #1 means that there is a #2...
+Yes, they are not all.
 -->
 
 # HostConfig Interface \#1
@@ -302,17 +304,18 @@ The second part is an optional interfaces related to mutation.
 <!-- note
 Let's move on #2.
 The first part includes optional interfaces related to persistence.
-If you'd like to impelement your custom renderer as persistence, you have to implement these interfaces.
-The persistence mode is a mode to treat the instances as immutable.
+If you'd like to impelement your custom renderer as persistence mode, you have to implement these interfaces.
+The persistence mode is a mode to treat its instance as immutable.
 
 React Native Fabric is a renderer enabling persistence mode.
+I'm going to exaplain about the persistence mode later.
 
 The second part is an optional interfaces related to hydration.
 If you'd like to support hydration on your renderer, you have to implement these interfaces.
+ReactDOM.hydrate is implemented by these functions.
 
 I won't talk about Persistence and Hydration mode in this talk.
-So if you are interested in the modes,
-Please see the HostConfig of ReactNativeFabrice to understand the persistence mode, the HostConfig of ReactDOM to understand the hydration mode.
+So if you are interested in them, please see the host configs of ReactNativeFabrice and ReactDOM.
 
 These interfaces are from @types/react-reconciler
 -->
@@ -336,6 +339,8 @@ These interfaces are from @types/react-reconciler
 Does it seems to be too complecated?
 I see...
 But you don't have to impelement all interfaces!!
+Many functions might be ok as empty functions.
+
 You can impelement the interfaces incrementally.
 -->
 
@@ -344,8 +349,8 @@ You can impelement the interfaces incrementally.
 ----------------------
 
 <!-- note
-They are host configs of each renderers.
-So I recommend referencing the host config while implementing your custom renderer, which are very useful.
+They are host configs of renderers I've introduced.
+So I recommend referencing the host configs while implementing your custom renderer, which are very useful.
 -->
 
 # HostConfig of renderers
@@ -365,9 +370,9 @@ So I recommend referencing the host config while implementing your custom render
 ----------------------
 
 <!-- note
-But the way, what Do we have to implement on the host config?
+But the way, what do we implement on the host config?
 we have to implement side-effects for the host environment and define a public instance and internal instance.
-And we have to define the mode which mode your renderer works and hydration logics if you need it.
+And we have to define the mode of your renderer and hydration logics if you need it.
 
 Let's go over them.
 -->
@@ -383,15 +388,15 @@ Let's go over them.
 
 <!-- note
 The APIs for side effects are very similar with DOM APIs
-So if you are faimilar with DOM APIs, you can realize them easily.
+So if you are faimilar with DOM APIs, you can understand them easily.
 -->
 
 # Side effects for a Host environment
 
 ---------------
 <!-- note
-Before describing APIs, let's take a look at a previous example.
-This is an example moving the second item to the top.
+Before describing the APIs, let's take a look at a previous example.
+This is an example moving the second item to the first.
 With ReactDOM, this change is processed as an insertBefore function.
 
 What if we implement the function as a custom renderer?
@@ -424,9 +429,9 @@ ReactDOM.render(
 ----------------------
 
 <!-- note
-we can implement the function as the insertBefore function.
-First, we remove the child from the parentInstance that is a parent of list items.
-Second, we insert the child before the beforeChild.
+we implement the function as the insertBefore function.
+First, we remove the child variable from the parentInstance variable that is a parent of list items.
+Second, we insert the child variable before the beforeChild variable.
 
 This is an example that I've implemented the operations as JavaScript.
 -->
@@ -457,8 +462,8 @@ You can implement these functions as well as insertBefore.
 You can imagine the implementation of many functions from the name.
 But commitMount is not.
 commitMount is only called when finalizeInitialChildren returns true.
-ReactDOM uses the function to implement autoFocus attrivbute.
-finalizeInitialChildren returns true the tag is button or input or select or textarea and autoFucos prop is true.
+ReactDOM uses the function to implement autoFocus attribute.
+finalizeInitialChildren returns true if the tag is button, input, select, or textarea and autoFucos prop is true.
 -->
 
 # Others
@@ -471,7 +476,7 @@ finalizeInitialChildren returns true the tag is button or input or select or tex
 ---------------
 
 <!-- note
-Let's move on to the defining instances.
+Let's move on to the defining instance.
 -->
 
 # Define public instance
@@ -479,10 +484,11 @@ Let's move on to the defining instances.
 ---------------
 
 <!-- note
-createInstance and createTextInstance are important, which are instances that we use in functions of the host config.
-You can define the interface of instances as you want.
+createInstance and createTextInstance are important, which return an instance that we use in functions of the host config.
+You can define an interface of the instance as you want.
 
-ReactDOM uses DOM APIs like createElement and createTextNode for this functions.
+ReactDOM uses DOM APIs like createElement and createTextNode for these functions.
+So ReactDOM renturns a DOM node from the functions.
 -->
 
 # createInstance, createTextInstance
@@ -511,11 +517,12 @@ export function createTextInstance(
 ---------------
 
 <!-- note
-getPublicInstance is a function to define the public instance of instance or textInstance.
-If you don't want to expose the instance and the textInstance for users,
-you can convert the instance and the textInstance to what you want to expose.
+getPublicInstance is a function to define a public instance of the instance or textInstance.
+If you don't want to expose the instance and textInstance for users,
+you can convert the instance and textInstance to what you want to expose.
 
 ReactDOM returns a passed instance without doing anything.
+So you can get a DOM node reference through a `ref` prop.
 -->
 
 # getPublicInstance
@@ -534,7 +541,7 @@ export function getPublicInstance(
 
 <!-- note
 They are flags to determine how your custom renderer works.
-You can define whether your host instance is a immutable mode or mutation model and whether supporting hydration or not and whether your renderer is running on other renderers or not.
+You can define whether your host instance is an immutable model or mutation model and whether supporting hydration or not and whether your renderer is running on an other renderer or not.
 -->
 
 # Define the mode for a renderer

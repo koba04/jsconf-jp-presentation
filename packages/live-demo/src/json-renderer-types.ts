@@ -1,4 +1,4 @@
-import { Widgets } from "blessed";
+// import { Widgets } from "blessed";
 
 export type Type = string;
 export type Props = {
@@ -9,7 +9,8 @@ export type Props = {
 export type TextInstance = {
   tag: "TEXT";
   text: string;
-  inst: Widgets.TextElement;
+  //  inst: Widgets.TextElement;
+  parent?: Instance;
   rootContainerInstance: Container;
 };
 
@@ -19,6 +20,7 @@ export type Instance = {
   type: Type;
   props: Props;
   children: ChildrenInstace[];
+  parent?: Instance;
   rootContainerInstance: Container;
 };
 
@@ -33,10 +35,11 @@ export type HostContext = {
 };
 
 export type Container = {
-  name: "container";
+  rootPath: string;
+  effects: any[];
   logs: any[];
   children: ChildrenInstace[];
-  screen: Widgets.Screen;
+  //  screen: Widgets.Screen;
 };
 
 export type HydratableInstance = object;

@@ -1,6 +1,8 @@
 import Reconciler, { OpaqueHandle } from "react-reconciler";
-import blessed from "blessed";
-import blessedContrib from "blessed-contrib";
+import fs from "fs";
+import path from "path";
+// import blessed from "blessed";
+// import blessedContrib from "blessed-contrib";
 
 import {
   Type,
@@ -44,6 +46,9 @@ export function getChildHostContext(
 }
 
 export function prepareForCommit(containerInfo: Container): void {
+  if (!fs.existsSync(containerInfo.rootPath)) {
+    fs.mkdirSync(containerInfo.rootPath, { recursive: true });
+  }
   debug("prepareForCommit", { containerInfo });
 }
 
@@ -77,6 +82,7 @@ export function createInstance(
 export function appendChild(parentInstance: Instance, child: Instance) {
   debug("appendChild", { parentInstance, child });
   parentInstance.children.push(child);
+  child.parent = parentInstance;
 }
 
 // This is called on commitWork, which append DOM nodes to the container that is passed as the second argument of ReactDOM.render.
@@ -85,6 +91,19 @@ export function appendChildToContainer(container: Container, child: Instance) {
   debug("appendChildToContainer", { container, child });
   container.children.push(child);
 }
+
+const buildPath = (inst: Instance | undefined) => {
+  const paths: string[] = [];
+  let current: Instance | undefined = inst;
+  if (typeof inst === "undefined") {
+    return paths;
+  }
+  while (current) {
+    paths.push(current.props.name);
+    current = current.parent;
+  }
+  return [inst.rootContainerInstance.rootPath, ...paths.reverse()];
+};
 
 // ReactDOM call .focus() for components that have autoFocus prop
 // https://github.com/facebook/react/blob/42b75ab007a5e7c159933cfdbf2b6845d89fc7f2/packages/react-dom/src/client/ReactDOMHostConfig.js#L346-L351
@@ -113,6 +132,23 @@ export function commitMount(
       newProps
     }
   ]);
+
+  if (type === "file") {
+    if (instance.parent) {
+      fs.mkdirSync(path.join(...buildPath(instance.parent)), {
+        recursive: true
+      });
+    }
+    fs.writeFileSync(
+      path.join(...buildPath(instance.parent), newProps.name),
+      newProps.children
+    );
+  }
+  if (type === "directory") {
+    fs.mkdirSync(path.join(...buildPath(instance)), {
+      recursive: true
+    });
+  }
 }
 
 // TODO: what ReactDOM does at this
@@ -121,8 +157,8 @@ export function commitUpdate(
   instance: Instance,
   updatePayload: object,
   type: string,
-  oldProps: object,
-  newProps: object,
+  oldProps: Props,
+  newProps: Props,
   internalInstanceHandle: Reconciler.Fiber
 ) {
   debug("commitUpdate", {
@@ -143,6 +179,12 @@ export function commitUpdate(
     }
   ]);
   // TODO: diff oldProps and newProps
+  if (newProps.name !== oldProps.name) {
+    fs.renameSync(
+      path.join(...buildPath(instance)),
+      path.join(...buildPath({ ...instance, props: newProps }))
+    );
+  }
   instance.props = newProps;
 }
 
@@ -154,9 +196,11 @@ export function commitTextUpdate(
 ) {
   debug("commitTextUpdate", { textInstance, oldText, newText });
   if (oldText !== newText) {
-    textInstance.inst.setText(newText);
-    textInstance.rootContainerInstance.screen.render();
+    // textInstance.inst.setText(newText);
+    // textInstance.rootContainerInstance.screen.render();
     textInstance.text = newText;
+    //    fs.readFileSync();
+    fs.writeFileSync(path.join(...buildPath(textInstance.parent)), newText);
   }
 }
 
@@ -167,9 +211,10 @@ export function appendInitialChild(
 ): void {
   debug("appendInitialChild", { parentInstance, child });
   if (child.tag === "TEXT") {
-    child.rootContainerInstance.screen.append(child.inst);
-    child.rootContainerInstance.screen.render();
+    // child.rootContainerInstance.screen.append(child.inst);
+    // child.rootContainerInstance.screen.render();
   }
+  child.parent = parentInstance;
   parentInstance.children.push(child);
 }
 
@@ -207,6 +252,10 @@ export function finalizeInitialChildren(
 
 export function removeChildFromContainer() {
   debug("removeChildFromContainer");
+}
+
+export function removeChild(parent: Instance, instance: Instance) {
+  // noop
 }
 
 // completeWork
@@ -249,11 +298,13 @@ export function createTextInstance(
   return {
     tag: "TEXT",
     text,
-    rootContainerInstance,
+    rootContainerInstance
+    /*
     inst: blessed.box({
       top: `${top}%`,
       content: text
     })
+    */
   };
 }
 

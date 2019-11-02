@@ -12,7 +12,10 @@ import { writeFileSync, existsSync, mkdirSync, renameSync } from "fs";
 
 const HOST_CONTEXT: HostContext = {};
 
-export const getPublicInstance = (instance: Instance) => instance;
+export const getPublicInstance = (instance: Instance) => {
+  const { rootContainerInstance, ...rest } = instance;
+  return rest;
+};
 export const getRootHostContext = (): HostContext => HOST_CONTEXT;
 export const getChildHostContext = () => HOST_CONTEXT;
 

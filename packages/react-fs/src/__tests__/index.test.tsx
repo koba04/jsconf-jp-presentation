@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, MutableRefObject } from "react";
 import { ReactFS } from "../index";
 import path from "path";
 import { tmpdir } from "os";
@@ -117,5 +117,25 @@ describe("ReactFS", () => {
     expect(readFileSync(path.join(tempDir, "foo", "new.txt")).toString()).toBe(
       "123"
     );
+  });
+  it("should be able to get an instance removed rootContainerInstance through ref", async () => {
+    let ref: any;
+    const App = () => {
+      ref = useRef(null);
+      return (
+        <>
+          <file name="index.js" ref={ref}>
+            const num = 1;
+          </file>
+        </>
+      );
+    };
+
+    ReactFS.render(<App />, tempDir);
+    expect(ref.current).toEqual({
+      type: "file",
+      props: { name: "index.js", children: "const num = 1;" },
+      children: []
+    });
   });
 });

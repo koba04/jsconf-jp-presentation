@@ -2,7 +2,7 @@ import React from "react";
 import { FSRenderer } from "./fs-renderer";
 import { Container } from "./fs-renderer-types";
 import ReactReconciler from "react-reconciler";
-import { rmdirSync } from "fs";
+import { rmdirSync, existsSync } from "fs";
 
 export type RootContainer = {
   fiberRoot?: ReactReconciler.FiberRoot;

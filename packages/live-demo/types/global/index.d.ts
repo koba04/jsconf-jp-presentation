@@ -6,7 +6,7 @@ namespace JSX {
     };
     directory: {
       name: string;
-      children: React.ReactNode;
+      children?: React.ReactNode;
     };
   }
 }

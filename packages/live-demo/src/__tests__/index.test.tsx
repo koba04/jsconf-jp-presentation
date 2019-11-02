@@ -1,104 +1,88 @@
 import React, { useState, useEffect } from "react";
-import { ReactJSON } from "../index";
+import { ReactFS } from "../index";
+import path from "path";
+import { tmpdir } from "os";
+import { rmdirSync, readFileSync, statSync, existsSync } from "fs";
 
 const waitEffect = () => new Promise(r => setTimeout(r, 0));
 
-describe("ReactJSON", () => {
-  it("should be able to render host components and text", () => {
-    const rootContainer = ReactJSON.createRootContainer();
-    expect(() => {
-      ReactJSON.render(
-        <div id="foo">
-          <p className="paragraph">
-            <span>foo</span>
-          </p>
-        </div>,
-        rootContainer
-      );
-      ReactJSON.render(
-        <div id="foo" className="bar">
-          <p className="paragraph">
-            <span className="em">bar</span>
-          </p>
-        </div>,
-        rootContainer
-      );
-    }).not.toThrow();
-    expect(ReactJSON.toJSON(rootContainer.container)).toMatchSnapshot();
+describe("ReactFS", () => {
+  const tempDir = path.join(tmpdir(), "react-fs");
+  console.log("tempDir is ", tempDir);
+  afterEach(() => {
+    rmdirSync(tempDir, { recursive: true });
   });
-
-  it("should be able to handle swapping list items", () => {
-    const rootContainer = ReactJSON.createRootContainer();
-    expect(() => {
-      ReactJSON.render(
-        <ul>
-          <li key="a">a</li>
-          <li key="b">b</li>
-          <li key="c">c</li>
-        </ul>,
-        rootContainer
-      );
-      ReactJSON.render(
-        <ul>
-          <li key="b">b</li>
-          <li key="a">a</li>
-          <li key="c">c</li>
-        </ul>,
-        rootContainer
-      );
-    }).not.toThrow();
-    const json: any = ReactJSON.toJSON(rootContainer.container);
-    expect(json.children.map((child: any) => child.children[0])).toEqual([
-      "b",
-      "a",
-      "c"
-    ]);
-    expect(json).toMatchSnapshot();
-  });
-
-  it("should be able to render composite components", () => {
-    const Button = (props: { text: string }) => <button>{props.text}</button>;
-    const MemoizedButton = React.memo(Button);
-    const App = (props: { message: string }) => (
-      <section>
-        <Button text="click" />
-        <p>{props.message}</p>
-        <MemoizedButton text="memo" />
-      </section>
+  it("should be able to create a file", () => {
+    ReactFS.render(<file name="test.txt">Hello World</file>, tempDir);
+    expect(readFileSync(path.join(tempDir, "test.txt")).toString()).toBe(
+      "Hello World"
     );
-    const rootContainer = ReactJSON.createRootContainer();
-    expect(() => {
-      ReactJSON.render(<App message="Hello" />, rootContainer);
-      ReactJSON.render(<App message="World" />, rootContainer);
-    }).not.toThrow();
-    expect(ReactJSON.toJSON(rootContainer.container)).toMatchSnapshot();
   });
-
-  it("should be able to get logs from a container", () => {
-    const rootContainer = ReactJSON.createRootContainer();
-    ReactJSON.render(<div id="foo">foo</div>, rootContainer);
-    ReactJSON.render(<div id="foo">foo</div>, rootContainer);
-    expect(rootContainer.container.logs.map(([operation]: any[]) => operation)).toEqual([
-      "commitMount",
-      "commitUpdate"
-    ]);
+  it("should be able to create a directory", () => {
+    ReactFS.render(<directory name="test" />, tempDir);
+    expect(statSync(path.join(tempDir, "test")).isDirectory()).toBe(true);
   });
-
-  it("should be able to use Hooks", async () => {
-    const rootContainer = ReactJSON.createRootContainer();
-    const Counter = () => {
-      const [count, setCount] = useState(0);
+  it("should be able to create a file into a directory", () => {
+    ReactFS.render(
+      <directory name="foo">
+        <file name="test.txt">Hello World</file>
+      </directory>,
+      tempDir
+    );
+    expect(readFileSync(path.join(tempDir, "foo", "test.txt")).toString()).toBe(
+      "Hello World"
+    );
+  });
+  it("should be able to create multiple fles into a directory", () => {
+    ReactFS.render(
+      <directory name="multiple">
+        <file name="foo.txt">Foo</file>
+        <file name="bar.txt">Bar</file>
+      </directory>,
+      tempDir
+    );
+    expect(
+      readFileSync(path.join(tempDir, "multiple", "foo.txt")).toString()
+    ).toBe("Foo");
+    expect(
+      readFileSync(path.join(tempDir, "multiple", "bar.txt")).toString()
+    ).toBe("Bar");
+  });
+  it("should be able to update a content of a file", async () => {
+    const App = () => {
+      const [text, setText] = useState("initial");
       useEffect(() => {
-        setCount(1);
+        setText("updated");
       }, []);
-      return <div>{count}</div>;
+      return <file name="foo.txt">{text}</file>;
     };
-    ReactJSON.render(<Counter />, rootContainer);
-    let json: any = ReactJSON.toJSON(rootContainer.container);
-    expect(json.children[0]).toBe("0");
-    // TODO: implement .act();
+
+    ReactFS.render(<App />, tempDir);
+    expect(readFileSync(path.join(tempDir, "foo.txt")).toString()).toBe(
+      "initial"
+    );
     await waitEffect();
-    json = ReactJSON.toJSON(rootContainer.container);
-    expect(json.children[0]).toBe("1");
+    expect(readFileSync(path.join(tempDir, "foo.txt")).toString()).toBe(
+      "updated"
+    );
+  });
+  it("should be able to update a file name", async () => {
+    const App = () => {
+      const [text, setText] = useState("initial");
+      useEffect(() => {
+        setText("updated");
+      }, []);
+      return <file name={`${text}.txt`}>123</file>;
+    };
+
+    ReactFS.render(<App />, tempDir);
+    expect(readFileSync(path.join(tempDir, "initial.txt")).toString()).toBe(
+      "123"
+    );
+    await waitEffect();
+    expect(readFileSync(path.join(tempDir, "updated.txt")).toString()).toBe(
+      "123"
+    );
+    expect(existsSync(path.join(tempDir, "initial.txt"))).toBe(false);
   });
 });

@@ -128,11 +128,17 @@ export function commitMount(
       fs.mkdirSync(path.join(...buildPath(instance.parent)), {
         recursive: true
       });
+      fs.writeFileSync(
+        path.join(...buildPath(instance.parent), newProps.name),
+        newProps.children
+      );
+      // a file in children of rootContainer
+    } else {
+      fs.writeFileSync(
+        path.join(instance.rootContainerInstance.rootPath, newProps.name),
+        newProps.children
+      );
     }
-    fs.writeFileSync(
-      path.join(...buildPath(instance.parent), newProps.name),
-      newProps.children
-    );
   }
   if (type === "directory") {
     fs.mkdirSync(path.join(...buildPath(instance)), {

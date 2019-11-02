@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ReactJSON } from "./";
+import { ReactFS } from "./";
 import readline from "readline";
 
 const askQuestion = (): Promise<string> => {
@@ -17,15 +17,7 @@ const askQuestion = (): Promise<string> => {
 };
 
 const App = () => {
-  const [count, setCount] = useState(0);
   const [name, setName] = useState("");
-  /*
-  useEffect(() => {
-    setTimeout(() => {
-      setCount(c => (c < 10 ? c + 1 : c));
-    }, 100);
-  }, [count]);
-  */
 
   useEffect(() => {
     (async () => {
@@ -37,8 +29,7 @@ const App = () => {
   return (
     <>
       <directory name="src">
-        <file name="index.js">const hello = &ldquo;hello&ldquo;;</file>
-        <file name="log.txt">{count}</file>
+        <file name="index.js">const hello = "hello";</file>
       </directory>
       <directory name="foo">
         {name && <file name={name}>{name}</file>}
@@ -48,4 +39,4 @@ const App = () => {
   );
 };
 
-ReactJSON.render(<App />, "./hoge");
+ReactFS.render(<App />, "./hoge");

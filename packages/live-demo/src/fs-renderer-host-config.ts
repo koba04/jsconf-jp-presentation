@@ -1,8 +1,6 @@
 import Reconciler, { OpaqueHandle } from "react-reconciler";
 import fs from "fs";
 import path from "path";
-// import blessed from "blessed";
-// import blessedContrib from "blessed-contrib";
 
 import {
   Type,
@@ -15,7 +13,7 @@ import {
   NoTimeout,
   UpdatePayload,
   Container
-} from "./json-renderer-types";
+} from "./fs-renderer-types";
 import { debug } from "./logger";
 
 const context: HostContext = {
@@ -124,14 +122,6 @@ export function commitMount(
     type,
     newProps /* , internalInstanceHandle */
   });
-  instance.rootContainerInstance.logs.push([
-    "commitMount",
-    {
-      instance,
-      type,
-      newProps
-    }
-  ]);
 
   if (type === "file") {
     if (instance.parent) {
@@ -168,16 +158,6 @@ export function commitUpdate(
     oldProps,
     newProps
   });
-  instance.rootContainerInstance.logs.push([
-    "commitUpdate",
-    {
-      instance,
-      updatePayload,
-      type,
-      oldProps,
-      newProps
-    }
-  ]);
   // TODO: diff oldProps and newProps
   if (newProps.name !== oldProps.name) {
     fs.renameSync(
@@ -272,7 +252,7 @@ export function prepareUpdate(
   debug("prepareUpdate");
   // Return diff properties, which is passed to commitUpdate.
   // if this returns a null, commmitUpdate in this updates never been called.
-  return { props: "diffs" };
+  return {};
 }
 
 export function shouldSetTextContent(type: Type, props: Props): boolean {
@@ -299,12 +279,6 @@ export function createTextInstance(
     tag: "TEXT",
     text,
     rootContainerInstance
-    /*
-    inst: blessed.box({
-      top: `${top}%`,
-      content: text
-    })
-    */
   };
 }
 

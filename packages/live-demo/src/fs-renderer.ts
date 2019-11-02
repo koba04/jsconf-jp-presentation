@@ -1,5 +1,5 @@
 import Reconciler from "react-reconciler";
-import * as HostConfig from "./json-renderer-host-config";
+import * as HostConfig from "./fs-renderer-host-config";
 import {
   Type,
   Props,
@@ -13,10 +13,10 @@ import {
   TimeoutHandle,
   NoTimeout,
   Container
-} from "./json-renderer-types";
+} from "./fs-renderer-types";
 
 // eslint-disable-next-line new-cap
-export const JSONRenderer = Reconciler<
+export const FSRenderer = Reconciler<
   Type,
   Props,
   Container,

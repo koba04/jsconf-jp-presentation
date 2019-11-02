@@ -4,5 +4,8 @@ module.exports = {
     react: {
       version: "detect"
     }
+  },
+  rules: {
+    "react/no-unescaped-entities": "off"
   }
 }

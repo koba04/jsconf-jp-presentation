@@ -12,7 +12,7 @@
     "test": "yarn workspace @koba04/react-fs test"
   },
   "dependencies": {
-    "react": "^16.10.2"
+    "react": "^16.11.0"
   },
   "devDependencies": {
     "@cybozu/eslint-config": "^7.1.0",

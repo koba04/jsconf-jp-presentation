@@ -5,7 +5,6 @@ export type Props = {
 
 // An text instance type for your host environment
 export type TextInstance = {
-  tag: "TEXT";
   text: string;
   parent?: Instance;
   rootContainerInstance: Container;
@@ -13,7 +12,6 @@ export type TextInstance = {
 
 // An instance type for your host environment
 export type Instance = {
-  tag: "HOST";
   type: Type;
   props: Props;
   children: ChildrenInstace[];
@@ -27,9 +25,7 @@ export type ChildrenInstace = Instance | TextInstance;
 // react-dom's one is a HTMLElement
 export type PublicInstance = Instance | TextInstance;
 
-export type HostContext = {
-  name: "context";
-};
+export type HostContext = {};
 
 export type Container = {
   rootPath: string;

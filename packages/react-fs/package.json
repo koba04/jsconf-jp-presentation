@@ -1,6 +1,6 @@
 {
   "name": "@koba04/react-fs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A React custom renderer for file system APIs",
   "main": "lib/index.js",
   "license": "MIT",

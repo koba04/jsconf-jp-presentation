@@ -18,11 +18,11 @@ describe("ReactFS", () => {
       "Hello World"
     );
   });
-  xit("should be able to create a directory", () => {
+  it("should be able to create a directory", () => {
     ReactFS.render(<directory name="test" />, tempDir);
     expect(statSync(path.join(tempDir, "test")).isDirectory()).toBe(true);
   });
-  xit("should be able to create a file into a directory", () => {
+  it("should be able to create a file into a directory", () => {
     ReactFS.render(
       <directory name="foo">
         <file name="test.txt">Hello World</file>
@@ -33,7 +33,20 @@ describe("ReactFS", () => {
       "Hello World"
     );
   });
-  xit("should be able to create multiple fles into a directory", () => {
+  it("should be able to create a file into a nested directory", () => {
+    ReactFS.render(
+      <directory name="foo">
+        <directory name="bar">
+          <file name="test.txt">Hello World</file>
+        </directory>
+      </directory>,
+      tempDir
+    );
+    expect(
+      readFileSync(path.join(tempDir, "foo", "bar", "test.txt")).toString()
+    ).toBe("Hello World");
+  });
+  it("should be able to create multiple fles into a directory", () => {
     ReactFS.render(
       <directory name="multiple">
         <file name="foo.txt">Foo</file>
@@ -48,7 +61,7 @@ describe("ReactFS", () => {
       readFileSync(path.join(tempDir, "multiple", "bar.txt")).toString()
     ).toBe("Bar");
   });
-  xit("should be able to update a content of a file", async () => {
+  it("should be able to update a content of a file", async () => {
     const App = () => {
       const [text, setText] = useState("initial");
       useEffect(() => {
@@ -66,7 +79,7 @@ describe("ReactFS", () => {
       "updated"
     );
   });
-  xit("should be able to update a file name", async () => {
+  it("should be able to update a file name", async () => {
     const App = () => {
       const [text, setText] = useState("initial");
       useEffect(() => {
@@ -84,5 +97,25 @@ describe("ReactFS", () => {
       "123"
     );
     expect(existsSync(path.join(tempDir, "initial.txt"))).toBe(false);
+  });
+  it("should be able to add a new file", async () => {
+    const App = () => {
+      const [text, setText] = useState("");
+      useEffect(() => {
+        setText("new");
+      }, []);
+      return (
+        <directory name="foo">
+          {text && <file name={`${text}.txt`}>123</file>}
+        </directory>
+      );
+    };
+
+    ReactFS.render(<App />, tempDir);
+    expect(existsSync(path.join(tempDir, "foo", "new.txt"))).toBe(false);
+    await waitEffect();
+    expect(readFileSync(path.join(tempDir, "foo", "new.txt")).toString()).toBe(
+      "123"
+    );
   });
 });

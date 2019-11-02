@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ReactFS } from "./";
+import { ReactFS } from "../src";
 import readline from "readline";
 
 const askQuestion = (): Promise<string> => {

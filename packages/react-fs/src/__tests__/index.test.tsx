@@ -18,11 +18,11 @@ describe("ReactFS", () => {
       "Hello World"
     );
   });
-  it("should be able to create a directory", () => {
+  xit("should be able to create a directory", () => {
     ReactFS.render(<directory name="test" />, tempDir);
     expect(statSync(path.join(tempDir, "test")).isDirectory()).toBe(true);
   });
-  it("should be able to create a file into a directory", () => {
+  xit("should be able to create a file into a directory", () => {
     ReactFS.render(
       <directory name="foo">
         <file name="test.txt">Hello World</file>
@@ -33,7 +33,7 @@ describe("ReactFS", () => {
       "Hello World"
     );
   });
-  it("should be able to create multiple fles into a directory", () => {
+  xit("should be able to create multiple fles into a directory", () => {
     ReactFS.render(
       <directory name="multiple">
         <file name="foo.txt">Foo</file>
@@ -48,7 +48,7 @@ describe("ReactFS", () => {
       readFileSync(path.join(tempDir, "multiple", "bar.txt")).toString()
     ).toBe("Bar");
   });
-  it("should be able to update a content of a file", async () => {
+  xit("should be able to update a content of a file", async () => {
     const App = () => {
       const [text, setText] = useState("initial");
       useEffect(() => {
@@ -66,7 +66,7 @@ describe("ReactFS", () => {
       "updated"
     );
   });
-  it("should be able to update a file name", async () => {
+  xit("should be able to update a file name", async () => {
     const App = () => {
       const [text, setText] = useState("initial");
       useEffect(() => {

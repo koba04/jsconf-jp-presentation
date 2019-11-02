@@ -8,15 +8,12 @@
     "test": "jest"
   },
   "dependencies": {
-    "blessed": "^0.1.81",
-    "blessed-contrib": "^4.8.18",
     "react-reconciler": "^0.22.2"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
     "@babel/preset-typescript": "^7.6.0",
-    "@types/blessed": "^0.1.12",
     "@types/jest": "^24.0.18",
     "@types/node": "^12.12.3",
     "@types/react": "^16.9.5",

@@ -794,10 +794,10 @@
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
-"@cybozu/eslint-config@^7.1.0":
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/@cybozu/eslint-config/-/eslint-config-7.1.0.tgz#06244f9b9d0a105c535da7cfc9fc6869bfd2c085"
-  integrity sha512-WFzuElwmWeEaeqLvdu9SPjRpxIACKA4I1ZO74vj3PmHypkzkJLmqM+qziRbGaWfFamHsvMqXcYHFbS1+ng6p5A==
+"@cybozu/eslint-config@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@cybozu/eslint-config/-/eslint-config-8.0.0.tgz#78841bfeb2e4888169e7cf86f001f5d27cc72a7f"
+  integrity sha512-xXILP486EV8ZlZ92JyHDlq/aWNYtU66i+VH8bGPeAMzjLKD2YWpYrbwyyFdLAnChUo36iYwci8iEWDGb9HHfOg==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^2.1.0"
     "@typescript-eslint/parser" "^2.1.0"

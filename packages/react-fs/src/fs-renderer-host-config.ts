@@ -125,8 +125,8 @@ export const appendChild = (
 export const scheduleDeferredCallback = () => {};
 export const cancelDeferredCallback = () => {};
 export const setTimeout = global.setTimeout;
-export const clearTimeout = () => {};
-export const noTimeout = () => {};
+export const clearTimeout = global.clearTimeout;
+export const noTimeout = {};
 export const now = () => Date.now();
 
 export const isPrimaryRenderer = true;

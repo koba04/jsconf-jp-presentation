@@ -565,7 +565,7 @@ Live coding.
 # Type Definition for custom host config
 
 ```js
-namespace JSX {
+declare namespace JSX {
   interface IntrinsicElements {
     text: {
       color: string;

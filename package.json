@@ -7,8 +7,8 @@
     "lint": "eslint 'packages/**/*.ts{,x}'",
     "start": "yarn workspace slide start",
     "run-ink": "yarn workspace ink-demo start",
-    "demo": "yarn workspace react-fs start",
-    "test": "yarn workspace react-fs test"
+    "demo": "yarn workspace @koba04/react-fs start",
+    "test": "yarn workspace @koba04/react-fs test"
   },
   "dependencies": {
     "react": "^16.10.2"

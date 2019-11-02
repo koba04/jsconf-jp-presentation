@@ -12,7 +12,7 @@
     "release": "run-s test build standard-version",
     "standard-version": "standard-version",
     "start": "tsc --watch",
-    "test": "jest",
+    "test": "jest src",
     "tsc": "tsc"
   },
   "types": "lib/index.d.ts",

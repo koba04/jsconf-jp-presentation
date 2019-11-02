@@ -1,4 +1,4 @@
-name: CI
+name: react-fs
 
 on: [push]
 

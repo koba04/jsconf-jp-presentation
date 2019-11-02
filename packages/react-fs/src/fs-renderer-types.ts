@@ -5,7 +5,6 @@ export type Props = {
 
 // An text instance type for your host environment
 export type TextInstance = {
-  tag: "TEXT";
   text: string;
   parent?: Instance;
   rootContainerInstance: Container;
@@ -13,7 +12,6 @@ export type TextInstance = {
 
 // An instance type for your host environment
 export type Instance = {
-  tag: "HOST";
   type: Type;
   props: Props;
   children: ChildrenInstace[];

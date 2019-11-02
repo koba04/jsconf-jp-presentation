@@ -25,7 +25,6 @@ export const createInstance = (
   props: Props,
   rootContainerInstance: Container
 ): Instance => ({
-  tag: "HOST",
   type,
   props,
   children: [],
@@ -35,7 +34,6 @@ export const createTextInstance = (
   text: string,
   rootContainerInstance: Container
 ): TextInstance => ({
-  tag: "TEXT",
   text,
   rootContainerInstance
 });

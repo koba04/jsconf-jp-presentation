@@ -1,14 +1,36 @@
 {
-  "name": "react-fs",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "@koba04/react-fs",
+  "version": "0.1.0",
+  "description": "A React custom renderer for file system APIs",
+  "main": "lib/index.js",
   "license": "MIT",
+  "author": "koba04",
   "scripts": {
-    "start": "ts-node src/script.tsx",
-    "test": "jest"
+    "build": "run-s clean tsc",
+    "clean": "rimraf lib",
+    "example": "ts-node examples/script.tsx",
+    "release": "run-s test build standard-version",
+    "standard-version": "standard-version",
+    "start": "tsc --watch",
+    "test": "jest",
+    "tsc": "tsc"
+  },
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "types"
+  ],
+  "engines": {
+    "node": ">=12.10"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
     "react-reconciler": "^0.22.2"
+  },
+  "peerDependencies": {
+    "react": "^16.0.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.6.3",
@@ -19,6 +41,9 @@
     "@types/react": "^16.9.5",
     "@types/react-reconciler": "^0.18.0",
     "jest": "^24.9.0",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.0",
+    "standard-version": "^7.0.0",
     "ts-node": "^8.4.1",
     "typescript": "^3.6.4"
   }

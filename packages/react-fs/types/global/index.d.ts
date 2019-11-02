@@ -1,4 +1,4 @@
-namespace JSX {
+declare namespace JSX {
   interface IntrinsicElements {
     file: {
       name: string;

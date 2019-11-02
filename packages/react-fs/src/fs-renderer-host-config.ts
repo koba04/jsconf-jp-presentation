@@ -10,9 +10,7 @@ import {
 import path from "path";
 import { writeFileSync, existsSync, mkdirSync, renameSync } from "fs";
 
-const HOST_CONTEXT: HostContext = {
-  name: "context"
-};
+const HOST_CONTEXT: HostContext = {};
 
 export const getPublicInstance = (instance: Instance) => instance;
 export const getRootHostContext = (): HostContext => HOST_CONTEXT;

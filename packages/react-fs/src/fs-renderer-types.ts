@@ -25,9 +25,7 @@ export type ChildrenInstace = Instance | TextInstance;
 // react-dom's one is a HTMLElement
 export type PublicInstance = Instance | TextInstance;
 
-export type HostContext = {
-  name: "context";
-};
+export type HostContext = {};
 
 export type Container = {
   rootPath: string;

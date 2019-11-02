@@ -18,6 +18,12 @@
     "lib",
     "types"
   ],
+  "keywords": [
+    "react",
+    "react-reconciler",
+    "react-renderer",
+    "fs"
+  ],
   "engines": {
     "node": ">=12.10"
   },

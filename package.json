@@ -7,7 +7,8 @@
     "lint": "eslint 'packages/**/*.ts{,x}'",
     "start": "yarn workspace slide start",
     "run-ink": "yarn workspace ink-demo start",
-    "demo": "yarn workspace @koba04/react-fs start",
+    "start:fs": "yarn workspace @koba04/react-fs start",
+    "demo": "yarn workspace @koba04/react-fs example",
     "test": "yarn workspace @koba04/react-fs test"
   },
   "dependencies": {

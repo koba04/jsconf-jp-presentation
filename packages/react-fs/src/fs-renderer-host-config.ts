@@ -28,7 +28,6 @@ export const createInstance = (
 ): Instance => ({
   type,
   props,
-  children: [],
   rootContainerInstance
 });
 export const createTextInstance = (
@@ -49,12 +48,7 @@ export const prepareUpdate = () => ({});
 export const shouldSetTextContent = () => false;
 export const shouldDeprioritizeSubtree = () => false;
 
-export const appendChildToContainer = (
-  container: Container,
-  child: Instance | TextInstance
-) => {
-  container.children.push(child);
-};
+export const appendChildToContainer = () => {};
 
 const buildParentDirectoryPath = (
   instance: Instance | TextInstance
@@ -121,7 +115,6 @@ export const appendChild = (
   parentInstance: Instance,
   child: Instance | TextInstance
 ) => {
-  parentInstance.children.push(child);
   child.parent = parentInstance;
 };
 

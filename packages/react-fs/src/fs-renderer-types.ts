@@ -3,34 +3,28 @@ export type Props = {
   [key: string]: any;
 };
 
-// An text instance type for your host environment
 export type TextInstance = {
   text: string;
   parent?: Instance;
   rootContainerInstance: Container;
 };
 
-// An instance type for your host environment
 export type Instance = {
   type: Type;
   props: Props;
-  children: ChildrenInstace[];
   parent?: Instance;
   rootContainerInstance: Container;
 };
 
-export type ChildrenInstace = Instance | TextInstance;
-
-// This type is expose to users
-// react-dom's one is a HTMLElement
-export type PublicInstance = Instance | TextInstance;
-
-export type HostContext = {};
+export type PublicInstance =
+  | Omit<Instance, "rootContainerInstance">
+  | Omit<TextInstance, "rootContainerInstance">;
 
 export type Container = {
   rootPath: string;
-  children: ChildrenInstace[];
 };
+
+export type HostContext = {};
 
 export type HydratableInstance = object;
 export type UpdatePayload = object;

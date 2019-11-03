@@ -134,8 +134,7 @@ describe("ReactFS", () => {
     ReactFS.render(<App />, tempDir);
     expect(ref.current).toEqual({
       type: "file",
-      props: { name: "index.js", children: "const num = 1;" },
-      children: []
+      props: { name: "index.js", children: "const num = 1;" }
     });
   });
 });

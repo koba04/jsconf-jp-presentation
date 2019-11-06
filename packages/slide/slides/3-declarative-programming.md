@@ -97,7 +97,7 @@ The abstraction layer hides an underlying layer that manages how to do it.
 So a compiler can optimize on the underlying layer.
 
 In addition to that, you can define primitives in the declarative layer as domain logic.
-So it makes possible to provide a high level abstraction.
+So it makes it possible to provide a high level abstraction.
 -->
 
 # Why Declarative?
@@ -252,11 +252,11 @@ You can update a state imperatively and you can update a view declaratively.
 - `👀 = View(State)`
     View is just a function.
     React components are basically just idempotent functions.
-    You can think just like a server-rendered app.
+    You can think of those like a server-rendered app.
     You can think as data driven way and treat the state as single source of the truth.
 
 But...
-Do you create an entire view each updates...?
+Do you create an entire view with each update...?
 Do you have to keep track of the scroll position and focus management and so on?
 
 -->

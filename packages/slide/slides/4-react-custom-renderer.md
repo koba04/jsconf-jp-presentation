@@ -285,7 +285,7 @@ The first part is the interfaces you must implement.
 The second part is an optional interfaces related to mutation.
 We have to implement them if we'd like to use a mutation mode.
 
-#1 means that there is a #2...
+Number 1 means that there is a Number 2...
 Yes, they are not all.
 -->
 
@@ -302,7 +302,7 @@ Yes, they are not all.
 ---------------
 
 <!-- note
-Let's move on #2.
+Let's move on Number 2.
 The first part includes optional interfaces related to persistence.
 If you'd like to impelement your custom renderer as persistence mode, you have to implement these interfaces.
 The persistence mode is a mode to treat its instance as immutable.
@@ -349,7 +349,7 @@ You can impelement the interfaces incrementally.
 ----------------------
 
 <!-- note
-They are host configs of renderers I've introduced.
+These are host configs of renderers I've introduced.
 So I recommend referencing the host configs while implementing your custom renderer, which are very useful.
 -->
 
@@ -370,7 +370,7 @@ So I recommend referencing the host configs while implementing your custom rende
 ----------------------
 
 <!-- note
-But the way, what do we implement on the host config?
+By the way, what do we implement on the host config?
 we have to implement side-effects for the host environment and define a public instance and internal instance.
 And we have to define the mode of your renderer and hydration logics if you need it.
 
@@ -518,8 +518,8 @@ export function createTextInstance(
 
 <!-- note
 getPublicInstance is a function to define a public instance of the instance or textInstance.
-If you don't want to expose the instance and textInstance for users,
-you can convert the instance and textInstance to what you want to expose.
+If you don't want to expose these to users,
+you can convert them to what you want to expose.
 
 ReactDOM returns a passed instance without doing anything.
 So you can get a DOM node reference through a `ref` prop.
@@ -540,7 +540,7 @@ export function getPublicInstance(
 ---------------
 
 <!-- note
-They are flags to determine how your custom renderer works.
+These are flags to determine how your custom renderer works.
 You can define whether your host instance is an immutable model or mutation model and whether supporting hydration or not and whether your renderer is running on an other renderer or not.
 -->
 

@@ -306,9 +306,7 @@ Let's move on Number 2.
 The first part includes optional interfaces related to persistence.
 If you'd like to impelement your custom renderer as persistence mode, you have to implement these interfaces.
 The persistence mode is a mode to treat its instance as immutable.
-
 React Native Fabric is a renderer enabling persistence mode.
-I'm going to exaplain about the persistence mode later.
 
 The second part is an optional interfaces related to hydration.
 If you'd like to support hydration on your renderer, you have to implement these interfaces.

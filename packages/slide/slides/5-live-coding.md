@@ -1,5 +1,5 @@
 <!-- note
-At this time, I'll create a tiny custom renderer for a  CLI application.
+At this time, I'll create a tiny custom renderer for a  file system.
 -->
 
 # Live Coding

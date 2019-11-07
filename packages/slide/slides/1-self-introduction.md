@@ -1,9 +1,8 @@
 import { Card } from '@fusuma/client';
 
 <!-- note
-
-My Twitter and GitHub accounts are @koba04, please follow me!
 I work as a frontend developer for Cybozu and I work as a frontend advisor for SmartHR.
+My Twitter and GitHub accounts are @koba04, please follow me!
 
 I'm also one of the organizers of React.js meetup in Tokyo and a contributor of React.
 

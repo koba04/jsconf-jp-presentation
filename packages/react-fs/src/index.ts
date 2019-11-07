@@ -17,8 +17,7 @@ export const ReactFS = {
     if (!rootContainer) {
       rootContainer = {
         container: {
-          rootPath,
-          children: []
+          rootPath
         }
       };
       rootContainerMap.set(rootPath, rootContainer);

@@ -55,11 +55,66 @@ I have some tests to verify that `fs-renderer` works how I expect.
 I create a `fs-render` by passing these tests.
 If I could pass all tests, I can say that `fs-renderer` works fine!
 
+We use `tmpdir` for the `rootPath` of the tests.
+
 # Start Coding
 
-## Passing Static TypeChecking
+OK, Let's start coding!!
 
 ## Create a file
+
+First, let's run `yarn test` to run the unit tests.
+We define `xit` so all tests never run.
+
+So I change the first test from `xit` to `it`.
+The test is `should be able to create a file`.
+
+This is a case to create `test.txt` file using `file` component.
+
+Let's run again.
+
+> yarn test
+
+The test was failed.
+Let's see the host config file.
+
+You can see type errors at `createInstance` and `createTextInstance`.
+Let's fix them at first.
+
+`createIntance` must returns a `Instance`.
+`createTextIntance` must returns a `TextInstance`.
+But currently, both functions returns nothing.
+So I implement this.
+
+> impl...
+I've created a object by passing the argument and returned it.
+So the type errors has gone.
+
+Let's run the test again.
+The test is still failing.
+
+So I imeplement to be able to create a file.
+Let's implement this into `commitMount`.
+Our `finalizeInitialChildren` returns `true` so we can guarantee that the function is always called.
+
+```ts
+  const { rootPath } = instance.rootContainerInstance;
+  if (type === "file") {
+    writeFileSync(path.join(rootPath, newProps.name), newProps.children);
+  }
+```
+
+Let's run test.
+The test is still failed.
+Because we have to create a `rootPath` as a directory.
+
+```ts
+  if (!existsSync(rootPath)) {
+    mkdirSync(rootPath);
+  }
+```
+
+Let's run test again. The test has been passed!
 
 ## Create a directory
 

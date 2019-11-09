@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, MutableRefObject } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ReactFS } from "../index";
 import path from "path";
 import { tmpdir } from "os";

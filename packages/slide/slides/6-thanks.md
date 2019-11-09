@@ -1,5 +1,6 @@
 <!-- note
-Thank you!
+I'll share URLs of this slide and source code after this talk on Twitter with hashtag of JSConfJP!
+Thank you! ありがとうございました.
 -->
 
 # Thank you!!!

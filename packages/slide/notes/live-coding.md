@@ -102,7 +102,6 @@ Our `finalizeInitialChildren` returns `true` so we can guarantee that the functi
   if (type === "file") {
     writeFileSync(path.join(rootPath, newProps.name), newProps.children);
   }
-  instance.props = newProps;
 ```
 
 Let's run test.

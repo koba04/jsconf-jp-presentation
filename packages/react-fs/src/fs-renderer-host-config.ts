@@ -109,6 +109,7 @@ export const commitTextUpdate = (
   if (oldText !== newText) {
     writeFileSync(buildParentDirectoryPath(textInstance), newText);
   }
+  textInstance.text = newText;
 };
 export const removeChild = () => {};
 export const appendChild = (

@@ -37,7 +37,7 @@ ReactFS.render(
 
 ## TypeScript
 
-If you use `@koba04/react-fs` with TypeScript, you have to edit `typeRoots` liek the following.
+If you use `@koba04/react-fs` with TypeScript, you have to edit `typeRoots` like the following.
 
 ```json
     "typeRoots": [

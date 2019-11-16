@@ -9,6 +9,7 @@
     "run-ink": "yarn workspace ink-demo start",
     "start:fs": "yarn workspace @koba04/react-fs start",
     "demo": "yarn workspace @koba04/react-fs example",
+    "voice": "yarn workspace react-voice hello",
     "test": "yarn workspace @koba04/react-fs test"
   },
   "dependencies": {

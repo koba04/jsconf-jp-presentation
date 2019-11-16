@@ -1,12 +1,12 @@
 import { Card } from '@fusuma/client';
 
 <!-- note
-I work as a frontend developer for Cybozu and I work as a frontend advisor for SmartHR.
-My Twitter and GitHub accounts are @koba04, please follow me!
+This is my first conference talk in English!
+I'm a little nervous...
 
-I'm also one of the organizers of React.js meetup in Tokyo and a contributor of React.
+So I'm using a custom renderer to introduce myself.
 
-I've been working with React for 5years.
+(yarn voice)
 -->
 
 <Card
@@ -24,3 +24,28 @@ I've been working with React for 5years.
   }
 />
 
+----------------------
+
+<!-- note
+This is a custom renderer of my introduction.
+After this talk, you can create a custom renderer like this.
+-->
+
+```js
+ReactVoice.render(
+  <>
+    <kyoko>こんにちは</kyoko>
+    <alex>
+        I work as a frontend developer for Cybozu and
+        I work as a frontend advisor for SmartHR.
+    </alex>
+    <alex>My Twitter and GitHub accounts are @koba04, please follow me!</alex>
+    <victoria>
+        I'm also one of the organizers of React.js meetup in Tokyo and
+        a contributor of React.
+    </victoria>
+    <victoria>I've been working with React for 5years.</victoria>
+  </>,
+  {}
+);
+```

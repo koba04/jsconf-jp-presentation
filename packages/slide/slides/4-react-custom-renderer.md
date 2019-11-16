@@ -176,11 +176,10 @@ I recommend watching the video of Sophie's talk at this year's React Conf.
 Before going over React custom renderer, I'd like to introduce the architecture of React.
 -->
 
-# React DOM Lite
+# Building a Custom React DOM Renderer
 
 - https://github.com/jquense/react-dom-lite
-- Building a Custom React Renderer
-    - https://conf.reactjs.org/event.html?sophiebits
+- https://conf.reactjs.org/event.html?sophiebits
 
 ---------------
 
@@ -360,9 +359,9 @@ So I recommend referencing the host configs while implementing your custom rende
     - [packages/react-native-renderer/src/ReactFabricHostConfig.js](https://github.com/facebook/react/blob/master/packages/react-native-renderer/src/ReactFabricHostConfig.js)
 - ReactTestRenderer
     - [packages/react-test-renderer/src/ReactTestHostConfig.js](https://github.com/facebook/react/blob/master/packages/react-test-renderer/src/ReactTestHostConfig.js)
-- ink
+- Ink
     - [vadimdemedes/ink/blob/master/src/reconciler.js](https://github.com/vadimdemedes/ink/blob/master/src/reconciler.js)
-- react-konva)
+- ReactKonva
     - [konvajs/react-konva/blob/master/src/ReactKonvaHostConfig.js](https://github.com/konvajs/react-konva/blob/master/src/ReactKonvaHostConfig.js)
 
 ----------------------

@@ -116,7 +116,7 @@ Let's briefly go back to the Wikipedia definition
 -->
 
 
-# The logic of a computation without describing its control flow
+> The logic of a computation without describing its control flow
 
 ---------------
 
@@ -134,6 +134,12 @@ Let's take an example for the view update when a button is clicked.
 
 You would write a DOM manipulation in the event listener of the click event.
 This is an imperative operation and describes how to update the view, not what the view should be.
+
+This is an imperative operations.
+
+They change the DOM based on the caller DOM objects so the results depends on the caller itself not only the arguments.
+
+appendChild appends the argument into the caller view object.
 -->
 
 # Imperative
@@ -151,25 +157,6 @@ addButton.addEventListener('click', () => {
 ---------------
 
 <!-- note
-These are imperative operations.
-
-They change the DOM based on the caller DOM objects so the results depends on the caller itself not only the arguments.
-
-appendChild appends the argument into the caller view object.
-removeChild removes the argument from the caller view object.
-insertBefore appends the 1st argument before the 2nd argument.
--->
-
-# Imperative
-
-- `view.appendChild(child)`
-- `view.removeChild(child)`
-- `view.insertBefore(child, child2)`
-- ...
-
----------------
-
-<!-- note
 Let's look at declarative version.
 
 This becomes longer than the imperative version.
@@ -182,8 +169,6 @@ But the state update part is now separated from the view.
 -->
 
 # Declarative
-
-Describing what to update the view
 
 ```js
 const view = document.querySelector('.view');
@@ -202,6 +187,8 @@ const render = state => {
     view.innerHTML = state.map(s => `<span>${s}</span>`).join('');
 }
 ```
+
+Describing what to update the view
 
 ---------------
 
@@ -243,17 +230,13 @@ ReactDOM.render(<App />, view);
 
 <!-- note
 You can update a state imperatively and you can update a view declaratively.
+Mutation is only for state, not for views, which means we can write tests for state and view easily.
 
-- easy to test
-    State is a JavaScript object and the view is described declaratively.
-    Mutation is only for state, not for views, which means we can write tests for state and view easily.
-- reuseable
-    Because updating a state and describing a view are loose coupling.
-- `👀 = View(State)`
-    View is just a function.
-    React components are basically just idempotent functions.
-    You can think of those like a server-rendered app.
-    You can think as data driven way and treat the state as single source of the truth.
+Updating a state and describing a view are loose coupling.
+
+View is just a function.
+You can think of those like a server-rendered app.
+You can think as data driven way and treat the state as single source of the truth.
 
 But...
 Do you create an entire view with each update...?
@@ -261,14 +244,7 @@ Do you have to keep track of the scroll position and focus management and so on?
 
 -->
 
-# Benefits
-
-- Easy to test
-    - State is just a JavaScript object
-- Reusable
-    - View is loose coupled from the state
-- 👀 = View(State)
-    - View is just an idempotent function
+# 👀 = View(State)
 
 ----------------------
 
@@ -284,8 +260,6 @@ and applies the diff by p.textContent = 2;
 -->
 
 # React updates views efficiently
-
-- a.k.a. Virtual DOM
 
 ```js
 let count = 1;
@@ -307,6 +281,8 @@ ReactDOM.render(
 )
 // p.textContent = 2; // React updates the DOM
 ```
+
+a.k.a. Virtual DOM
 
 ----------------------
 
@@ -367,7 +343,7 @@ Let's briefly go back to the Wikipedia definition
 "Describing what the program must accomplish in terms of the problem domain"
 -->
 
-# Describing what the program must accomplish in terms of the problem domain
+> Describing what the program must accomplish in terms of the problem domain
 
 ----------------------
 

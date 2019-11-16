@@ -87,7 +87,7 @@ But currently, both functions returns nothing.
 So I implement this.
 
 > impl...
-I've created a object by passing the argument and returned it.
+I've created an object by passing the argument and returned it.
 So the type errors has gone.
 
 Let's run the test again.

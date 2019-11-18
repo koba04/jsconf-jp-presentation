@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "hello": "ts-node scripts/hello.tsx",
-    "increment": "ts-node scripts/increment.tsx"
+    "fizzbuzz": "ts-node scripts/fizzbuzz.tsx"
   },
   "dependencies": {
     "react": "^16.11.0",

@@ -10,19 +10,12 @@ Before explaining Custom Renderer, I'd like to introduce existing renderers.
 I guess that you already know `react-native`, `react-test-renderer`.
 There are more renderers for various environments.
 
-So I'd like to introduce these renderers briefly.
+So I'd like to introduce those renderers briefly.
 -->
 
 # Renderers
 
-- `react-native` ... Native Apps
-- `react-test-renderer` ... For testing components
-- `ink` ... CLI Output
-- `react-konva` ... Canvas
-- `react-three-fiber` ... Threejs
-- `react-ast` ... AST
-
-and so on...
+<img src="../images/renderers.png" />
 
 ----------------------
 
@@ -87,10 +80,17 @@ React Konva provides primitive components like Stage, Layer, Text and so on.
 
 ```js
 ReactKonva.render(
-    <Stage width={100} height={100}>
-        <Layer>
-            <Text text="Hello world!" />
-        </Layer>
+    <Stage width={300} height={300}>
+      <Layer>
+        <Text text="Hello, world!" fontSize={30} />
+        <Star
+          x={50}
+          y={70}
+          innerRadius={20}
+          outerRadius={40}
+          fill="tomato"
+        />
+      </Layer>
     </Stage>,
     el
 );
@@ -165,9 +165,9 @@ console.log(ast);
 
 ---------------
 <!-- note
-Custom renderer is useful even on browser environments.
+Custom renderer is useful even on a DOM environment.
 If you feel that the size of React DOM is so big.
-You can create an alternative lightweight React DOM implementation as a custom renderer.
+You can create a lightweight React DOM implementation as a custom renderer.
 
 ReactDOMLite is an example of these.
 If you are interested in creating a custom renderer for DOM.
@@ -191,12 +191,13 @@ Component is a layer to define components.
 Host components are provided by a renderer.
 ReactDOM provides DOM components as host components.
 these components start with a lower case.
+These are what custom renderer processes.
 
 Custom components are built by application developers.
 These are what you create for your applications.
 
 Reconciler is a layer of React core.
-It schedules updates and calls functions in host config.
+It manages updates and calls functions of a host config.
 It makes possible many features like Hooks, Suspense, and Concurrent Mode.
 
 Finally, Renderer is a layer for an implementation depending on a host environment.
@@ -312,7 +313,7 @@ If you'd like to support hydration on your renderer, you have to implement these
 ReactDOM.hydrate is implemented by these functions.
 
 I won't talk about Persistence and Hydration mode in this talk.
-So if you are interested in them, please see the host configs of ReactNativeFabrice and ReactDOM.
+So if you are interested in them, please see the host configs of ReactNativeFabric and ReactDOM.
 
 These interfaces are from @types/react-reconciler
 -->
@@ -431,6 +432,7 @@ First, we remove the child variable from the parentInstance variable that is a p
 Second, we insert the child variable before the beforeChild variable.
 
 This is an example that I've implemented the operations as JavaScript.
+when implmenting a custom renderer, writing imperative operations is your job.
 -->
 
 # insertBefore
@@ -457,10 +459,11 @@ export function insertBefore(
 <!-- note
 You can implement these functions as well as insertBefore.
 You can imagine the implementation of many functions from the name.
-But commitMount is not.
+But there is a caveat for commitMount.
+
 commitMount is only called when finalizeInitialChildren returns true.
 ReactDOM uses the function to implement autoFocus attribute.
-finalizeInitialChildren returns true if the tag is button, input, select, or textarea and autoFucos prop is true.
+On ReactDOM, finalizeInitialChildren returns true if the tag is button, input, select, or textarea and autoFucos prop is true.
 -->
 
 # Others
@@ -481,11 +484,11 @@ Let's move on to the defining instance.
 ---------------
 
 <!-- note
-createInstance and createTextInstance are important, which return an instance that we use in functions of the host config.
-You can define an interface of the instance as you want.
+createInstance and createTextInstance are important, which return an instance that we use in the host config.
+You can return an instance as you want.
 
 ReactDOM uses DOM APIs like createElement and createTextNode for these functions.
-So ReactDOM renturns a DOM node from the functions.
+So ReactDOM returns a DOM node from the functions.
 -->
 
 # createInstance, createTextInstance
@@ -514,9 +517,9 @@ export function createTextInstance(
 ---------------
 
 <!-- note
-getPublicInstance is a function to define a public instance of the instance or textInstance.
-If you don't want to expose these to users,
-you can convert them to what you want to expose.
+getPublicInstance is a function to define a public instance, which receives an instance or text instance and returns a public instance.
+
+you can convert an instance or text instance to what you want to expose.
 
 ReactDOM returns a passed instance without doing anything.
 So you can get a DOM node reference through a `ref` prop.

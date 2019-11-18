@@ -21,7 +21,7 @@ You can see type definition for `Type`, `Props`, `Instance`, `PublicInstance`, `
 ## fs-renderer.ts
 
 `fs-renderer.ts` creates a renderer from a host config object.
-I'm passing the host config and type definition for this renderer to create the `fs-renderer`.
+I'm passing the host config and type definition to create the `fs-renderer`.
 
 ## index.ts
 
@@ -29,19 +29,19 @@ I'm passing the host config and type definition for this renderer to create the 
 This exports ReactFS object having render function.
 You can think of this like `ReactDOM.render`.
 
-`render` function recives a ReactElement and `rootPath`.
-`rootPath` is a root path that ReactFS uses.
+`render` function receives a ReactElement and `rootPath`.
+`rootPath` is a root path of a working directory.
 
 Custom renderer needs to create a container by `createContainer`.
 `createContainer` returns a `fiberRoot` object, which is used in React internal.
-When calling `createContainer`, we have to path a container info as the 1st argument.
+When calling `createContainer`, we have to pass a container info as the 1st argument.
 
-We can use the container info from the host config APIs, in this time, we store `rootPath` to refer it from the host config.
+We can use the container info from the host config APIs, in this time, we store `rootPath` to refer it later.
 
-Before processing the ReactElement, we remove the rootPath to clean up, which is a very dangerous operation so be careful.
+Before processing the ReactElement, we remove the all files under the rootPath to clean up, which is a very dangerous operation so be careful to use this renderer.
 I'll make the implementation more safety.
 
-`createContainer` doesn't render anything. `updateContainer` is the one for this.
+`createContainer` doesn't render anything. `updateContainer` is the one.
 `updateContainer` processes the passed ReactElement.
 If we pass a same `fiberRoot` to `updateContainer`, this is treated as an update.
 So I store `rootContainer` into a Map object, of which key is a `rootPath`.
@@ -52,7 +52,6 @@ Finally, we can use `fs-renderer`!
 ## index.test.tsx
 
 I have some tests to verify that `fs-renderer` works how I expect.
-I create a `fs-render` by passing these tests.
 If I could pass all tests, I can say that `fs-renderer` works fine!
 
 We use `tmpdir` for the `rootPath` of the tests.
@@ -69,11 +68,11 @@ We define `xit` so all tests never run.
 So I change the first test from `xit` to `it`.
 The test is `should be able to create a file`.
 
-This is a case to create `test.txt` file using `file` component.
+This is a case to create a file using `file` component.
 
-Let's run again.
+Let's run again with `watch` option.
 
-> yarn test
+> yarn test --watch
 
 The test was failed.
 Let's see the host config file.
@@ -87,11 +86,11 @@ But currently, both functions returns nothing.
 So I implement this.
 
 > impl...
+
 I've created an object by passing the argument and returned it.
 So the type errors has gone.
 
-Let's run the test again.
-The test is still failing.
+But the test is still failing.
 
 So I imeplement to be able to create a file.
 Let's implement this into `commitMount`.
@@ -104,9 +103,8 @@ Our `finalizeInitialChildren` returns `true` so we can guarantee that the functi
   }
 ```
 
-Let's run test.
 The test is still failed.
-Because we have to create a `rootPath` as a directory.
+Because we have to create a `rootPath` directory before creating a file.
 
 ```ts
   if (!existsSync(rootPath)) {
@@ -114,16 +112,16 @@ Because we have to create a `rootPath` as a directory.
   }
 ```
 
-Let's run test again. The test has been passed!
+The first test has been passed!
 
 ## Create a directory
 
 Let's move on to the next test.
 The next test is "should be able to create a directory".
-Let's run the test. the test is failed.
+
+the test is failed.
 
 In order to pass the test, I'm going to write logic for `directory` component.
-
 At first, I extract a code to get a target file as `targetPath`.
 
 ```ts
@@ -145,12 +143,12 @@ OK, the test is passed!
 Let's move on to the next test.
 The next test is "should be able to create a file into a directory".
 
-First, let's run the test.
 The test is failed.
-Because `commitMount` is called from `child` to `parent`.
-So when `commitMount` for `test.txt` is called, the parent's `foo` directory isn't created yet.
 
-So I have to create a directory if the parent directory doesn't  exist.
+Because `commitMount` is called from `child` to `parent`.
+So when `commitMount` for a file is called, the parent directory hasn't been created yet.
+
+So I have to create a directory if the parent directory doesn't exist.
 But I don't have a way to know the parent directory.
 So let's add a `parent` property into `Instance` and `TextInstannce`.
 
@@ -195,6 +193,7 @@ const buildParentPath = (instance: Instance | TextInstance): string => {
 
 OK, let's replace the `rootPath` with `buildParentPath` function.
 The test is still failed.
+
 Because `mkdirSync` doesn't create a directory recursively.
 So I add `recursive` option for that.
 
@@ -228,22 +227,13 @@ export const commitMount = (
 The test is passed!
 OK, let's move on to the next test!
 
-## Create a file into a nested directory
-
-The test is "should be able to create a file into a nested directory".
-
-OK, the test is already passed.
-
-## Create multiple fles into a directory
-
-The next test is "should be able to create multiple fles into a directory".
-
-The test is also passed!
+The next 2 tests are already passed.
+So I skip the tests.
 
 ## Update a content of a file
 
 The next test is "should be able to update a content of a file".
-I update the text content using Hooks APIs.
+I update the text content using Hooks APIs in the test.
 
 The test is failed.
 
@@ -270,7 +260,7 @@ The test is failed.
 Because this is an operation for updating, not mounting.
 So let's implement `commitUpdate`.
 
-`react-fs` only uses `name` prop, so it updates if the `name` prop has been changed.
+`react-fs` only uses `name` prop, so we process the update if the `name` prop has been changed.
 Changing `name` prop means that the file name should be changed.
 So I implement to rename the file name using `renameSync`.
 
@@ -325,7 +315,7 @@ export const getPublicInstance = (instance: Instance) => {
 };
 ```
 
-Now all has been passed!
+Now all tests have been passed!
 Of course there are some cases I haven't implemented yet.
 But just works!
 

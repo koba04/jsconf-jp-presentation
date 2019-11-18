@@ -4,3 +4,6 @@ Thank you! ありがとうございました.
 -->
 
 # Thank you!!!
+
+- speakerdeck.com/koba04/
+- github.com/koba04/jsconf-jp-presentation

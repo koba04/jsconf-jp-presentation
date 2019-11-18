@@ -135,7 +135,7 @@ Let's take an example for the view update when a button is clicked.
 You would write a DOM manipulation in the event listener of the click event.
 This is an imperative operation and describes how to update the view, not what the view should be.
 
-This is an imperative operations.
+This is an imperative operation.
 
 They change the DOM based on the caller DOM objects so the results depends on the caller itself not only the arguments.
 
@@ -250,7 +250,7 @@ Do you have to keep track of the scroll position and focus management and so on?
 
 <!-- note
 No, React updates views efficiently.
-The feature is called Virtual DOM, which calculates the diffs and then applies the diffs.
+The feature is called Virtual DOM, which calculates the diffs and then applies the diffs to the view.
 So the scroll position and the focus status aren't lost.
 
 Please take a look at the slide,
@@ -288,7 +288,7 @@ a.k.a. Virtual DOM
 
 <!-- note
 Let's take another example.
-This changes the order in the list, updating item b from second to first.
+This changes the order of the item b from second to first.
 
 React determines the change by the key props.
 React moves the item b before item a by insertBefore function.
@@ -329,7 +329,10 @@ React interprets the diffs to transform them to imperative operations
 So we are able to write components declaratively without caring about actual imperative operations.
 
 As the result, we don't have to write how to chage the view.
-We can focus on what the view should be
+We can focus on what the view should be.
+
+In other words, if you want to create a custom renderer,
+you have to implement imperative operations.
 -->
 
 # ReactDOM Renderer
@@ -354,7 +357,7 @@ It's a React Element.
 React creates an abstraction layer using React Element on top of the DOM.
 
 But the level might be too low as primitivies for your application.
-You can build your abstraction layer on the layer that React creates.
+You can build your abstraction layer on the ReactDOM layer.
 It makes your applications clean and keeps consistency.
 -->
 

@@ -39,4 +39,4 @@ const App = () => {
   );
 };
 
-ReactFS.render(<App />, "./hoge");
+ReactFS.render(<App />, "./demo");

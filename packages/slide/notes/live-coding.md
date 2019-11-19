@@ -39,7 +39,7 @@ When calling `createContainer`, we have to pass a container info as the 1st argu
 We can use the container info from the host config APIs, in this time, we store `rootPath` to refer it later.
 
 Before processing the ReactElement, we remove the all files under the rootPath to clean up, which is a very dangerous operation so be careful to use this renderer.
-I'll make the implementation more safety.
+I'll make the implementation more safe.
 
 `createContainer` doesn't render anything. `updateContainer` is the one.
 `updateContainer` processes the passed ReactElement.

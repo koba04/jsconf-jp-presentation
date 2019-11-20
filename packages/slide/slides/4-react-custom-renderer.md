@@ -25,9 +25,6 @@ Of course, This is implemented as a custom renderer.
 
 React Native has a project for a new architecture called Fabric,
 which uses Persistence mode that custom renderer supports.
-I'm going to talk about Persistence mode later.
-
-React Native provides primitive components like View, Text, Image and so on.
 -->
 
 # ReactNative
@@ -51,8 +48,6 @@ React Native provides primitive components like View, Text, Image and so on.
 <!-- note
 Ink is a custom renderer for CLI output.
 This makes it easy to create interactive command line applications.
-
-Ink provides primitive components like Box, Text, Static, and so on.
 -->
 
 # Ink
@@ -73,7 +68,6 @@ render(
 <!-- note
 React Konva is a custom renderer for Canvas.
 This makes it possible to draw canvas graphics declaratively.
-React Konva provides primitive components like Stage, Layer, Text and so on.
 -->
 
 # ReactKonva
@@ -101,8 +95,6 @@ ReactKonva.render(
 <!-- note
 React Three Fiber is a custom renderer for Three.js.
 This makes it possible to draw 3D graphics declaratively.
-
-React Three Fiber provides primitive components like mesh, boxBufferGeometry, meshNormalMaterial, and so on.
 -->
 
 # ReactThreeFiber
@@ -135,7 +127,6 @@ React AST is a custom renderer for AST. What??
 You can define an abstract syntax tree declaratively as JSX.
 This can generate source code and an AST object from JSX.
 
-This provides primitives components like ClassDeclaration, FunctionDeclaration, CallExpression, and so on.
 I'm not sure whether it's useful or not.
 But It's fun!
 -->
@@ -167,9 +158,8 @@ console.log(ast);
 <!-- note
 Custom renderer is useful even on a DOM environment.
 If you feel that the size of React DOM is so big.
-You can create a lightweight React DOM implementation as a custom renderer.
+You can create a lightweight React DOM implementation as a custom renderer like ReactDOMLite.
 
-ReactDOMLite is an example of these.
 If you are interested in creating a custom renderer for DOM.
 I recommend watching the video of Sophie's talk at this year's React Conf.
 

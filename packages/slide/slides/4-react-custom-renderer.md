@@ -246,6 +246,10 @@ And then, we can create a renderer by passing a host config to the reconciler.
 After creating a renderer, we create a container for the renderer at the first rendering.
 After that, we update the container in order to render the passed element.
 
+`createContainer` doesn't render anything. `updateContainer` is the one.
+`updateContainer` processes the passed ReactElement.
+If we pass a same `fiberRoot` to `updateContainer`, this is treated as an update.
+
 Next, let's see the host config interface.
 -->
 

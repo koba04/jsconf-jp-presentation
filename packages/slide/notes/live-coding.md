@@ -152,12 +152,11 @@ export const appendInitialChild = (
 OK, let's create a path for parent directory instead of `rootPath`.
 
 In order to this, I create a `buildParentPath` function.
-This function accepts an instance or textInstance and returns a string that is the parent path.
+This function accepts an instance or textInstance and returns the parent directory path.
 
 First, I create an array to store directory names.
-And then I add a rootPath into the array.
-Finally, I return a path of the parent directory.
-But I process instances from child to parent so I have to reverse the order to build the path.
+And then I return a path of the parent directory.
+But I process instances from child to parent so I have to reverse the order of the directories.
 
 ```ts
 const buildParentPath = (instance: Instance | TextInstance): string => {

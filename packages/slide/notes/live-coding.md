@@ -15,7 +15,6 @@ Before coding, let's take a look the project structure.
 ## fs-renderer-types.ts
 
 `fs-renderer-types.ts` is a file to define type definition of `fs-renderer`.
-This is a minimum set of definition.
 You can see type definition for `Type`, `Props`, `Instance`, `PublicInstance`, `Container`, and so on.
 
 ## fs-renderer.ts
@@ -27,22 +26,22 @@ I'm passing the host config and type definition to create the `fs-renderer`.
 
 `index.ts` is the entry point of `react-fs`.
 This exports ReactFS object having render function.
-You can think of this like `ReactDOM.render`.
+You can think of this like `ReactDOM` object.
 
 `render` function receives a ReactElement and `rootPath`.
 `rootPath` is a root path of a working directory.
 
-Custom renderer needs to create a container by `createContainer`.
-We can use the container info from the host config APIs, so we store `rootPath` to refer it later.
+Custom renderer needs to pass a container to `createContainer`.
+We can use the container info in the host config functions, so we store `rootPath`.
 
-Before processing the ReactElement, we remove the all files under the rootPath to clean up, which is a very dangerous operation so be careful to use this renderer.
+Before rendering the ReactElement, we remove the all files under the rootPath to clean up, which is a very dangerous operation so be careful to use this renderer.
 I'll make the implementation more safe.
 
 Finally, we can use `fs-renderer`!
 
 ## index.test.tsx
 
-I have some tests to verify that `fs-renderer` works how I expect.
+I have some tests for `fs-renderer`.
 If I could pass all tests, I can say that `fs-renderer` works fine!
 
 We use `tmpdir` for the `rootPath` of the tests.
@@ -71,12 +70,10 @@ Let's see the host config file.
 You can see type errors at `createInstance` and `createTextInstance`.
 Let's fix them at first.
 
+> impl...
+
 `createIntance` must returns a `Instance`.
 `createTextIntance` must returns a `TextInstance`.
-But currently, both functions returns nothing.
-So I implement this.
-
-> impl...
 
 OK, type errors has gone.
 
@@ -88,8 +85,9 @@ Our `finalizeInitialChildren` returns `true` so `commitMount` is always called.
 
 ```ts
   const { rootPath } = instance.rootContainerInstance;
+  const targetPath = path.join(rootPath, newProps.name);
   if (type === "file") {
-    writeFileSync(path.join(rootPath, newProps.name), newProps.children);
+    writeFileSync(targetPath, newProps.children);
   }
 ```
 
@@ -110,13 +108,7 @@ Let's move on to the next test.
 The next test is "should be able to create a directory".
 
 In order to pass the test, I have to add implementation for `directory` component.
-First, I create `targetPath` to store the target file path.
-
-```ts
-  const targetPath = path.join(rootPath, newProps.name);
-```
-
-And then, I create a directory if the type is `directory`.
+So I create a directory if the type is `directory`.
 
 ```ts
   } else if (type === "directory") {
@@ -156,7 +148,7 @@ This function accepts an instance or textInstance and returns the parent directo
 
 First, I create an array to store directory names.
 And then I return a path of the parent directory.
-But I process instances from child to parent so I have to reverse the order of the directories.
+But I process instances from child to parent so I have to reverse the order of the directory names.
 
 ```ts
 const buildParentPath = (instance: Instance | TextInstance): string => {
@@ -176,7 +168,6 @@ The test is still failed.
 Because `mkdirSync` doesn't create a directory recursively.
 So I add `recursive` option for that.
 
-The test is still failed.
 Because this `mkdirSync` try to create a directory that is already there.
 So I check whether the directory already exists or not.
 
@@ -253,8 +244,8 @@ Let's move on the next test.
 ## Add a new file
 
 The next test is "should be able to add a new file".
-This is a simillar case with the first case.
-I've implemented `appendInitialChildren` for The first one.
+This is a simillar case with a previous case.
+I've implemented `appendInitialChildren` for the case.
 But this is not in a mounting phase.
 So I have to the same logic in `appendChild`.
 

@@ -160,13 +160,13 @@ But I process instances from child to parent so I have to reverse the order of t
 
 ```ts
 const buildParentPath = (instance: Instance | TextInstance): string => {
-  const paths = [];
+  const names = [];
   let current = instance.parent;
   while (current) {
-    paths.push(current.props.name);
+    names.push(current.props.name);
     current = current.parent;
   }
-  return path.join(instance.rootContainerInstance.rootPath, ...path.reverse());
+  return path.join(instance.rootContainerInstance.rootPath, ...names.reverse());
 };
 ```
 

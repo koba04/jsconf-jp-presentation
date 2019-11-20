@@ -29,12 +29,9 @@ This exports ReactFS object having render function.
 You can think of this like `ReactDOM` object.
 
 `render` function receives a ReactElement and `rootPath`.
-`rootPath` is a root path of a working directory.
+We'd like to use `rootPath` in the host config, so we store it in the container info.
 
-Custom renderer needs to pass a container to `createContainer`.
-We can use the container info in the host config functions, so we store `rootPath`.
-
-Before rendering the ReactElement, we remove the all files under the rootPath to clean up, which is a very dangerous operation so be careful to use this renderer.
+Before rendering, we remove the all files under the rootPath, which is a very dangerous operation so be careful to use this renderer.
 I'll make the implementation more safe.
 
 Finally, we can use `fs-renderer`!
@@ -42,7 +39,7 @@ Finally, we can use `fs-renderer`!
 ## index.test.tsx
 
 I have some tests for `fs-renderer`.
-If I could pass all tests, I can say that `fs-renderer` works fine!
+If all tests are passed, I can say that `fs-renderer` works fine!
 
 We use `tmpdir` for the `rootPath` of the tests.
 
@@ -57,8 +54,6 @@ We define `xit` so all tests never run.
 
 So I change the first test from `xit` to `it`.
 The test is `should be able to create a file`.
-
-This is a case to create a file using `file` component.
 
 Let's run again with `watch` option.
 
@@ -107,8 +102,8 @@ The first test has been passed!
 Let's move on to the next test.
 The next test is "should be able to create a directory".
 
-In order to pass the test, I have to add implementation for `directory` component.
-So I create a directory if the type is `directory`.
+To pass the test, I have to add implementation for `directory` component.
+I create a directory if the type is `directory`.
 
 ```ts
   } else if (type === "directory") {
@@ -123,11 +118,11 @@ OK, the test is passed!
 Let's move on to the next test.
 The next test is "should be able to create a file into a directory".
 
-Because `commitMount` is called from `child` to `parent`.
+`commitMount` is called from `child` to `parent`.
 So when `commitMount` for a file is called, the parent directory hasn't been created yet.
 
 So I have to create a directory if the parent directory doesn't exist.
-But I don't have a way to know the parent directory.
+But I don't have a way to know the parent directory path.
 So let's add a `parent` property into `Instance` and `TextInstannce`.
 
 The type definition is already defined so I add the parent property at `appendInitialChild`.
@@ -148,7 +143,7 @@ This function accepts an instance or textInstance and returns the parent directo
 
 First, I create an array to store directory names.
 And then I return a path of the parent directory.
-But I process instances from child to parent so I have to reverse the order of the directory names.
+But React processes instances from child to parent so I have to reverse the order of the directory names.
 
 ```ts
 const buildParentPath = (instance: Instance | TextInstance): string => {

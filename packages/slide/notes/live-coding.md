@@ -14,13 +14,11 @@ Before coding, let's take a look the project structure.
 
 ## fs-renderer-types.ts
 
-`fs-renderer-types.ts` is a file to define type definition of `fs-renderer`.
-You can see type definition for `Type`, `Props`, `Instance`, `PublicInstance`, `Container`, and so on.
+`fs-renderer-types.ts` defines type definition.
 
 ## fs-renderer.ts
 
-`fs-renderer.ts` creates a renderer from a host config object.
-I'm passing the host config and type definition to create the `fs-renderer`.
+`fs-renderer.ts` creates a renderer from a host config object and type definition.
 
 ## index.ts
 
@@ -121,11 +119,10 @@ The next test is "should be able to create a file into a directory".
 `commitMount` is called from `child` to `parent`.
 So when `commitMount` for a file is called, the parent directory hasn't been created yet.
 
-So I have to create a directory if the parent directory doesn't exist.
+So I have to create a directory before processing the file.
 But I don't have a way to know the parent directory path.
 So let's add a `parent` property into `Instance` and `TextInstannce`.
-
-The type definition is already defined so I add the parent property at `appendInitialChild`.
+I add the parent property at `appendInitialChild`.
 
 ```ts
 export const appendInitialChild = (
@@ -141,9 +138,8 @@ OK, let's create a path for parent directory instead of `rootPath`.
 In order to this, I create a `buildParentPath` function.
 This function accepts an instance or textInstance and returns the parent directory path.
 
-First, I create an array to store directory names.
-And then I return a path of the parent directory.
-But React processes instances from child to parent so I have to reverse the order of the directory names.
+Let's implement this.
+I have to reverse the order of the directory names.
 
 ```ts
 const buildParentPath = (instance: Instance | TextInstance): string => {
@@ -162,9 +158,8 @@ OK, let's replace the `rootPath` with `buildParentPath` function.
 The test is still failed.
 Because `mkdirSync` doesn't create a directory recursively.
 So I add `recursive` option for that.
-
-Because this `mkdirSync` try to create a directory that is already there.
-So I check whether the directory already exists or not.
+And `mkdirSync` for a directory component try to create a directory even if this is already there.
+So I check whether existing the target directory or not.
 
 ```ts
 export const commitMount = (

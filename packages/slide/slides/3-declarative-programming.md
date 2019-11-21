@@ -130,15 +130,13 @@ As you may know, DOM manipulation is based on imperative operations.
 ---------------
 
 <!-- note
-Let's take an example for the view update when a button is clicked.
-
+Let's take an example.
 You would write a DOM manipulation in the event listener of the click event.
 This is an imperative operation and describes how to update the view, not what the view should be.
 
 This is an imperative operation.
 
 They change the DOM based on the caller DOM objects so the results depends on the caller itself not only the arguments.
-
 appendChild appends the argument into the caller view object.
 -->
 
@@ -327,6 +325,7 @@ React DOM calculates the diffs for an update by comparing components between pre
 React interprets the diffs to transform them to imperative operations
 
 So we are able to write components declaratively without caring about actual imperative operations.
+React does it for you.
 
 As the result, we don't have to write how to chage the view.
 We can focus on what the view should be.
@@ -352,12 +351,12 @@ Let's briefly go back to the Wikipedia definition
 
 <!-- note
 As I've explained, React processes imperative DOM operations for you.
-Even though we write div tag as JSX, it's not a div tag of DOM.
+Even though we write a div as JSX, it's not a div of DOM.
 It's a React Element.
 React creates an abstraction layer using React Element on top of the DOM.
 
-But the level might be too low as primitivies for your application.
-You can build your abstraction layer on the ReactDOM layer.
+But the abstraction level might be too low as primitivies for your application.
+You can build your abstraction layer on top of the ReactDOM.
 It makes your applications clean and keeps consistency.
 -->
 
@@ -434,8 +433,6 @@ Sebastian Markbåge / React Europe 2015
 <!-- note
 I've talked about React on the DOM environment.
 But React is not only for DOM.
-
-Of course, ReactNative is not for DOM.
 So next, I'm going to talk about React for other environments and how to create a custom renderer!
 -->
 

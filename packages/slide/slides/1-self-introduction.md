@@ -27,7 +27,7 @@ So I'm using a custom renderer to introduce myself.
 ----------------------
 
 <!-- note
-This is a custom renderer of my introduction.
+This is the actual code of the demo using a custom renderer that I've created.
 After this talk, you can create a custom renderer like this.
 -->
 

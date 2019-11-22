@@ -370,28 +370,3 @@ I recommend watching the video.
 </Card>
 
 Sebastian Markbåge / React Europe 2015
-
-----------------------
-
-<!-- note
-I've talked about React on the DOM environment.
-But React is not only for DOM.
-So next, I'm going to talk about React for other environments and how to create a custom renderer!
--->
-
-# React is not only for DOM
-
-```js
-YourRenderer.render(
-    <Hello>
-        <jsconf country="japan">
-            <talk
-                title="Make it Declative with React"
-                speaker="koba04"
-            >
-                Let's create a your custom renderer!!!
-            </talk>
-        </jsconf>
-    </Hello>
-)
-```

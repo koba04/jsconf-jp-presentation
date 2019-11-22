@@ -10,14 +10,8 @@ Let's start!
 
 # Describe the project structure
 
-Before coding, let's take a look the project structure.
-
-## fs-renderer-types.ts
-
+Before coding, let's take a look the related files.
 `fs-renderer-types.ts` defines type definition.
-
-## fs-renderer.ts
-
 `fs-renderer.ts` creates a renderer from a host config object and type definition.
 
 ## index.ts
@@ -39,8 +33,6 @@ Finally, we can use `fs-renderer`!
 I have some tests for `fs-renderer`.
 If all tests have been passed, I can say that `fs-renderer` works fine!
 
-We use `tmpdir` for the `rootPath` of the tests.
-
 # Start Coding
 
 OK, Let's start coding!!
@@ -48,7 +40,7 @@ OK, Let's start coding!!
 ## Create a file
 
 First, let's run `yarn test --watch` to run the unit tests.
-We define `xit` so all tests never run.
+We now skip all tests.
 
 Let's test the first case, which is `should be able to create a file`.
 
@@ -67,19 +59,19 @@ Let's implement this into `commitMount`.
 Our `finalizeInitialChildren` returns `true` so `commitMount` is always called.
 
 ```ts
-  const { rootPath } = instance.rootContainerInstance;
-  const targetPath = path.join(rootPath, newProps.name);
+  const parentPath = instance.rootContainerInstance.rootPath;
+  const targetPath = path.join(parentPath, newProps.name);
   if (type === "file") {
     writeFileSync(targetPath, newProps.children);
   }
 ```
 
 The test is still failed.
-Because we have to create a `rootPath` directory before creating a file.
+Because we have to create a `parentPath` directory before creating a file.
 
 ```ts
-  if (!existsSync(rootPath)) {
-    mkdirSync(rootPath);
+  if (!existsSync(parentPath)) {
+    mkdirSync(parentPath);
   }
 ```
 
@@ -128,8 +120,8 @@ Because `mkdirSync` doesn't create a directory recursively.
 So I add `recursive` option for that.
 
 But the test is still failed.
-`mkdirSync` for a directory component try to create a directory even if this is already there.
-So I check whether existing the target directory or not.
+`mkdirSync` can't create a directory if it's already there.
+So I check whether existing the directory or not.
 
 ```ts
 const buildParentPath = (instance: Instance | TextInstance): string => {

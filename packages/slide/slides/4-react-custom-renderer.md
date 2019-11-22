@@ -1,5 +1,6 @@
 <!-- note
-Before explaining Custom Renderer, I'd like to introduce existing renderers.
+React is not only for DOM.
+So I'm going to describe how to create a custom renderer!
 -->
 
 # React Custom Renderer
@@ -7,8 +8,10 @@ Before explaining Custom Renderer, I'd like to introduce existing renderers.
 ----------------------
 
 <!-- note
+Before explaining Custom Renderer, I'd like to introduce existing renderers.
+
 I guess that you already know `react-native`, `react-test-renderer`.
-There are more renderers for various environments.
+There are other renderers for various environments.
 
 So I'd like to introduce those renderers briefly.
 -->
@@ -153,7 +156,7 @@ console.log(ast);
 
 ---------------
 <!-- note
-Custom renderer is useful even on a DOM environment.
+Custom renderer is useful even for DOM environment.
 If you feel that the size of React DOM is so big.
 You can create a lightweight React DOM implementation as a custom renderer like ReactDOMLite.
 
@@ -179,9 +182,7 @@ Host components are provided by a renderer.
 ReactDOM provides DOM components as host components.
 these components start with a lower case.
 These are processed by a renderer.
-
 Custom components are built by application developers.
-These are what you create for your applications.
 
 Reconciler is a layer of React core.
 It manages updates and calls functions of a host config.
@@ -229,7 +230,7 @@ And then, we update the container to render the passed element.
 
 `createContainer` doesn't render anything. `updateContainer` is the one.
 `updateContainer` processes the passed ReactElement.
-If we pass a same `fiberRoot` to `updateContainer`, this is treated as an update.
+If we pass the same `fiberRoot` to `updateContainer`, this is processed as an update.
 
 Next, let's see the host config interface.
 -->
@@ -291,7 +292,7 @@ Let's move on Number 2.
 The first part includes an optional interface for persistence mode.
 If you'd like to impelement your custom renderer as persistence mode, you have to implement this interface.
 The persistence mode is a mode to treat its instance as immutable.
-React Native has a project for a new architecture called Fabric, which uses Persistence mode.
+React Native is working on a new architecture called Fabric, which uses Persistence mode.
 
 The second part is an optional interface for hydration.
 If you'd like to support hydration on your renderer, you have to implement this interface.
@@ -319,7 +320,7 @@ So if you are interested in them, you can see the host configs of ReactNativeFab
 <!-- note
 Does it seems to be too complecated?
 I see...
-But you don't have to impelement all interfaces!!
+But you don't have to impelement all functions!!
 Many functions might be ok as empty functions.
 
 You can impelement the functions incrementally.
@@ -331,7 +332,7 @@ You can impelement the functions incrementally.
 
 <!-- note
 These are host configs of renderers I've introduced.
-So I recommend referencing the host configs while implementing a custom renderer, which are very useful.
+So I recommend checking them when implementing a custom renderer.
 -->
 
 # HostConfig of renderers
@@ -351,9 +352,8 @@ So I recommend referencing the host configs while implementing a custom renderer
 ----------------------
 
 <!-- note
-By the way, what do we implement on the host config?
-we have to implement side-effects for the host environment and define instances.
-And we have to define the mode of your renderer and hydration implementation if you need it.
+What do we implement on the host config?
+Side-effects, Defining instances and mode, Hydration logic if you need it.
 
 Let's go over them.
 -->
@@ -368,7 +368,7 @@ Let's go over them.
 ---------------
 
 <!-- note
-The APIs for side effects are very similar with DOM APIs
+The APIs for side effects are very similar with DOM APIs.
 So if you are faimilar with DOM APIs, you can understand them easily.
 -->
 
@@ -376,7 +376,7 @@ So if you are faimilar with DOM APIs, you can understand them easily.
 
 ---------------
 <!-- note
-Before describing the APIs, let's take a look at a previous example.
+Before describing host config, let's take a look at a previous example.
 ReactDOM processes this change as an insertBefore function.
 
 What if we implement the function as a custom renderer?

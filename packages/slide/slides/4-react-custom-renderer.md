@@ -22,9 +22,6 @@ So I'd like to introduce those renderers briefly.
 <!-- note
 React Native is a renderer for Native Apps like iOS and Android.
 Of course, This is implemented as a custom renderer.
-
-React Native has a project for a new architecture called Fabric,
-which uses Persistence mode that custom renderer supports.
 -->
 
 # ReactNative
@@ -181,7 +178,7 @@ Component is a layer to define components.
 Host components are provided by a renderer.
 ReactDOM provides DOM components as host components.
 these components start with a lower case.
-These are what custom renderer processes.
+These are processed by a renderer.
 
 Custom components are built by application developers.
 These are what you create for your applications.
@@ -300,7 +297,9 @@ Let's move on Number 2.
 The first part includes optional interfaces for persistence mode.
 If you'd like to impelement your custom renderer as persistence mode, you have to implement these interfaces.
 The persistence mode is a mode to treat its instance as immutable.
-React Native Fabric is a renderer using persistence mode.
+React Native has a project for a new architecture called Fabric,
+which uses Persistence mode.
+
 
 The second part is an optional interfaces for hydration.
 If you'd like to support hydration on your renderer, you have to implement these interfaces.

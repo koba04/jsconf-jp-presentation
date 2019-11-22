@@ -97,9 +97,6 @@ The first test has been passed!
 
 ## Create a directory
 
-Let's move on to the next test.
-The next test is "should be able to create a directory".
-
 To pass the test, I have to add implementation for `directory` component.
 I create a directory if the type is `directory`.
 
@@ -112,9 +109,6 @@ I create a directory if the type is `directory`.
 OK, the test is passed!
 
 ## Create a file into a directory
-
-Let's move on to the next test.
-The next test is "should be able to create a file into a directory".
 
 `commitMount` is called from `child` to `parent`.
 So when `commitMount` for a file is called, the parent directory hasn't been created yet.
@@ -190,8 +184,6 @@ The next 2 tests are already passed.
 
 ## Update a content of a file
 
-The next test is "should be able to update a content of a file".
-
 This is a update for a text content.
 So I have to implement `commitTextUpdate`.
 The implementation is simple.
@@ -207,9 +199,6 @@ if the text has been changed, I write a new text into a file.
 OK, now the test is passed!
 
 ## Update a file name
-
-The next test is "should be able to update a file name".
-The test is failed.
 
 Because this is an operation for updating, not mounting.
 So let's implement `commitUpdate`.
@@ -233,7 +222,6 @@ Let's move on the next test.
 
 ## Add a new file
 
-The next test is "should be able to add a new file".
 This is a simillar case with a previous case.
 I've implemented `appendInitialChildren` for the case.
 But this is not in a mounting phase.
@@ -251,9 +239,6 @@ export const appendChild = (
 Now the test is passed!
 
 ## Get an instance removed rootContainerInstance through ref
-
-Let's move on the last test!
-The test "should be able to get an instance removed rootContainerInstance through ref"
 
 This test checks the value through the `ref` prop.
 so we have to filter rootContainerInstance from an instance.

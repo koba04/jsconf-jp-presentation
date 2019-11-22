@@ -131,10 +131,7 @@ As you may know, DOM manipulation is based on imperative operations.
 
 <!-- note
 Let's take an example.
-You would write a DOM manipulation in the event listener of the click event.
 This is an imperative operation and describes how to update the view, not what the view should be.
-
-This is an imperative operation.
 
 They change the DOM based on the caller DOM objects so the results depends on the caller itself not only the arguments.
 appendChild appends the argument into the caller view object.
@@ -234,7 +231,6 @@ Updating a state and describing a view are loose coupling.
 
 View is just a function.
 You can think of those like a server-rendered app.
-You can think as data driven way and treat the state as single source of the truth.
 
 But...
 Do you create an entire view with each update...?
@@ -248,12 +244,12 @@ Do you have to keep track of the scroll position and focus management and so on?
 
 <!-- note
 No, React updates views efficiently.
-The feature is called Virtual DOM, which calculates the diffs and then applies the diffs to the view.
+React calculates the diffs and then applies the diffs to the view.
 So the scroll position and the focus status aren't lost.
 
 Please take a look at the slide,
-This updates the textContent of p tag only.
-So in the second render, React calculates the diffs between the render functions,
+This updates the textContent of p element only.
+So in the second render, React calculates the diff between the render functions,
 and applies the diff by p.textContent = 2;
 -->
 
@@ -321,8 +317,7 @@ ReactDOM.render(
 ----------------------
 
 <!-- note
-React DOM calculates the diffs for an update by comparing components between previous and current ones.
-React interprets the diffs to transform them to imperative operations
+React transform diffs to imperative operations
 
 So we are able to write components declaratively without caring about actual imperative operations.
 React does it for you.
@@ -351,8 +346,7 @@ Let's briefly go back to the Wikipedia definition
 
 <!-- note
 As I've explained, React processes imperative DOM operations for you.
-Even though we write a div as JSX, it's not a div of DOM.
-It's a React Element.
+Even though we write a div as JSX, it's not a DOM, It's a React Element.
 React creates an abstraction layer using React Element on top of the DOM.
 
 But the abstraction level might be too low as primitivies for your application.
@@ -415,8 +409,6 @@ ReactDOM.render(<App />, view);
 
 <!-- note
 Here is a great talk about this topic.
-Sebastian is a core member of React, he decides the design of React architecure.
-
 I recommend watching the video.
 -->
 

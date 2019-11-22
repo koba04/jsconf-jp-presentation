@@ -4,7 +4,10 @@
   "dependencies": {},
   "license": "MIT",
   "scripts": {
-    "start": "fusuma start"
+    "start": "fusuma start",
+    "build": "fusuma build",
+    "pdf": "fusuma pdf -o dist/make-it-declarative-with-react.pdf",
+    "deploy": "npm run build && npm run pdf"
   },
   "devDependencies": {
     "@fusuma/task-pdf": "^1.15.0",

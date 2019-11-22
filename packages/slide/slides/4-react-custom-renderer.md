@@ -192,7 +192,7 @@ So when we create a custom renderer, we have to implement this.
 
 In other words, you can enable Hooks, Suspense, and Concurrent Mode on your custom renderer without implementing them yourself.
 
-If you are interested in the architecure, please see the slide I presented last year at this link.
+If you are interested in the architecure, you can see my slide, "Algorithms in React".
 -->
 
 # Architecture of React
@@ -300,7 +300,7 @@ If you'd like to support hydration on your renderer, you have to implement these
 ReactDOM is implemented by these functions.
 
 I won't talk about Persistence and Hydration mode in this talk.
-So if you are interested in them, please see the host configs of ReactNativeFabric and ReactDOM.
+So if you are interested in them, you can see the host configs of ReactNativeFabric and ReactDOM.
 -->
 
 # HostConfig Interface \#2
@@ -456,13 +456,7 @@ ReactDOM returns true from finalizeInitialChildren if the tag is button, input, 
 
 <!-- note
 Let's move on to the defining instance.
--->
 
-# Define Instance
-
----------------
-
-<!-- note
 createInstance and createTextInstance are important, which return an instance that we use in the host config.
 You can return an instance as you want.
 

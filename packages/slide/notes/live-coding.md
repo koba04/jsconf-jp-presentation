@@ -47,29 +47,21 @@ OK, Let's start coding!!
 
 ## Create a file
 
-First, let's run `yarn test` to run the unit tests.
+First, let's run `yarn test --watch` to run the unit tests.
 We define `xit` so all tests never run.
 
-So I change the first test from `xit` to `it`.
-The test is `should be able to create a file`.
-
-Let's run again with `watch` option.
-
-> yarn test --watch
+Let's test the first case, which is `should be able to create a file`.
 
 The test was failed.
-Let's see the host config file.
 
+Let's see the host config file.
 You can see type errors at `createInstance` and `createTextInstance`.
 Let's fix them at first.
-
-> impl...
 
 `createIntance` must returns a `Instance`.
 `createTextIntance` must returns a `TextInstance`.
 
 OK, type errors has gone.
-
 But the test is still failing.
 
 So I imeplement to create a file.
@@ -93,8 +85,6 @@ Because we have to create a `rootPath` directory before creating a file.
   }
 ```
 
-The first test has been passed!
-
 ## Create a directory
 
 To pass the test, I have to add implementation for `directory` component.
@@ -105,8 +95,6 @@ I create a directory if the type is `directory`.
     mkdirSync(targetPath);
   }
 ```
-
-OK, the test is passed!
 
 ## Create a file into a directory
 
@@ -196,8 +184,6 @@ if the text has been changed, I write a new text into a file.
   }
 ```
 
-OK, now the test is passed!
-
 ## Update a file name
 
 Because this is an operation for updating, not mounting.
@@ -214,11 +200,7 @@ If `name` prop has been changed, we have to rename the file name.
       path.join(buildParentPath(instance), newProps.name)
     );
   }
-  instance.props = newProps;
 ```
-
-The test is passed!
-Let's move on the next test.
 
 ## Add a new file
 
@@ -236,9 +218,7 @@ export const appendChild = (
 };
 ```
 
-Now the test is passed!
-
-## Get an instance removed rootContainerInstance through ref
+## should be able to get an instance removed rootContainerInstance through ref
 
 This test checks the value through the `ref` prop.
 so we have to filter rootContainerInstance from an instance.
@@ -253,5 +233,4 @@ export const getPublicInstance = (instance: Instance) => {
 Now all tests have been passed!
 Of course there are some cases I haven't implemented yet.
 But just works!
-
 You can install the `react-fs` from npm as `@koba04/react-fs`.

@@ -191,6 +191,8 @@ Finally, Renderer is a layer for an implementation depending on a host environme
 So when we create a custom renderer, we have to implement this.
 
 In other words, you can enable Hooks, Suspense, and Concurrent Mode on your custom renderer without implementing them yourself.
+
+If you are interested in the architecure, please see the slide I presented last year at this link.
 -->
 
 # Architecture of React
@@ -198,15 +200,7 @@ In other words, you can enable Hooks, Suspense, and Concurrent Mode on your cust
 
 <img src="../images/architecture.png" />
 
----------------
-<!-- note
-If you are interested in the architecure, please see the slide I presented last year at this link.
--->
-
-# Algorithms in React
-
 - https://speakerdeck.com/koba04/algorithms-in-react
-
 
 ---------------
 
@@ -307,8 +301,6 @@ ReactDOM is implemented by these functions.
 
 I won't talk about Persistence and Hydration mode in this talk.
 So if you are interested in them, please see the host configs of ReactNativeFabric and ReactDOM.
-
-These interfaces are from @types/react-reconciler
 -->
 
 # HostConfig Interface \#2
@@ -419,10 +411,7 @@ ReactDOM.render(
 ----------------------
 
 <!-- note
-we implement the function as the insertBefore function.
-First, we remove the child variable from the parentInstance variable that is a parent of list items.
-Second, we insert the child variable before the beforeChild variable.
-
+we implement the function as the insertBefore function like this.
 when implmenting a custom renderer, writing imperative operations is your job.
 -->
 
@@ -453,7 +442,7 @@ But there is a caveat for commitMount.
 
 commitMount is only called when finalizeInitialChildren returns true.
 ReactDOM uses the function to implement autoFocus attribute.
-On ReactDOM, finalizeInitialChildren returns true if the tag is button, input, select, or textarea and autoFucos prop is true.
+ReactDOM returns true from finalizeInitialChildren if the tag is button, input, select, or textarea and autoFucos prop is true.
 -->
 
 # Others
@@ -469,7 +458,7 @@ On ReactDOM, finalizeInitialChildren returns true if the tag is button, input, s
 Let's move on to the defining instance.
 -->
 
-# Define public instance
+# Define Instance
 
 ---------------
 
@@ -530,7 +519,6 @@ export function getPublicInstance(
 
 <!-- note
 These are flags to determine how your custom renderer works.
-You can define whether your host instance is an immutable model or mutation model and whether supporting hydration or not and whether your renderer is running on an other renderer or not.
 -->
 
 # Define the mode for a renderer

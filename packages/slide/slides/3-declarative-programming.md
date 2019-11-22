@@ -32,7 +32,9 @@ https://en.wikipedia.org/wiki/Declarative_programming
 Now let's take a look at what React official website says.
 Please keep these words in mind as I will later talk more about it.
 
-We can also see declarative programming in other programming languages.
+We can also see declarative programming in other programming language like SwiftUI.
+So if you are interested in SwiftUI I recommend watching the videos SwiftUI Essentilals and Data Flow Through SwiftUI.
+You can see many similar concepts with React on the videos.
 -->
 
 # Declarative in React
@@ -42,49 +44,6 @@ We can also see declarative programming in other programming languages.
 > **Declarative views make your code more predictable and easier to debug**.
 
 https://reactjs.org
-
----------------
-
-<!-- note
-SwiftUI is a new UI framework by Apple.
-SwiftUI is similar to React, it describes views declaratively.
--->
-
-# SwiftUI
-
-```swift
-import SwiftUI
-
-struct Content: View {
-    var body: some View {
-        VStack {
-            Text("Hello")
-                .font(.title)
-            Text("World!")
-                .font(.body)
-        }
-    }
-}
-```
-
-https://developer.apple.com/documentation/swiftui/
-
----------------
-
-<!-- note
-So if you are interested in SwiftUI I recommend watching the video SwiftUI Essentilals.
-You can see many similar concepts with React on the video.
-
-if you are intested in managing data on applications, I also recommend watching the video Data Flow Through SwiftUI.
-SwiftUI has some interesting ideas to manage data like Bindable Object, Environment Object.
--->
-
-# SwiftUI
-
-- SwiftUI Essentials
-    - https://developer.apple.com/videos/play/wwdc2019/216/
-- Data Flow Through SwiftUI
-    - https://developer.apple.com/videos/play/wwdc2019/226
 
 ---------------
 

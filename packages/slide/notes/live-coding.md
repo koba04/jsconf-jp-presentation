@@ -27,7 +27,7 @@ This exports ReactFS object having render function.
 You can think of this like `ReactDOM` object.
 
 `render` function receives a ReactElement and `rootPath`.
-We'd like to use `rootPath` in the host config, so we store it in the container info.
+We'd like to use `rootPath` in the host config, so we store it in the container.
 
 Before rendering, we remove the all files under the rootPath, which is a very dangerous operation so be careful to use this renderer.
 I'll make the implementation more safe.
@@ -37,7 +37,7 @@ Finally, we can use `fs-renderer`!
 ## index.test.tsx
 
 I have some tests for `fs-renderer`.
-If all tests are passed, I can say that `fs-renderer` works fine!
+If all tests have been passed, I can say that `fs-renderer` works fine!
 
 We use `tmpdir` for the `rootPath` of the tests.
 
@@ -58,11 +58,9 @@ Let's see the host config file.
 You can see type errors at `createInstance` and `createTextInstance`.
 Let's fix them at first.
 
-`createIntance` must returns a `Instance`.
-`createTextIntance` must returns a `TextInstance`.
+...implementing
 
-OK, type errors has gone.
-But the test is still failing.
+OK, But the test is still failing.
 
 So I imeplement to create a file.
 Let's implement this into `commitMount`.
@@ -123,6 +121,16 @@ This function accepts an instance or textInstance and returns the parent directo
 Let's implement this.
 I have to reverse the order of the directory names.
 
+OK, let's replace the `rootPath` with `buildParentPath` function.
+
+The test is still failed.
+Because `mkdirSync` doesn't create a directory recursively.
+So I add `recursive` option for that.
+
+But the test is still failed.
+`mkdirSync` for a directory component try to create a directory even if this is already there.
+So I check whether existing the target directory or not.
+
 ```ts
 const buildParentPath = (instance: Instance | TextInstance): string => {
   const names = [];
@@ -133,17 +141,7 @@ const buildParentPath = (instance: Instance | TextInstance): string => {
   }
   return path.join(instance.rootContainerInstance.rootPath, ...names.reverse());
 };
-```
 
-OK, let's replace the `rootPath` with `buildParentPath` function.
-
-The test is still failed.
-Because `mkdirSync` doesn't create a directory recursively.
-So I add `recursive` option for that.
-And `mkdirSync` for a directory component try to create a directory even if this is already there.
-So I check whether existing the target directory or not.
-
-```ts
 export const commitMount = (
   instance: Instance,
   type: Type,
@@ -166,7 +164,7 @@ export const commitMount = (
 };
 ```
 
-The test is passed!
+The test has been passed!
 OK, let's move on to the next test!
 The next 2 tests are already passed.
 
@@ -186,10 +184,10 @@ if the text has been changed, I write a new text into a file.
 
 ## Update a file name
 
-Because this is an operation for updating, not mounting.
+This is an operation for updating, not mounting.
 So let's implement `commitUpdate`.
 
-`react-fs` only uses `name` prop, so we process `name` prop only.
+`react-fs` only uses `name` prop, so we ignore props except for `name` prop.
 If `name` prop has been changed, we have to rename the file name.
 
 ```ts

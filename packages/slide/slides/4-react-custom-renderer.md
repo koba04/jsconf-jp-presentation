@@ -185,12 +185,12 @@ These are what you create for your applications.
 
 Reconciler is a layer of React core.
 It manages updates and calls functions of a host config.
-It makes possible many features like Hooks, Suspense, and Concurrent Mode.
+It enables many features like Hooks, Suspense, and Concurrent Mode.
 
-Finally, Renderer is a layer for an implementation depending on a host environment.
+Finally, Renderer is a layer for a host environment.
 So when we create a custom renderer, we have to implement this.
 
-In other words, you can enable Hooks, Suspense, and Concurrent Mode on your custom renderer without implementing them yourself.
+In other words, you can use Hooks, Suspense, and Concurrent Mode on your custom renderer without implementing them yourself.
 
 If you are interested in the architecure, you can see my slide, "Algorithms in React".
 -->
@@ -224,7 +224,7 @@ npm install react-reconciler
 <!-- note
 And then, we can create a renderer by passing a host config to the reconciler.
 
-After creating a renderer, we create a container for the renderer at the first rendering.
+After creating a renderer, we create a container.
 And then, we update the container to render the passed element.
 
 `createContainer` doesn't render anything. `updateContainer` is the one.
@@ -263,11 +263,11 @@ export const YourReact = {
 ---------------
 
 <!-- note
-You have to implement many interfaces to create a custom renderer.
-Here is the interfaces.
+You have to implement many functions to create a custom renderer.
+Here is the interface.
 
-The first part is the interfaces you must implement.
-The second part is an optional interfaces for mutation.
+The first part is the interface you must implement.
+The second part is an optional interface for mutation.
 We have to implement them if we'd like to use a mutation mode.
 
 Number 1 means that there is a Number 2...
@@ -288,15 +288,13 @@ Yes, they are not all.
 
 <!-- note
 Let's move on Number 2.
-The first part includes optional interfaces for persistence mode.
-If you'd like to impelement your custom renderer as persistence mode, you have to implement these interfaces.
+The first part includes an optional interface for persistence mode.
+If you'd like to impelement your custom renderer as persistence mode, you have to implement this interface.
 The persistence mode is a mode to treat its instance as immutable.
-React Native has a project for a new architecture called Fabric,
-which uses Persistence mode.
+React Native has a project for a new architecture called Fabric, which uses Persistence mode.
 
-
-The second part is an optional interfaces for hydration.
-If you'd like to support hydration on your renderer, you have to implement these interfaces.
+The second part is an optional interface for hydration.
+If you'd like to support hydration on your renderer, you have to implement this interface.
 ReactDOM is implemented by these functions.
 
 I won't talk about Persistence and Hydration mode in this talk.
@@ -324,7 +322,7 @@ I see...
 But you don't have to impelement all interfaces!!
 Many functions might be ok as empty functions.
 
-You can impelement the interfaces incrementally.
+You can impelement the functions incrementally.
 -->
 
 # 😇
@@ -333,7 +331,7 @@ You can impelement the interfaces incrementally.
 
 <!-- note
 These are host configs of renderers I've introduced.
-So I recommend referencing the host configs while implementing your custom renderer, which are very useful.
+So I recommend referencing the host configs while implementing a custom renderer, which are very useful.
 -->
 
 # HostConfig of renderers
@@ -354,8 +352,8 @@ So I recommend referencing the host configs while implementing your custom rende
 
 <!-- note
 By the way, what do we implement on the host config?
-we have to implement side-effects for the host environment and define a public instance and internal instance.
-And we have to define the mode of your renderer and hydration logics if you need it.
+we have to implement side-effects for the host environment and define instances.
+And we have to define the mode of your renderer and hydration implementation if you need it.
 
 Let's go over them.
 -->
@@ -379,7 +377,7 @@ So if you are faimilar with DOM APIs, you can understand them easily.
 ---------------
 <!-- note
 Before describing the APIs, let's take a look at a previous example.
-With ReactDOM, this change is processed as an insertBefore function.
+ReactDOM processes this change as an insertBefore function.
 
 What if we implement the function as a custom renderer?
 -->

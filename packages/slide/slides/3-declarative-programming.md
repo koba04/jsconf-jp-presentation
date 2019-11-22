@@ -115,7 +115,6 @@ Let's look at declarative version.
 
 This becomes longer than the imperative version.
 
-I've separated the state update and the view display.
 the render function displays the view, which describes what the view should be, not how to update the view.
 So the render function is declarative, which is based on the passed state.
 Of course, we still need an imperative operation to update the state.
@@ -150,10 +149,9 @@ Describing what to update the view
 This is an application with React.
 
 This is definitely declarative.
-This includes how to update the state, but doesn't include how to update the view.
-So the view is only based on the state. If the state is the same, the view must be the same, which means that we can focus on the state only.
+The view is only based on the state. If the state is the same, the view must be the same, which means that we can focus on the state only.
 
-the view is a mirror of the state
+The view is a mirror of the state
 -->
 
 # Declarative with React
@@ -183,18 +181,13 @@ ReactDOM.render(<App />, view);
 ---------------
 
 <!-- note
-You can update a state imperatively and you can update a view declaratively.
-Mutation is only for state, not for views, which means we can write tests for state and view easily.
-
-Updating a state and describing a view are loose coupling.
-
+You can update a state imperatively and you can update a view declaratively, which are loose coupling.
 View is just a function.
 You can think of those like a server-rendered app.
+Mutation is only for state, not for views, which means we can write tests for state and view easily.
 
 But...
 Do you create an entire view with each update...?
-Do you have to keep track of the scroll position and focus management and so on?
-
 -->
 
 # 👀 = View(State)
@@ -204,7 +197,7 @@ Do you have to keep track of the scroll position and focus management and so on?
 <!-- note
 No, React updates views efficiently.
 React calculates the diffs and then applies the diffs to the view.
-So the scroll position and the focus status aren't lost.
+So we don't have to worry about scroll position and the focus management and so on.
 
 Please take a look at the slide,
 This updates the textContent of p element only.
@@ -281,11 +274,11 @@ React transform diffs to imperative operations
 So we are able to write components declaratively without caring about actual imperative operations.
 React does it for you.
 
-As the result, we don't have to write how to chage the view.
+As the result, we don't have to write how to change the view.
 We can focus on what the view should be.
 
 In other words, if you want to create a custom renderer,
-you have to implement imperative operations.
+you have to implement how to change.
 -->
 
 # ReactDOM Renderer
@@ -304,8 +297,7 @@ Let's briefly go back to the Wikipedia definition
 ----------------------
 
 <!-- note
-As I've explained, React processes imperative DOM operations for you.
-Even though we write a div as JSX, it's not a DOM, It's a React Element.
+When we write a div as JSX, it's not a DOM, It's a React Element.
 React creates an abstraction layer using React Element on top of the DOM.
 
 But the abstraction level might be too low as primitivies for your application.

@@ -44,7 +44,7 @@ We now skip all tests.
 
 Let's run the tests for creating file and directory.
 
-The test was failed.
+The tests were failed.
 
 Let's see the host config file.
 You can see type errors at `createInstance` and `createTextInstance`.
@@ -52,7 +52,7 @@ Let's fix them at first.
 
 ...implementing
 
-OK, But the test is still failing.
+OK, But the tests are still failing.
 
 So I imeplement to create a file and directory.
 Let's implement this into `commitMount`.
@@ -68,7 +68,7 @@ Our `finalizeInitialChildren` returns `true` so `commitMount` is always called.
   }
 ```
 
-The test is still failed.
+The tests are still failed.
 Because we have to create a `parentPath` directory before creating a file.
 
 ```ts
@@ -87,9 +87,16 @@ So when `commitMount` for a file is called, the parent directory hasn't been cre
 So I have to create a directory before processing the file.
 But I don't have a way to know the parent directory path.
 So let's add a `parent` property into `Instance` and `TextInstannce`.
-I add the parent property at `appendInitialChild`.
+I add the parent property at `appendChild` and `appendInitialChild`.
 
 ```ts
+export const appendChild = (
+  parentInstance: Instance,
+  child: Instance | TextInstance
+) => {
+  child.parent = parentInstance;
+};
+
 export const appendInitialChild = (
   parentInstance: Instance,
   child: Instance | TextInstance
@@ -108,13 +115,8 @@ I have to reverse the order of the directory names.
 
 OK, let's replace the `rootPath` with `buildParentPath` function.
 
-The test is still failed.
-Because `mkdirSync` doesn't create a directory recursively.
-So I add `recursive` option for that.
-
-But the test is still failed.
-`mkdirSync` can't create a directory if it's already there.
-So I check whether existing the directory or not.
+The tests are still failed.
+Because `mkdirSync` doesn't create a directory recursively and `mkdirSync` throw an error if the directory is already there.
 
 ```ts
 const buildParentPath = (instance: Instance | TextInstance): string => {
@@ -149,9 +151,7 @@ export const commitMount = (
 };
 ```
 
-The test has been passed!
-OK, let's move on to the next test!
-The next 2 tests are already passed.
+The tests have been passed!
 
 ### Update
 
@@ -181,19 +181,6 @@ so if `name` prop has been changed, we have to rename the file name.
       path.join(buildParentPath(instance), newProps.name)
     );
   }
-```
-
-### Add a new file
-
-In this case, I have to put the same logic of `appendInitialChild` into `appendChild`.
-
-```ts
-export const appendChild = (
-  parentInstance: Instance,
-  child: Instance | TextInstance
-) => {
-  child.parent = parentInstance;
-};
 ```
 
 ### Public Instance

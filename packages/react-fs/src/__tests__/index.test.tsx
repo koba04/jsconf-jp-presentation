@@ -33,6 +33,26 @@ describe("ReactFS", () => {
       "Hello World"
     );
   });
+  it("should be able to add a new file", async () => {
+    const App = () => {
+      const [text, setText] = useState("");
+      useEffect(() => {
+        setText("new");
+      }, []);
+      return (
+        <directory name="foo">
+          {text && <file name={`${text}.txt`}>123</file>}
+        </directory>
+      );
+    };
+
+    ReactFS.render(<App />, tempDir);
+    expect(existsSync(path.join(tempDir, "foo", "new.txt"))).toBe(false);
+    await waitEffect();
+    expect(readFileSync(path.join(tempDir, "foo", "new.txt")).toString()).toBe(
+      "123"
+    );
+  });
   it("should be able to create a file into a nested directory", () => {
     ReactFS.render(
       <directory name="foo">
@@ -98,27 +118,7 @@ describe("ReactFS", () => {
     );
     expect(existsSync(path.join(tempDir, "initial.txt"))).toBe(false);
   });
-  it("should be able to add a new file", async () => {
-    const App = () => {
-      const [text, setText] = useState("");
-      useEffect(() => {
-        setText("new");
-      }, []);
-      return (
-        <directory name="foo">
-          {text && <file name={`${text}.txt`}>123</file>}
-        </directory>
-      );
-    };
-
-    ReactFS.render(<App />, tempDir);
-    expect(existsSync(path.join(tempDir, "foo", "new.txt"))).toBe(false);
-    await waitEffect();
-    expect(readFileSync(path.join(tempDir, "foo", "new.txt")).toString()).toBe(
-      "123"
-    );
-  });
-  it("should be able to get an instance removed rootContainerInstance through ref", async () => {
+  it("should be able to get an instance filtered rootContainerInstance through ref", async () => {
     let ref: any;
     const App = () => {
       ref = useRef(null);

@@ -1,4 +1,4 @@
-# Describe what I'm going to create
+## Describe what I'm going to create
 
 First, I'm going to introduce a custom renderer that I'm going to create.
 Let's take a look at README.md.
@@ -8,13 +8,13 @@ This example creates README.md and index.js in a src directory.
 
 Let's start!
 
-# Describe the project structure
+## Describe the project structure
 
 Before coding, let's take a look the related files.
 `fs-renderer-types.ts` defines type definition.
 `fs-renderer.ts` creates a renderer from a host config object and type definition.
 
-## index.ts
+### index.ts
 
 `index.ts` is the entry point of `react-fs`.
 This exports ReactFS object having render function.
@@ -28,21 +28,21 @@ I'll make the implementation more safe.
 
 Finally, we can use `fs-renderer`!
 
-## index.test.tsx
+### index.test.tsx
 
 I have some tests for `fs-renderer`.
 If all tests have been passed, I can say that `fs-renderer` works fine!
 
-# Start Coding
+## Start Coding
 
 OK, Let's start coding!!
 
-## Create a file
+### Create a file and directory
 
 First, let's run `yarn test --watch` to run the unit tests.
 We now skip all tests.
 
-Let's test the first case, which is `should be able to create a file`.
+Let's run the tests for creating file and directory.
 
 The test was failed.
 
@@ -54,7 +54,7 @@ Let's fix them at first.
 
 OK, But the test is still failing.
 
-So I imeplement to create a file.
+So I imeplement to create a file and directory.
 Let's implement this into `commitMount`.
 Our `finalizeInitialChildren` returns `true` so `commitMount` is always called.
 
@@ -63,6 +63,8 @@ Our `finalizeInitialChildren` returns `true` so `commitMount` is always called.
   const targetPath = path.join(parentPath, newProps.name);
   if (type === "file") {
     writeFileSync(targetPath, newProps.children);
+  } else if (type === "directory") {
+    mkdirSync(targetPath);
   }
 ```
 
@@ -75,18 +77,9 @@ Because we have to create a `parentPath` directory before creating a file.
   }
 ```
 
-## Create a directory
+### Create a file into a directory
 
-To pass the test, I have to add implementation for `directory` component.
-I create a directory if the type is `directory`.
-
-```ts
-  } else if (type === "directory") {
-    mkdirSync(targetPath);
-  }
-```
-
-## Create a file into a directory
+Let's test creating a file into a directory.
 
 `commitMount` is called from `child` to `parent`.
 So when `commitMount` for a file is called, the parent directory hasn't been created yet.
@@ -160,11 +153,12 @@ The test has been passed!
 OK, let's move on to the next test!
 The next 2 tests are already passed.
 
-## Update a content of a file
+### Update
 
-This is a update for a text content.
-So I have to implement `commitTextUpdate`.
-The implementation is simple.
+So Let's test updating a file and text content.
+I have to implement `commitTextUpdate` and `commitUpdate`.
+
+`commitTextUpdate` is simple.
 if the text has been changed, I write a new text into a file.
 
 ```ts
@@ -174,13 +168,10 @@ if the text has been changed, I write a new text into a file.
   }
 ```
 
-## Update a file name
-
-This is an operation for updating, not mounting.
 So let's implement `commitUpdate`.
 
-`react-fs` only uses `name` prop, so we ignore props except for `name` prop.
-If `name` prop has been changed, we have to rename the file name.
+`react-fs` only uses `name` prop,
+so if `name` prop has been changed, we have to rename the file name.
 
 ```ts
   if (newProps.name !== oldProps.name) {
@@ -192,12 +183,9 @@ If `name` prop has been changed, we have to rename the file name.
   }
 ```
 
-## Add a new file
+### Add a new file
 
-This is a simillar case with a previous case.
-I've implemented `appendInitialChildren` for the case.
-But this is not in a mounting phase.
-So I have to the same logic in `appendChild`.
+In this case, I have to put the same logic of `appendInitialChild` into `appendChild`.
 
 ```ts
 export const appendChild = (
@@ -208,10 +196,9 @@ export const appendChild = (
 };
 ```
 
-## should be able to get an instance removed rootContainerInstance through ref
+### Public Instance
 
-This test checks the value through the `ref` prop.
-so we have to filter rootContainerInstance from an instance.
+Let's implement `getPublicInstance` to filter `rootContainerInstance`.
 
 ```ts
 export const getPublicInstance = (instance: Instance) => {

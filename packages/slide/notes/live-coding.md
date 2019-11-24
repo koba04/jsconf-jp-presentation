@@ -40,21 +40,14 @@ OK, Let's start coding!!
 ### Create a file and directory
 
 First, let's run `yarn test --watch` to run the unit tests.
-We now skip all tests.
+All tests are failed.
 
-Let's run the tests for creating file and directory.
-
-The tests were failed.
-
-Let's see the host config file.
-You can see type errors at `createInstance` and `createTextInstance`.
-Let's fix them at first.
+Let's fix the tests to create a file and directory.
+First, let's fix type errors at `createInstance` and `createTextInstance`.
 
 ...implementing
 
-OK, But the tests are still failing.
-
-So I imeplement to create a file and directory.
+Next, I imeplement to create a file and directory.
 Let's implement this into `commitMount`.
 Our `finalizeInitialChildren` returns `true` so `commitMount` is always called.
 
@@ -79,7 +72,7 @@ Because we have to create a `parentPath` directory before creating a file.
 
 ### Create a file into a directory
 
-Let's test creating a file into a directory.
+Next, let's fix the tests creating a file into a directory.
 
 `commitMount` is called from `child` to `parent`.
 So when `commitMount` for a file is called, the parent directory hasn't been created yet.
@@ -151,11 +144,9 @@ export const commitMount = (
 };
 ```
 
-The tests have been passed!
-
 ### Update
 
-So Let's test updating a file and text content.
+OK, let's fix the tests for updating.
 I have to implement `commitTextUpdate` and `commitUpdate`.
 
 `commitTextUpdate` is simple.

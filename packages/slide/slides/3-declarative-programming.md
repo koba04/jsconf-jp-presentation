@@ -2,7 +2,7 @@ import { Img } from '@fusuma/client';
 
 <!-- note
 
-Let's start!
+Let's get started!
 The first part is "Declarative Programming for UI"
 -->
 
@@ -30,11 +30,11 @@ https://en.wikipedia.org/wiki/Declarative_programming
 
 <!-- note
 Now let's take a look at what React official website says.
-Please keep these words in mind as I will later talk more about it.
+Please keep these words in mind as I'll talk more about it later.
 
-We can also see declarative programming in other programming language like SwiftUI.
+We can also see declarative programming in other programming languages like SwiftUI.
 So if you are interested in SwiftUI I recommend watching the videos SwiftUI Essentilals and Data Flow Through SwiftUI.
-You can see many similar concepts with React on the videos.
+You can see many similar concepts with React on those videos.
 -->
 
 # Declarative in React
@@ -49,7 +49,7 @@ https://reactjs.org
 
 <!-- note
 With Declarative Programming, you write what you want to do rather than how you want to do it.
-How to do is a job for a compiler, not for you.
+How is a job for a compiler, not for you.
 
 It also creates an abstraction layer that is declarative.
 The abstraction layer hides an underlying layer that manages how to do it.
@@ -80,7 +80,7 @@ Let's briefly go back to the Wikipedia definition
 ---------------
 
 <!-- note
-For application running on browsers, DOM is a primitive and you would write DOM manipulations to update your views.
+For application running on browsers, DOM is primitive and you would write DOM manipulations to update your views.
 As you may know, DOM manipulation is based on imperative operations.
 -->
 
@@ -89,10 +89,10 @@ As you may know, DOM manipulation is based on imperative operations.
 ---------------
 
 <!-- note
-Let's take an example.
+Let's take a look at an example.
 This is an imperative operation and describes how to update the view, not what the view should be.
 
-They change the DOM based on the caller DOM objects so the results depends on the caller itself not only the arguments.
+They change the DOM based on the caller DOM objects so the results depend on the caller itself not only the arguments.
 appendChild appends the argument into the caller view object.
 -->
 
@@ -111,7 +111,7 @@ addButton.addEventListener('click', () => {
 ---------------
 
 <!-- note
-Let's look at declarative version.
+Let's now look at the declarative version.
 
 This becomes longer than the imperative version.
 
@@ -149,7 +149,7 @@ Describing what to update the view
 This is an application with React.
 
 This is definitely declarative.
-The view is only based on the state. If the state is the same, the view must be the same, which means that we can focus on the state only.
+The view is only based on the state. If the state is the same, the view must be the same, which means that we can focus on the state alone.
 
 The view is a mirror of the state
 -->
@@ -183,8 +183,8 @@ ReactDOM.render(<App />, view);
 <!-- note
 You can update a state imperatively and you can update a view declaratively, which are loose coupling.
 View is just a function.
-You can think of those like a server-rendered app.
-Mutation is only for state, not for views, which means we can write tests for state and view easily.
+You can think of them like a server-rendered app.
+Mutation is only for state, not for views, which means we can write tests for state and views easily.
 
 But...
 Do you create an entire view with each update...?
@@ -197,7 +197,7 @@ Do you create an entire view with each update...?
 <!-- note
 No, React updates views efficiently.
 React calculates the diffs and then applies the diffs to the view.
-So we don't have to worry about scroll position and the focus management and so on.
+So we don't have to worry about scroll position, the focus management and so on.
 
 Please take a look at the slide,
 This updates the textContent of p element only.
@@ -233,7 +233,7 @@ a.k.a. Virtual DOM
 ----------------------
 
 <!-- note
-Let's take another example.
+Let's look at another example.
 This changes the order of the item b from second to first.
 
 React determines the change by the key props.
@@ -269,12 +269,12 @@ ReactDOM.render(
 ----------------------
 
 <!-- note
-React transform diffs to imperative operations
+React transforms diffs to imperative operations
 
-So we are able to write components declaratively without caring about actual imperative operations.
-React does it for you.
+So we are able to write components declaratively without worrying about actual imperative operations.
+React does this for you.
 
-As the result, we don't have to write how to change the view.
+As a result, we don't have to write how to change the view.
 We can focus on what the view should be.
 
 In other words, if you want to create a custom renderer,
@@ -300,9 +300,9 @@ Let's briefly go back to the Wikipedia definition
 When we write a div as JSX, it's not a DOM, It's a React Element.
 React creates an abstraction layer using React Element on top of the DOM.
 
-But the abstraction level might be too low as primitivies for your application.
+But the abstraction level might be too low as primitives for your application.
 You can build your abstraction layer on top of the ReactDOM.
-It makes your applications clean and keeps consistency.
+It makes your applications clean and maintains consistency.
 -->
 
 # Abstract your application components
@@ -319,7 +319,7 @@ This App isn't using any DOM Components directly.
 It uses components that I've created.
 
 This makes it possible to hide many details like styles, markups and so on.
-Of course you have to create these primitive components like Layout, Button, List, and so on, but developers who create an application don't care about it.
+Of course you have to create these primitive components like Layout, Button, List, and so on, but developers who create an application don't care about these.
 They just use them.
 
 Designing your primitive components is very hard.

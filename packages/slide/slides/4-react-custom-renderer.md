@@ -10,10 +10,10 @@ So I'm going to describe how to create a custom renderer!
 <!-- note
 Before explaining Custom Renderer, I'd like to introduce existing renderers.
 
-I guess that you already know `react-native`, `react-test-renderer`.
-There are other renderers for various environments.
+As I'm sure you already know we have `react-native`, `react-test-renderer`.
+and other renderers for various environments.
 
-So I'd like to introduce those renderers briefly.
+I'd like to introduce those renderers briefly.
 -->
 
 # Renderers
@@ -121,8 +121,7 @@ ReactDOM.render(<Canvas><Cube /></Canvas>, el);
 ---------------
 
 <!-- note
-This is an interesting renderer.
-React AST is a custom renderer for AST. What??
+React AST is a custom renderer for AST. Interesting, right?
 
 You can define an abstract syntax tree declaratively as JSX.
 This can generate source code and an AST object from JSX.
@@ -157,7 +156,7 @@ console.log(ast);
 ---------------
 <!-- note
 Custom renderer is useful even for DOM environment.
-If you feel that the size of React DOM is so big.
+If you feel that the size of React DOM is too big.
 You can create a lightweight React DOM implementation as a custom renderer like ReactDOMLite.
 
 If you are interested in creating a custom renderer for DOM.
@@ -181,11 +180,11 @@ Component is a layer to define components.
 Host components are provided by a renderer.
 ReactDOM provides DOM components as host components.
 these components start with a lower case.
-These are processed by a renderer.
+They are processed by a renderer.
 Custom components are built by application developers.
 
 Reconciler is a layer of React core.
-It manages updates and calls functions of a host config.
+It manages updates and call functions of a host config.
 It enables many features like Hooks, Suspense, and Concurrent Mode.
 
 Finally, Renderer is a layer for a host environment.
@@ -269,10 +268,10 @@ Here is the interface.
 
 The first part is the interface you must implement.
 The second part is an optional interface for mutation.
-We have to implement them if we'd like to use a mutation mode.
+We have to implement both if we'd like to use a mutation mode.
 
 Number 1 means that there is a Number 2...
-Yes, they are not all.
+Yes, there is more.
 -->
 
 # HostConfig Interface \#1
@@ -288,7 +287,7 @@ Yes, they are not all.
 ---------------
 
 <!-- note
-Let's move on Number 2.
+Let's move on to Number 2.
 The first part includes an optional interface for persistence mode.
 If you'd like to impelement your custom renderer as persistence mode, you have to implement this interface.
 The persistence mode is a mode to treat its instance as immutable.
@@ -298,8 +297,8 @@ The second part is an optional interface for hydration.
 If you'd like to support hydration on your renderer, you have to implement this interface.
 ReactDOM is implemented by these functions.
 
-I won't talk about Persistence and Hydration mode in this talk.
-So if you are interested in them, you can see the host configs of ReactNativeFabric and ReactDOM.
+I won't be going into detail about Persistence and Hydration mode in this talk.
+So if you are interested in them, please have a look at the host configs of ReactNativeFabric and ReactDOM.
 -->
 
 # HostConfig Interface \#2

@@ -4,7 +4,7 @@ import { Card } from '@fusuma/client';
 This is my first conference talk in English!
 I'm a little nervous...
 
-So I'm using a custom renderer to introduce myself.
+So I'm going to use a custom renderer to introduce myself.
 
 (yarn voice)
 -->
@@ -28,7 +28,7 @@ So I'm using a custom renderer to introduce myself.
 
 <!-- note
 This is the actual code of the demo using a custom renderer that I've created.
-After this talk, you can create a custom renderer like this.
+After this talk, you will be able to create a custom renderer like this.
 -->
 
 ```js

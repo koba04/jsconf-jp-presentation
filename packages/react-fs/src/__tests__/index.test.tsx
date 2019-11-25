@@ -23,7 +23,7 @@ describe("ReactFS", () => {
       ReactFS.render(<directory name="test" />, tempDir);
       expect(statSync(path.join(tempDir, "test")).isDirectory()).toBe(true);
     });
-  })
+  });
   describe("create a file into a directory", () => {
     it("should be able to create a file into a directory", () => {
       ReactFS.render(
@@ -32,9 +32,9 @@ describe("ReactFS", () => {
         </directory>,
         tempDir
       );
-      expect(readFileSync(path.join(tempDir, "foo", "test.txt")).toString()).toBe(
-        "Hello World"
-      );
+      expect(
+        readFileSync(path.join(tempDir, "foo", "test.txt")).toString()
+      ).toBe("Hello World");
     });
     it("should be able to add a new file", async () => {
       const App = () => {
@@ -52,9 +52,9 @@ describe("ReactFS", () => {
       ReactFS.render(<App />, tempDir);
       expect(existsSync(path.join(tempDir, "foo", "new.txt"))).toBe(false);
       await waitEffect();
-      expect(readFileSync(path.join(tempDir, "foo", "new.txt")).toString()).toBe(
-        "123"
-      );
+      expect(
+        readFileSync(path.join(tempDir, "foo", "new.txt")).toString()
+      ).toBe("123");
     });
     it("should be able to create a file into a nested directory", () => {
       ReactFS.render(
@@ -84,7 +84,7 @@ describe("ReactFS", () => {
         readFileSync(path.join(tempDir, "multiple", "bar.txt")).toString()
       ).toBe("Bar");
     });
-  })
+  });
   describe("update a content and file name", () => {
     it("should be able to update a content of a file", async () => {
       const App = () => {
@@ -123,7 +123,7 @@ describe("ReactFS", () => {
       );
       expect(existsSync(path.join(tempDir, "initial.txt"))).toBe(false);
     });
-  })
+  });
   describe("get a public instance", () => {
     it("should be able to get an instance filtered rootContainerInstance through ref", async () => {
       let ref: any;
@@ -144,5 +144,5 @@ describe("ReactFS", () => {
         props: { name: "index.js", children: "const num = 1;" }
       });
     });
-  })
+  });
 });

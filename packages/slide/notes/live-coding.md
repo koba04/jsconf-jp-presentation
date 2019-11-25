@@ -3,16 +3,14 @@
 First, I'm going to introduce a custom renderer that I'm going to create.
 Let's take a look at README.md.
 
-This is a custom renderer for file system, which creates files and directories declaratively.
+This is a custom renderer for file system to create files and directories declaratively.
 This example creates README.md and index.js in a src directory.
-
-Let's start!
 
 ## Describe the project structure
 
-Before coding, let's take a look the related files.
+Before coding, let's take a look at the related files.
 `fs-renderer-types.ts` defines type definition.
-`fs-renderer.ts` creates a renderer from a host config object and type definition.
+`fs-renderer.ts` creates a renderer from a host config and type definition.
 
 ### index.ts
 
@@ -24,9 +22,7 @@ You can think of this like `ReactDOM` object.
 We'd like to use `rootPath` in the host config, so we store it in the container.
 
 Before rendering, we remove the all files under the rootPath, which is a very dangerous operation so be careful to use this renderer.
-I'll make the implementation more safe.
-
-Finally, we can use `fs-renderer`!
+I'll make it more safe later.
 
 ### index.test.tsx
 
@@ -40,20 +36,26 @@ OK, Let's start coding!!
 ### Create a file and directory
 
 First, let's run `yarn test --watch` to run the unit tests.
-All tests are failed.
+All tests are skipped.
 
-Let's fix the tests to create a file and directory.
+Let's test the first section of "create a file and directory". Let's see the tests.
+
 First, let's fix type errors at `createInstance` and `createTextInstance`.
 
 ...implementing
 
-Next, I imeplement to create a file and directory.
+Next, I have to imeplement to create a file and directory.
 Let's implement this into `commitMount`.
 Our `finalizeInitialChildren` returns `true` so `commitMount` is always called.
 
 ```ts
   const parentPath = instance.rootContainerInstance.rootPath;
   const targetPath = path.join(parentPath, newProps.name);
+
+  if (!existsSync(parentPath)) {
+    mkdirSync(parentPath);
+  }
+
   if (type === "file") {
     writeFileSync(targetPath, newProps.children);
   } else if (type === "directory") {
@@ -61,23 +63,16 @@ Our `finalizeInitialChildren` returns `true` so `commitMount` is always called.
   }
 ```
 
-The tests are still failed.
-Because we have to create a `parentPath` directory before creating a file.
-
-```ts
-  if (!existsSync(parentPath)) {
-    mkdirSync(parentPath);
-  }
-```
+The tests have been passed!
 
 ### Create a file into a directory
 
-Next, let's fix the tests creating a file into a directory.
+Let's move on to the next section "create a file into a directory". Let's see the tests.
 
 `commitMount` is called from `child` to `parent`.
-So when `commitMount` for a file is called, the parent directory hasn't been created yet.
+So when processing a file, its parent directory hasn't been created yet.
 
-So I have to create a directory before processing the file.
+So I have to create a directory before.
 But I don't have a way to know the parent directory path.
 So let's add a `parent` property into `Instance` and `TextInstannce`.
 I add the parent property at `appendChild` and `appendInitialChild`.
@@ -98,18 +93,19 @@ export const appendInitialChild = (
 };
 ```
 
-OK, let's create a path for parent directory instead of `rootPath`.
-
+Next, let's create a path for parent directory.
 In order to this, I create a `buildParentPath` function.
 This function accepts an instance or textInstance and returns the parent directory path.
-
 Let's implement this.
-I have to reverse the order of the directory names.
 
+...
+
+I have to reverse the order of the directory names.
 OK, let's replace the `rootPath` with `buildParentPath` function.
 
 The tests are still failed.
-Because `mkdirSync` doesn't create a directory recursively and `mkdirSync` throw an error if the directory is already there.
+Because `mkdirSync` doesn't create a directory recursively and throw an error if the directory is already there.
+Let's fix them.
 
 ```ts
 const buildParentPath = (instance: Instance | TextInstance): string => {
@@ -146,25 +142,23 @@ export const commitMount = (
 
 ### Update
 
-OK, let's fix the tests for updating.
-I have to implement `commitTextUpdate` and `commitUpdate`.
+Let's move on to the next section "update a content and file name". Let's see the tests.
 
-`commitTextUpdate` is simple.
-if the text has been changed, I write a new text into a file.
+I have to implement `commitTextUpdate` and `commitUpdate`.
+Those are simple.
 
 ```ts
+// commitTextUpdate
   if (newText !== oldText) {
     textInstance.text = newText;
     writeFileSync(buildParentPath(textInstance), newText);
   }
 ```
 
-So let's implement `commitUpdate`.
-
-`react-fs` only uses `name` prop,
-so if `name` prop has been changed, we have to rename the file name.
+`react-fs` only uses `name` prop.
 
 ```ts
+// commitUpdate
   if (newProps.name !== oldProps.name) {
     instance.props = newProps;
     renameSync(
@@ -175,6 +169,8 @@ so if `name` prop has been changed, we have to rename the file name.
 ```
 
 ### Public Instance
+
+Let's move on to the last section "get a public instance". Let's see the tests.
 
 Let's implement `getPublicInstance` to filter `rootContainerInstance`.
 
@@ -188,4 +184,3 @@ export const getPublicInstance = (instance: Instance) => {
 Now all tests have been passed!
 Of course there are some cases I haven't implemented yet.
 But just works!
-You can install the `react-fs` from npm as `@koba04/react-fs`.

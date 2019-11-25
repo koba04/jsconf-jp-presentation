@@ -23,29 +23,6 @@ I'd like to introduce those renderers briefly.
 ----------------------
 
 <!-- note
-React Native is a renderer for Native Apps like iOS and Android.
-Of course, This is implemented as a custom renderer.
--->
-
-# ReactNative
-
-```js
-<View
-    style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center"
-    }}
->
-    <Text style={{ fontSize: 50 }}>
-        Hello, world!
-    </Text>
-</View>
-```
-
-----------------------
-
-<!-- note
 Ink is a custom renderer for CLI output.
 This makes it easy to create interactive command line applications.
 -->

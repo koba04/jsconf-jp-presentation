@@ -127,41 +127,6 @@ Describing what to update the view
 ---------------
 
 <!-- note
-This is an application with React.
-
-This is definitely declarative.
-The view is only based on the state. If the state is the same, the view must be the same, which means that we can focus on the state alone.
-
-The view is a mirror of the state
--->
-
-# Declarative with React
-
-```js
-const view = document.querySelector('.view');
-
-// describing what the view should display
-const App = () => {
-    const [items, setItems] = useState([]);
-    return (
-        <Layout>
-            <Header>title</Header>
-            <ItemList>
-                {items.map(item => <Item key={item.id} item={item} />)}
-            </ItemList>
-            <AddItem onAddItem={(item) => {
-                setItems(items.concat(item));
-            }} />
-        </Layout>
-    );
-}
-
-ReactDOM.render(<App />, view);
-```
-
----------------
-
-<!-- note
 You can update a state imperatively and you can update a view declaratively, which are loose coupling.
 View is just a function.
 You can think of them like a server-rendered app.

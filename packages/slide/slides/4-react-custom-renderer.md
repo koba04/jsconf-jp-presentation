@@ -155,10 +155,8 @@ This is an overview of the architecture of React.
 
 Component is a layer to define components.
 Host components are provided by a renderer.
-ReactDOM provides DOM components as host components.
 these components start with a lower case.
 They are processed by a renderer.
-Custom components are built by application developers.
 
 Reconciler is a layer of React core.
 It manages updates and call functions of a host config.

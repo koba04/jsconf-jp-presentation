@@ -179,42 +179,6 @@ a.k.a. Virtual DOM
 ----------------------
 
 <!-- note
-Let's look at another example.
-This changes the order of the item b from second to first.
-
-React determines the change by the key props.
-React moves the item b before item a by insertBefore function.
-
-These are jobs for React DOM renderer.
--->
-
-# Change the index in a list
-
-```js
-ReactDOM.render(
-    <ul>
-        <li key="a">a</li>
-        <li key="b">b</li>
-        <li key="c">c</li>
-    </ul>,
-    container
-);
-
-ReactDOM.render(
-    <ul>
-        <li key="b">b</li>
-        <li key="a">a</li>
-        <li key="c">c</li>
-    </ul>,
-    container
-)
-// React update the DOM like the following
-// li.insertBefore(b, a);
-```
-
-----------------------
-
-<!-- note
 React transforms diffs to imperative operations
 
 So we are able to write components declaratively without worrying about actual imperative operations.

@@ -29,25 +29,6 @@ https://en.wikipedia.org/wiki/Declarative_programming
 ---------------
 
 <!-- note
-Now let's take a look at what React official website says.
-Please keep these words in mind as I'll talk more about it later.
-
-We can also see declarative programming in other programming languages like SwiftUI.
-So if you are interested in SwiftUI I recommend watching the videos SwiftUI Essentilals and Data Flow Through SwiftUI.
-You can see many similar concepts with React on those videos.
--->
-
-# Declarative in React
-
-> React makes it painless to create interactive UIs. Design simple views for each state in your application, and React will efficiently update and render just the right components when your data changes.
-
-> **Declarative views make your code more predictable and easier to debug**.
-
-https://reactjs.org
-
----------------
-
-<!-- note
 With Declarative Programming, you write what you want to do rather than how you want to do it.
 How is a job for a compiler, not for you.
 

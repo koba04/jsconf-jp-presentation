@@ -350,7 +350,10 @@ So if you are faimilar with DOM APIs, you can understand them easily.
 
 ---------------
 <!-- note
-Before describing host config, let's take a look at a previous example.
+Before describing host config, let's look at an example.
+This changes the order of the item b from second to first.
+
+React determines the change by the key props.
 ReactDOM processes this change as an insertBefore function.
 
 What if we implement the function as a custom renderer?

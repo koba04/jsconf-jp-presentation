@@ -82,7 +82,6 @@ Let's take a look at an example.
 This is an imperative operation and describes how to update the view, not what the view should be.
 
 They change the DOM based on the caller DOM objects so the results depend on the caller itself not only the arguments.
-appendChild appends the argument into the caller view object.
 -->
 
 # Imperative
@@ -156,8 +155,8 @@ Do you create an entire view with each update...?
 Reactは差分更新によりそれを可能にしています
 
 No, React updates views efficiently.
-React calculates the diffs and then applies the diffs to the view.
-So we don't have to worry about scroll position, the focus management and so on.
+React calculates the diffs and then applies them to the view.
+So we don't have to worry about scroll position, focus management and so on.
 
 Please take a look at the slide,
 This updates the textContent of p element only.

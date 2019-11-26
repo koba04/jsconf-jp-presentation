@@ -285,9 +285,6 @@ React Native is working on a new architecture called Fabric, which uses Persiste
 The second part is an optional interface for hydration.
 If you'd like to support hydration on your renderer, you have to implement this interface.
 ReactDOM implements these functions.
-
-I won't be going into detail about Persistence and Hydration mode in this talk.
-So if you are interested in them, please have a look at the host configs of ReactNativeFabric and ReactDOM.
 -->
 
 # HostConfig Interface \#2
@@ -400,11 +397,11 @@ ReactDOM.render(
 <!-- note
 HostConfigのAPIはDOMと似ています
 
-The APIs for side effects are very similar with DOM APIs.
-So if you are familar with DOM APIs, you can understand them easily.
-
 we implement the function as the insertBefore function like this.
 when implmenting a custom renderer, writing imperative operations is your job.
+
+The APIs for side effects are very similar with DOM APIs.
+So if you are familar with DOM APIs, you can understand them easily.
 -->
 
 # Side effects for a Host environment
@@ -454,7 +451,6 @@ ReactDOM returns true from finalizeInitialChildren if the tag is button, input, 
 Let's move on to the defining instance.
 
 createInstance and createTextInstance are important, they return an instance that we use in the host config.
-You can return any value as an instance.
 
 ReactDOM uses DOM APIs like createElement and createTextNode for these functions.
 So ReactDOM returns a DOM node from the functions.

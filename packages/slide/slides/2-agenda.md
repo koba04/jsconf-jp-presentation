@@ -1,6 +1,7 @@
 # Agenda
 
 <!-- note
+本日のアジェンダです
 
 I've divided my talk into 3 parts.
 

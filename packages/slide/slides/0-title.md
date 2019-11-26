@@ -10,6 +10,8 @@ But you might not know that React has some interesting usecases other than for b
 I'm going to show you some ideas using React, which I've learned while contributing to React.
 
 Before going over the agenda, I'd like to quickly introduce myself in more detail.
+
+このトークは英語で行いますが、日本語でも補足を入れていきます。
 -->
 
 # Make it Declarative with React

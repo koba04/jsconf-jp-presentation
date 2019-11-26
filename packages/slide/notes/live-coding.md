@@ -1,5 +1,7 @@
 ## Describe what I'm going to create
 
+ここでは、FileSystemを扱うカスタムレンダラーを作成します
+
 First, I'm going to introduce a custom renderer that I'm going to create.
 Let's take a look at README.md.
 
@@ -13,6 +15,8 @@ Before coding, let's take a look at the related files.
 `fs-renderer.ts` creates a renderer from a host config and type definition.
 
 ### index.ts
+
+`index.ts`はReactDOMのようなエントリーポイントです。
 
 `index.ts` is the entry point of `react-fs`.
 This exports ReactFS object having render function.
@@ -34,6 +38,9 @@ If all tests have been passed, I can say that `fs-renderer` works fine!
 OK, Let's start coding!!
 
 ### Create a file and directory
+
+最初は、全てのテストがスキップされているので順番に通していきます。
+最初はファイル、ディレクトリを作成するテストです。
 
 First, let's run `yarn test --watch` to run the unit tests.
 All tests are skipped.
@@ -66,6 +73,8 @@ Our `finalizeInitialChildren` returns `true` so `commitMount` is always called.
 The tests have been passed!
 
 ### Create a file into a directory
+
+次はディレクトリの中にファイルがある場合です。
 
 Let's move on to the next section "create a file into a directory". Let's see the tests.
 
@@ -142,6 +151,8 @@ export const commitMount = (
 
 ### Update
 
+次は更新の場合です。
+
 Let's move on to the next section "update a content and file name". Let's see the tests.
 
 I have to implement `commitTextUpdate` and `commitUpdate`.
@@ -169,6 +180,8 @@ That is simple.
 ```
 
 ### Public Instance
+
+最後はPublicInstanceのためのテストです。
 
 Let's move on to the last section "get a public instance". Let's see the tests.
 

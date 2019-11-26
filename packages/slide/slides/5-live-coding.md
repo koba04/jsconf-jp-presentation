@@ -1,4 +1,6 @@
 <!-- note
+ここからはライブコーディングです。
+
 At this time, I'll create a tiny custom renderer for a file system.
 -->
 

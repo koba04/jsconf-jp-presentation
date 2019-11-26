@@ -11,6 +11,8 @@ The first part is "Declarative Programming for UI"
 ---------------
 
 <!-- note
+ここではWikipediaから引用しています
+
 On this slide, we have the Wikipedia definition of Declarative Programming.
 Please take a look at these two points in bold
 because they are important to understand what Declarative Programming is.
@@ -29,6 +31,8 @@ https://en.wikipedia.org/wiki/Declarative_programming
 ---------------
 
 <!-- note
+宣言的に書くことでHowをコンパイラーに任せることが出来て、抽象化層を作ることが出来ます
+
 With Declarative Programming, you write what you want to do rather than how you want to do it.
 How is a job for a compiler, not for you.
 
@@ -61,6 +65,8 @@ Let's briefly go back to the Wikipedia definition
 ---------------
 
 <!-- note
+でもDOMは命令的なAPIです
+
 For application running on browsers, DOM is primitive and you would write DOM manipulations to update your views.
 As you may know, DOM manipulation is based on imperative operations.
 -->
@@ -70,6 +76,8 @@ As you may know, DOM manipulation is based on imperative operations.
 ---------------
 
 <!-- note
+これはその例です
+
 Let's take a look at an example.
 This is an imperative operation and describes how to update the view, not what the view should be.
 
@@ -92,6 +100,8 @@ addButton.addEventListener('click', () => {
 ---------------
 
 <!-- note
+これは宣言的に書いた例です
+
 Let's now look at the declarative version.
 
 This becomes longer than the imperative version.
@@ -127,6 +137,8 @@ Describing what to update the view
 ---------------
 
 <!-- note
+宣言的に書くことでViewをただの関数として考えることが出来ます
+
 You can update a state imperatively and you can update a view declaratively, which are loose coupling.
 View is just a function.
 You can think of them like a server-rendered app.
@@ -141,6 +153,8 @@ Do you create an entire view with each update...?
 ----------------------
 
 <!-- note
+Reactは差分更新によりそれを可能にしています
+
 No, React updates views efficiently.
 React calculates the diffs and then applies the diffs to the view.
 So we don't have to worry about scroll position, the focus management and so on.
@@ -207,6 +221,8 @@ Let's briefly go back to the Wikipedia definition
 ----------------------
 
 <!-- note
+DOMの上に抽象化のレイヤーを作ることは考えてみます。
+
 When we write a div as JSX, it's not a DOM, It's a React Element.
 React creates an abstraction layer using React Element on top of the DOM.
 
@@ -223,6 +239,8 @@ It makes your applications clean and maintains consistency.
 ----------------------
 
 <!-- note
+ここでは、DOMの上にアプリケーションコンポーネントのレイヤーを構築しています
+
 Let's take a look.
 
 This App isn't using any DOM Components directly.

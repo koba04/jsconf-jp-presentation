@@ -1,4 +1,6 @@
 <!-- note
+次にカスタムレンダラーについて見ていきましょう
+
 React is not only for DOM.
 So I'm going to describe how to create a custom renderer!
 -->
@@ -8,6 +10,8 @@ So I'm going to describe how to create a custom renderer!
 ----------------------
 
 <!-- note
+これらは全てカスタムレンダラーで作られています
+
 Before explaining Custom Renderer, I'd like to introduce existing renderers.
 
 As I'm sure you know we have `react-native`, `react-test-renderer`.
@@ -98,6 +102,8 @@ ReactDOM.render(<Canvas><Cube /></Canvas>, el);
 ---------------
 
 <!-- note
+これはASTを扱う面白いレンダラーです
+
 React AST is a custom renderer for AST. Interesting, right?
 
 You can define an abstract syntax tree declaratively as JSX.
@@ -132,6 +138,8 @@ console.log(ast);
 
 ---------------
 <!-- note
+カスタムレンダラーはDOM環境に対しても有用です。
+
 Custom renderer is useful even for DOM environment.
 If you feel that the size of React DOM is too big.
 You can create a lightweight React DOM implementation as a custom renderer like ReactDOMLite.
@@ -151,6 +159,8 @@ Before going over React custom renderer, I'd like to introduce the architecture 
 
 
 <!-- note
+これはReactのアーキテクチャを示した図です
+
 This is an overview of the architecture of React.
 
 Component is a layer to define components.
@@ -178,6 +188,8 @@ If you are interested in the architecure, you can see my slide, "Algorithms in R
 ---------------
 
 <!-- note
+ここからはカスタムレンダラーを作る方法を見ていきます。
+
 Ok, It's time to imeplement a custom renderer!
 
 First, we have to install `react-reconciler` package from npm.
@@ -195,6 +207,8 @@ npm install react-reconciler
 ---------------
 
 <!-- note
+ここではレンダラーを作っています
+
 And then, we can create a renderer by passing a host config to the reconciler.
 
 After creating a renderer, we create a container.
@@ -236,6 +250,8 @@ export const YourReact = {
 ---------------
 
 <!-- note
+これらはHostConfigとして実装するAPIです
+
 You have to implement many functions to create a custom renderer.
 Here is the interface.
 
@@ -290,6 +306,8 @@ So if you are interested in them, please have a look at the host configs of Reac
 ---------------
 
 <!-- note
+たくさんあって複雑そうですが、空の関数で大丈夫なことも多いです
+
 Does it seems to be too complecated?
 I understand...
 But you don't have to impelement all functions!!
@@ -303,6 +321,8 @@ You can impelement the functions incrementally.
 ----------------------
 
 <!-- note
+既存のレンダラーのHostConfigはとても参考になります。
+
 These are host configs of renderers I've introduced.
 So I recommend checking them when implementing a custom renderer.
 -->
@@ -324,6 +344,8 @@ So I recommend checking them when implementing a custom renderer.
 ----------------------
 
 <!-- note
+ここでは、HostConfigに何を実装するのかを説明します
+
 What do we implement on the host config?
 Side-effects, Defining instances and mode, Hydration logic if you need it.
 
@@ -338,16 +360,9 @@ Let's go over them.
 - Hydration logic (if you need)
 
 ---------------
-
 <!-- note
-The APIs for side effects are very similar with DOM APIs.
-So if you are familar with DOM APIs, you can understand them easily.
--->
+ReactDOMはこれをinsertBeforeで実装します
 
-# Side effects for a Host environment
-
----------------
-<!-- note
 Before describing a host config, let's look at an example.
 This changes the order of item b from second to first.
 
@@ -356,8 +371,7 @@ ReactDOM processes this change as an insertBefore function.
 
 What if we implement the function as a custom renderer?
 -->
-
-# Change the index in a list
+# Side effects for a Host environment
 
 ```js
 ReactDOM.render(
@@ -384,6 +398,11 @@ ReactDOM.render(
 ----------------------
 
 <!-- note
+HostConfigのAPIはDOMと似ています
+
+The APIs for side effects are very similar with DOM APIs.
+So if you are familar with DOM APIs, you can understand them easily.
+
 we implement the function as the insertBefore function like this.
 when implmenting a custom renderer, writing imperative operations is your job.
 -->
@@ -410,6 +429,8 @@ export function insertBefore(
 ----------------------
 
 <!-- note
+多くのAPIは名前から想像できます。commitMountだけ呼ばれる条件に注意が必要です。
+
 You can imagine the implementation of many functions from the name.
 But there is a caveat for commitMount.
 
@@ -428,6 +449,8 @@ ReactDOM returns true from finalizeInitialChildren if the tag is button, input, 
 ---------------
 
 <!-- note
+これはインスタンスを構築するためのAPIです。
+
 Let's move on to the defining instance.
 
 createInstance and createTextInstance are important, they return an instance that we use in the host config.
@@ -499,6 +522,8 @@ export const supportsHydration = false;
 
 ---------------
 <!-- note
+カスタムレンダラーのHostComponentの型定義もできます
+
 For TypeScript users, you can define type definition for your host components like this.
 You can override type definition for IntrisicElements.
 

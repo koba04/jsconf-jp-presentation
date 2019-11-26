@@ -6,6 +6,8 @@ I'm a little nervous...
 
 So I'm going to use a custom renderer to introduce myself.
 
+緊張してるのでカスタムレンダラーの力を借りたいと思います。
+
 (yarn voice)
 -->
 
@@ -29,6 +31,8 @@ So I'm going to use a custom renderer to introduce myself.
 <!-- note
 This is the actual code of the demo using a custom renderer that I've created.
 After this talk, you will be able to create a custom renderer like this.
+
+今のはこのRendererで再生したものです
 -->
 
 ```js

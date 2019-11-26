@@ -407,7 +407,7 @@ we implement the function as the insertBefore function like this.
 when implmenting a custom renderer, writing imperative operations is your job.
 -->
 
-# insertBefore
+# Side effects for a Host environment
 
 ```js
 export function insertBefore(
@@ -490,7 +490,7 @@ getPublicInstance is a function to define a public instance, which receives an i
 you can convert an instance to what you want to expose.
 
 ReactDOM returns a received instance without doing anything.
-So you can get a DOM node reference through a `ref` prop.
+So you can get a DOM node reference through a `ref`.
 -->
 
 # getPublicInstance

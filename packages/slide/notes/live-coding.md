@@ -89,7 +89,7 @@ Let's move on to the next section "create a file into a directory".
 `commitMount` is called from `child` to `parent`.
 So when processing a file, its parent directory hasn't been created yet.
 
-So I have to create a directory before.
+So I have to create a directory before creating a file.
 But I don't have a way to know the parent directory path.
 So let's add a `parent` property into `Instance` and `TextInstannce`.
 I add the parent property at `appendChild` and `appendInitialChild`.

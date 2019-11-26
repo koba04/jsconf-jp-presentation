@@ -1,4 +1,4 @@
-## Describe what I'm going to create
+### Describe what I'm going to create
 
 ここでは、FileSystemを扱うカスタムレンダラーを作成します
 
@@ -8,11 +8,15 @@ Let's take a look at README.md.
 This is a custom renderer to create files and directories declaratively.
 This example creates README.md and index.js in a src directory.
 
-## Describe the project structure
+--------------
+
+### Describe the project structure
 
 Before coding, let's take a look at the related files.
 `fs-renderer-types.ts` defines type definition.
 `fs-renderer.ts` creates a renderer from a host config and type definition.
+
+--------------
 
 ### index.ts
 
@@ -25,27 +29,29 @@ You can think of this like `ReactDOM` object.
 `render` function receives a ReactElement and `rootPath`.
 We'd like to use `rootPath` in the host config, so we store it in the container.
 
-Before rendering, we remove all the files under the rootPath, which is a very dangerous operation so be careful when you use this renderer.
+Before rendering, we remove all the files under the rootPath, which is very dangerous so be careful when you use this renderer.
 I'll try to make it safer in the future.
+
+--------------
 
 ### index.test.tsx
 
 I have some tests for `fs-renderer`.
 If all tests have been passed, I can say that `fs-renderer` works fine!
 
-## Start Coding
-
 OK, Let's start coding!!
+
+--------------
 
 ### Create a file and directory
 
-最初は、全てのテストがスキップされているので順番に通していきます。
+全てのテストがスキップされているので順番に通していきます。
 最初はファイル、ディレクトリを作成するテストです。
 
 First, let's run `yarn test --watch` to run the unit tests.
 All tests are skipped.
 
-Let's test the first section of "create a file and directory". Let's see the tests.
+Let's see the first section of "create a file and directory".
 
 First, let's fix type errors at `createInstance` and `createTextInstance`.
 
@@ -72,11 +78,13 @@ Our `finalizeInitialChildren` returns `true` so `commitMount` is always called.
 
 The tests have been passed!
 
+--------------
+
 ### Create a file into a directory
 
 次はディレクトリの中にファイルがある場合です。
 
-Let's move on to the next section "create a file into a directory". Let's see the tests.
+Let's move on to the next section "create a file into a directory".
 
 `commitMount` is called from `child` to `parent`.
 So when processing a file, its parent directory hasn't been created yet.
@@ -86,28 +94,12 @@ But I don't have a way to know the parent directory path.
 So let's add a `parent` property into `Instance` and `TextInstannce`.
 I add the parent property at `appendChild` and `appendInitialChild`.
 
-```ts
-export const appendChild = (
-  parentInstance: Instance,
-  child: Instance | TextInstance
-) => {
-  child.parent = parentInstance;
-};
-
-export const appendInitialChild = (
-  parentInstance: Instance,
-  child: Instance | TextInstance
-) => {
-  child.parent = parentInstance;
-};
-```
+...implementing
 
 Next, let's create a path for parent directory.
 In order to do this, I create a `buildParentPath` function.
 This function accepts an instance or textInstance and returns the parent directory path.
 Let's implement this.
-
-...
 
 I have to reverse the order of the directory names.
 OK, let's replace the `rootPath` with `buildParentPath` function.
@@ -141,25 +133,26 @@ export const commitMount = (
 
   if (type === "file") {
     writeFileSync(targetPath, newProps.children);
-  } else if (type === "directory") {
-    if (!existsSync(targetPath)) {
-      mkdirSync(targetPath);
-    }
+  } else if (type === "directory" && !existsSync(targetPath)) {
+    mkdirSync(targetPath);
   }
 };
 ```
+
+The tests have been passed!
+
+--------------
 
 ### Update
 
 次は更新の場合です。
 
-Let's move on to the next section "update a content and file name". Let's see the tests.
+Let's move on to the next section "update a content and file name".
 
 I have to implement `commitTextUpdate` and `commitUpdate`.
 That is simple.
 
 ```ts
-// commitTextUpdate
   if (newText !== oldText) {
     textInstance.text = newText;
     writeFileSync(buildParentPath(textInstance), newText);
@@ -169,7 +162,6 @@ That is simple.
 `react-fs` only uses `name` prop.
 
 ```ts
-// commitUpdate
   if (newProps.name !== oldProps.name) {
     instance.props = newProps;
     renameSync(
@@ -178,6 +170,10 @@ That is simple.
     );
   }
 ```
+
+The tests have been passed!
+
+--------------
 
 ### Public Instance
 

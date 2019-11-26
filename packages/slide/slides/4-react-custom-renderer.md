@@ -284,7 +284,7 @@ React Native is working on a new architecture called Fabric, which uses Persiste
 
 The second part is an optional interface for hydration.
 If you'd like to support hydration on your renderer, you have to implement this interface.
-ReactDOM is implemented by these functions.
+ReactDOM implements these functions.
 
 I won't be going into detail about Persistence and Hydration mode in this talk.
 So if you are interested in them, please have a look at the host configs of ReactNativeFabric and ReactDOM.

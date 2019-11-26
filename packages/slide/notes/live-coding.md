@@ -5,7 +5,7 @@
 First, I'm going to introduce a custom renderer that I'm going to create.
 Let's take a look at README.md.
 
-This is a custom renderer for file system to create files and directories declaratively.
+This is a custom renderer to create files and directories declaratively.
 This example creates README.md and index.js in a src directory.
 
 ## Describe the project structure

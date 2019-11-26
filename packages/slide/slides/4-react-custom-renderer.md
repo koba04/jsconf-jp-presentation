@@ -10,7 +10,7 @@ So I'm going to describe how to create a custom renderer!
 <!-- note
 Before explaining Custom Renderer, I'd like to introduce existing renderers.
 
-As I'm sure you already know we have `react-native`, `react-test-renderer`.
+As I'm sure you know we have `react-native`, `react-test-renderer`.
 and other renderers for various environments.
 
 I'd like to introduce those renderers briefly.
@@ -155,12 +155,10 @@ This is an overview of the architecture of React.
 
 Component is a layer to define components.
 Host components are provided by a renderer.
-these components start with a lower case.
-They are processed by a renderer.
+these components start with a lower case and they are processed by a renderer.
 
 Reconciler is a layer of React core.
-It manages updates and call functions of a host config.
-It enables many features like Hooks, Suspense, and Concurrent Mode.
+It manages updates and call functions of a host config and it enables many features like Hooks, Suspense, and Concurrent Mode.
 
 Finally, Renderer is a layer for a host environment.
 So when we create a custom renderer, we have to implement this.
@@ -202,7 +200,7 @@ And then, we can create a renderer by passing a host config to the reconciler.
 After creating a renderer, we create a container.
 And then, we update the container to render the passed element.
 
-`createContainer` doesn't render anything. `updateContainer` is the one.
+`createContainer` doesn't render anything. `updateContainer` does.
 `updateContainer` processes the passed ReactElement.
 If we pass the same `fiberRoot` to `updateContainer`, this is processed as an update.
 
@@ -293,7 +291,7 @@ So if you are interested in them, please have a look at the host configs of Reac
 
 <!-- note
 Does it seems to be too complecated?
-I see...
+I understand...
 But you don't have to impelement all functions!!
 Many functions might be ok as empty functions.
 
@@ -343,15 +341,15 @@ Let's go over them.
 
 <!-- note
 The APIs for side effects are very similar with DOM APIs.
-So if you are faimilar with DOM APIs, you can understand them easily.
+So if you are familar with DOM APIs, you can understand them easily.
 -->
 
 # Side effects for a Host environment
 
 ---------------
 <!-- note
-Before describing host config, let's look at an example.
-This changes the order of the item b from second to first.
+Before describing a host config, let's look at an example.
+This changes the order of item b from second to first.
 
 React determines the change by the key props.
 ReactDOM processes this change as an insertBefore function.
@@ -432,8 +430,8 @@ ReactDOM returns true from finalizeInitialChildren if the tag is button, input, 
 <!-- note
 Let's move on to the defining instance.
 
-createInstance and createTextInstance are important, which return an instance that we use in the host config.
-You can return an instance as you want.
+createInstance and createTextInstance are important, they return an instance that we use in the host config.
+You can return any value as an instance.
 
 ReactDOM uses DOM APIs like createElement and createTextNode for these functions.
 So ReactDOM returns a DOM node from the functions.
@@ -468,7 +466,7 @@ export function createTextInstance(
 getPublicInstance is a function to define a public instance, which receives an instance and returns a public instance.
 you can convert an instance to what you want to expose.
 
-ReactDOM returns a passed instance without doing anything.
+ReactDOM returns a received instance without doing anything.
 So you can get a DOM node reference through a `ref` prop.
 -->
 
@@ -504,7 +502,7 @@ export const supportsHydration = false;
 For TypeScript users, you can define type definition for your host components like this.
 You can override type definition for IntrisicElements.
 
-OK, let's move on the final part.
+OK, let's move on to the final part.
 Live coding.
 -->
 

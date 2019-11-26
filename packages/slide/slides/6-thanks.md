@@ -1,6 +1,6 @@
 <!-- note
-I'll share URLs of this slide and source code after this talk on Twitter with hashtag of JSConfJP!
-If you have any questions, I'm happy to answer them after this talk!
+I'll share URLs of this slide and source code after this talk on Twitter with hashtag JSConfJP!
+If you have any questions, I'd be happy to answer them after this talk!
 
 Thank you! ありがとうございました.
 -->

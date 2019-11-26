@@ -21,8 +21,8 @@ You can think of this like `ReactDOM` object.
 `render` function receives a ReactElement and `rootPath`.
 We'd like to use `rootPath` in the host config, so we store it in the container.
 
-Before rendering, we remove the all files under the rootPath, which is a very dangerous operation so be careful to use this renderer.
-I'll make it more safe later.
+Before rendering, we remove all the files under the rootPath, which is a very dangerous operation so be careful when you use this renderer.
+I'll try to make it safer in the future.
 
 ### index.test.tsx
 
@@ -94,7 +94,7 @@ export const appendInitialChild = (
 ```
 
 Next, let's create a path for parent directory.
-In order to this, I create a `buildParentPath` function.
+In order to do this, I create a `buildParentPath` function.
 This function accepts an instance or textInstance and returns the parent directory path.
 Let's implement this.
 
@@ -104,8 +104,8 @@ I have to reverse the order of the directory names.
 OK, let's replace the `rootPath` with `buildParentPath` function.
 
 The tests are still failed.
-Because `mkdirSync` doesn't create a directory recursively and throw an error if the directory is already there.
-Let's fix them.
+Because `mkdirSync` doesn't create a directory recursively and throws an error if the directory is already there.
+Let's fix that.
 
 ```ts
 const buildParentPath = (instance: Instance | TextInstance): string => {
@@ -145,7 +145,7 @@ export const commitMount = (
 Let's move on to the next section "update a content and file name". Let's see the tests.
 
 I have to implement `commitTextUpdate` and `commitUpdate`.
-Those are simple.
+That is simple.
 
 ```ts
 // commitTextUpdate
@@ -183,4 +183,4 @@ export const getPublicInstance = (instance: Instance) => {
 
 Now all tests have been passed!
 Of course there are some cases I haven't implemented yet.
-But just works!
+But it works!

@@ -188,7 +188,7 @@ As a result, we don't have to write how to change the view.
 We can focus on what the view should be.
 
 In other words, if you want to create a custom renderer,
-you have to implement how to change.
+you have to implement how.
 -->
 
 # ReactDOM Renderer
@@ -270,7 +270,7 @@ ReactDOM.render(<App />, view);
 
 <!-- note
 Here is a great talk about this topic.
-I recommend watching the video.
+I recommend watching the video when you have time.
 -->
 
 # DOM as a Second-class Citizen

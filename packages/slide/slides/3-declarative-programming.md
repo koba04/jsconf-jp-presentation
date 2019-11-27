@@ -155,7 +155,7 @@ Do you create an entire view with each update...?
 Reactは差分更新によりそれを可能にしています
 
 No, React updates views efficiently.
-React calculates the diffs and then applies them to the view.
+React calculates the diffs and then applies diffs to the view.
 So we don't have to worry about scroll position, focus management and so on.
 
 Please take a look at the slide,

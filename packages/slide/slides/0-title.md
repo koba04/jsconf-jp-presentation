@@ -3,7 +3,7 @@
 <!-- note
 Good evening everyone!
 My name is Toru Kobayashi.
-I'm here to show you how to "Make it Declrative with React"
+I'm here to show you how to "Make it Declarative with React"
 
 I'm sure that many developers use React to build single page applications.
 But you might not know that React has some interesting usecases other than for building user interfaces.

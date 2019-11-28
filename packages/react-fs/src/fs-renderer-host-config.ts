@@ -25,18 +25,11 @@ export const createInstance = (
   type: string,
   props: Props,
   rootContainerInstance: Container
-): Instance => ({
-  type,
-  props,
-  rootContainerInstance
-});
+): Instance => ({ type, props, rootContainerInstance });
 export const createTextInstance = (
   text: string,
   rootContainerInstance: Container
-): TextInstance => ({
-  text,
-  rootContainerInstance
-});
+): TextInstance => ({ text, rootContainerInstance });
 export const appendInitialChild = (
   parentInstance: Instance,
   child: Instance | TextInstance
@@ -50,17 +43,14 @@ export const shouldDeprioritizeSubtree = () => false;
 
 export const appendChildToContainer = () => {};
 
-const buildParentDirectoryPath = (
-  instance: Instance | TextInstance
-): string => {
-  const paths = [];
+const buildParentPath = (instance: Instance | TextInstance) => {
+  const names = [];
   let current = instance.parent;
   while (current) {
-    paths.push(current.props.name);
+    names.push(current.props.name);
     current = current.parent;
   }
-  paths.push(instance.rootContainerInstance.rootPath);
-  return path.join(...paths.reverse());
+  return path.join(instance.rootContainerInstance.rootPath, ...names.reverse());
 };
 
 export const commitMount = (
@@ -68,7 +58,7 @@ export const commitMount = (
   type: Type,
   newProps: Props
 ) => {
-  const parentPath = buildParentDirectoryPath(instance);
+  const parentPath = buildParentPath(instance);
   const targetPath = path.join(parentPath, newProps.name);
 
   if (!existsSync(parentPath)) {
@@ -76,13 +66,10 @@ export const commitMount = (
   }
 
   if (type === "file") {
-    writeFileSync(path.join(parentPath, newProps.name), newProps.children);
-  } else if (type === "directory") {
-    if (!existsSync(targetPath)) {
-      mkdirSync(path.join(parentPath, newProps.name));
-    }
+    writeFileSync(targetPath, newProps.children);
+  } else if (type === "directory" && !existsSync(targetPath)) {
+    mkdirSync(targetPath);
   }
-  // console.log(instance, type, newProps);
 };
 
 export const commitUpdate = (
@@ -93,12 +80,12 @@ export const commitUpdate = (
   newProps: Props
 ) => {
   if (oldProps.name !== newProps.name) {
+    instance.props = newProps;
     renameSync(
-      path.join(buildParentDirectoryPath(instance), oldProps.name),
-      path.join(buildParentDirectoryPath(instance), newProps.name)
+      path.join(buildParentPath(instance), oldProps.name),
+      path.join(buildParentPath(instance), newProps.name)
     );
   }
-  instance.props = newProps;
 };
 
 export const commitTextUpdate = (
@@ -107,9 +94,9 @@ export const commitTextUpdate = (
   newText: string
 ) => {
   if (oldText !== newText) {
-    writeFileSync(buildParentDirectoryPath(textInstance), newText);
+    textInstance.text = newText;
+    writeFileSync(buildParentPath(textInstance), newText);
   }
-  textInstance.text = newText;
 };
 export const removeChild = () => {};
 export const appendChild = (

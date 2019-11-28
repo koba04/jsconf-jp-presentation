@@ -190,7 +190,7 @@ If you are interested in the architecure, you can see my slide, "Algorithms in R
 <!-- note
 ここからはカスタムレンダラーを作る方法を見ていきます。
 
-Ok, It's time to imeplement a custom renderer!
+Ok, It's time to implement a custom renderer!
 
 First, we have to install `react-reconciler` package from npm.
 -->
@@ -278,7 +278,7 @@ Yes, there is more.
 <!-- note
 Let's move on to Number 2.
 The first part includes an optional interface for persistence mode.
-If you'd like to impelement your custom renderer as persistence mode, you have to implement this interface.
+If you'd like to implement your custom renderer as persistence mode, you have to implement this interface.
 The persistence mode is a mode to treat its instance as immutable.
 React Native is working on a new architecture called Fabric, which uses Persistence mode.
 
@@ -305,12 +305,12 @@ ReactDOM implements these functions.
 <!-- note
 たくさんあって複雑そうですが、空の関数で大丈夫なことも多いです
 
-Does it seems to be too complecated?
+Does it seems to be too complicated?
 I understand...
-But you don't have to impelement all functions!!
+But you don't have to implement all functions!!
 Many functions might be ok as empty functions.
 
-You can impelement the functions incrementally.
+You can implement the functions incrementally.
 -->
 
 # 😇
@@ -433,7 +433,7 @@ But there is a caveat for commitMount.
 
 commitMount is only called when finalizeInitialChildren returns true.
 ReactDOM uses the function to implement autoFocus attribute.
-ReactDOM returns true from finalizeInitialChildren if the tag is button, input, select, or textarea and autoFucos prop is true.
+ReactDOM returns true from finalizeInitialChildren if the tag is button, input, select, or textarea and autoFocus prop is true.
 -->
 
 # Others

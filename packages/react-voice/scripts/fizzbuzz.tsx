@@ -21,7 +21,12 @@ const App = () => {
       }
     }, 50);
   }, [count]);
-  return <alex>{fizzbuzz(count)}</alex>;
+  return (
+    <>
+      <alex>start fizzbuzz</alex>
+      <alex>{fizzbuzz(count)}</alex>;
+    </>
+  );
 };
 
 ReactVoice.render(<App />, {});

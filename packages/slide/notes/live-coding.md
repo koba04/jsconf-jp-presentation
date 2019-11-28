@@ -61,20 +61,7 @@ Next, I have to imeplement to create a file and directory.
 Let's implement this into `commitMount`.
 Our `finalizeInitialChildren` returns `true` so `commitMount` is always called.
 
-```ts
-  const parentPath = instance.rootContainerInstance.rootPath;
-  const targetPath = path.join(parentPath, newProps.name);
-
-  if (!existsSync(parentPath)) {
-    mkdirSync(parentPath);
-  }
-
-  if (type === "file") {
-    writeFileSync(targetPath, newProps.children);
-  } else if (type === "directory") {
-    mkdirSync(targetPath);
-  }
-```
+...implementing
 
 The tests have been passed!
 
@@ -108,36 +95,7 @@ The tests are still failed.
 Because `mkdirSync` doesn't create a directory recursively and throws an error if the directory is already there.
 Let's fix that.
 
-```ts
-const buildParentPath = (instance: Instance | TextInstance): string => {
-  const names = [];
-  let current = instance.parent;
-  while (current) {
-    names.push(current.props.name);
-    current = current.parent;
-  }
-  return path.join(instance.rootContainerInstance.rootPath, ...names.reverse());
-};
-
-export const commitMount = (
-  instance: Instance,
-  type: Type,
-  newProps: Props
-) => {
-  const parentPath = buildParentPath(instance);
-  const targetPath = path.join(parentPath, newProps.name);
-
-  if (!existsSync(parentPath)) {
-    mkdirSync(parentPath, { recursive: true });
-  }
-
-  if (type === "file") {
-    writeFileSync(targetPath, newProps.children);
-  } else if (type === "directory" && !existsSync(targetPath)) {
-    mkdirSync(targetPath);
-  }
-};
-```
+...implementing
 
 The tests have been passed!
 
@@ -152,24 +110,11 @@ Let's move on to the next section "update a content and file name".
 I have to implement `commitTextUpdate` and `commitUpdate`.
 That is simple.
 
-```ts
-  if (newText !== oldText) {
-    textInstance.text = newText;
-    writeFileSync(buildParentPath(textInstance), newText);
-  }
-```
+...implementing
 
 `react-fs` only uses `name` prop.
 
-```ts
-  if (newProps.name !== oldProps.name) {
-    instance.props = newProps;
-    renameSync(
-      path.join(buildParentPath(instance), oldProps.name),
-      path.join(buildParentPath(instance), newProps.name)
-    );
-  }
-```
+...implementing
 
 The tests have been passed!
 
@@ -183,12 +128,7 @@ Let's move on to the last section "get a public instance". Let's see the tests.
 
 Let's implement `getPublicInstance` to filter `rootContainerInstance`.
 
-```ts
-export const getPublicInstance = (instance: Instance) => {
-  const { rootContainerInstance, ...rest } = instance;
-  return rest;
-};
-```
+...implementing
 
 Now all tests have been passed!
 Of course there are some cases I haven't implemented yet.

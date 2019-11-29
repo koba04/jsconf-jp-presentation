@@ -41,6 +41,7 @@ All tests are skipped.
 
 Let's see the first section of "create a file and directory".
 
+Let's open the host config, Its implementation is almost empty.
 First, let's fix type errors at `createInstance` and `createTextInstance`.
 
 ...implementing

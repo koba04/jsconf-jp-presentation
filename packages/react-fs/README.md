@@ -1,6 +1,6 @@
 # @koba04/react-fs
 
-**The GitHub repository will be published soon!!**
+**This repository exists only for JSConf JP presentation. If you'd like to use this renderer, please visit [koba04/react-fs](https://github.com/koba04/react-fs).**
 
 A React custom renderer for file system APIs.
 

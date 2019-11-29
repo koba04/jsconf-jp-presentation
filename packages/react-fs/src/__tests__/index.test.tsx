@@ -12,7 +12,7 @@ describe("ReactFS", () => {
   afterEach(() => {
     rmdirSync(tempDir, { recursive: true });
   });
-  describe("create a file and directory", () => {
+  describe.skip("create a file and directory", () => {
     it("should be able to create a file", () => {
       ReactFS.render(<file name="test.txt">Hello World</file>, tempDir);
       expect(readFileSync(path.join(tempDir, "test.txt")).toString()).toBe(
@@ -24,7 +24,7 @@ describe("ReactFS", () => {
       expect(statSync(path.join(tempDir, "test")).isDirectory()).toBe(true);
     });
   });
-  describe("create a file into a directory", () => {
+  describe.skip("create a file into a directory", () => {
     it("should be able to create a file into a directory", () => {
       ReactFS.render(
         <directory name="foo">
@@ -85,7 +85,7 @@ describe("ReactFS", () => {
       ).toBe("Bar");
     });
   });
-  describe("update a content and file name", () => {
+  describe.skip("update a content and file name", () => {
     it("should be able to update a content of a file", async () => {
       const App = () => {
         const [text, setText] = useState("initial");
@@ -124,7 +124,7 @@ describe("ReactFS", () => {
       expect(existsSync(path.join(tempDir, "initial.txt"))).toBe(false);
     });
   });
-  describe("get a public instance", () => {
+  describe.skip("get a public instance", () => {
     it("should be able to get an instance filtered rootContainerInstance through ref", async () => {
       let ref: any;
       const App = () => {

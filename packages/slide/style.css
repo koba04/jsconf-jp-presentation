@@ -61,3 +61,7 @@ h1 {
 .self-introduction {
   margin-bottom: 1rem;
 }
+
+.host-note > pre {
+  font-size: 28px !important;
+}

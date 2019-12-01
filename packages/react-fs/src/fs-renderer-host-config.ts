@@ -12,8 +12,7 @@ import { writeFileSync, existsSync, mkdirSync, renameSync } from "fs";
 
 const HOST_CONTEXT: HostContext = {};
 
-export const getPublicInstance = (instance: Instance) => {
-};
+export const getPublicInstance = (instance: Instance) => {};
 export const getRootHostContext = (): HostContext => HOST_CONTEXT;
 export const getChildHostContext = () => HOST_CONTEXT;
 
@@ -23,11 +22,11 @@ export const createInstance = (
   type: string,
   props: Props,
   rootContainerInstance: Container
-): Instance => {}
+): Instance => {};
 export const createTextInstance = (
   text: string,
   rootContainerInstance: Container
-): TextInstance => {}
+): TextInstance => {};
 export const appendInitialChild = (
   parentInstance: Instance,
   child: Instance | TextInstance

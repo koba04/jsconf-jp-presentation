@@ -1581,14 +1581,14 @@
   dependencies:
     "@fusuma/configs" "^1.15.0"
 
-"@fusuma/task-pdf@^1.15.0":
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/@fusuma/task-pdf/-/task-pdf-1.15.0.tgz#6587a6f9a1717bf92b8102744f2be7e4865bc728"
-  integrity sha512-iICBYWf393AEqrIXwBYGjwhCjTcwnT3HSOrWv+u3Z8FyQx00E7StSlcKHJS1pEkJKlGEEbOlL9jdCZUvLSLZXQ==
+"@fusuma/task-pdf@^1.15.1":
+  version "1.15.1"
+  resolved "https://registry.yarnpkg.com/@fusuma/task-pdf/-/task-pdf-1.15.1.tgz#17cf696a3691016cd36a510e4ad7fb1ae8c4f1fd"
+  integrity sha512-Sk++dohYNWwcj5xGnzZX36cP660I8S0GHxcG5RY1WZvHClZnGo/xSDjsW6u2H3HH/dPhhWizLenpYLhFo6Xj6g==
   dependencies:
     child-process-promise "2.2.1"
     decktape "^2.9.3"
-    serve "11.1.0"
+    serve "11.3.0"
     serve-handler "^6.0.1"
 
 "@fusuma/task-start@^1.15.0":
@@ -11237,21 +11237,7 @@ serialize-javascript@^1.7.0:
   resolved "https://registry.yarnpkg.com/serialize-javascript/-/serialize-javascript-1.9.1.tgz#cfc200aef77b600c47da9bb8149c943e798c2fdb"
   integrity sha512-0Vb/54WJ6k5v8sSWN09S0ora+Hnr+cX40r9F170nT+mSkaxltoE/7R3OrIdBSUv1OoiobH1QoWQbCnAO+e8J1A==
 
-serve-handler@6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/serve-handler/-/serve-handler-6.1.0.tgz#f1606dc6ff8f9029a1ee042c11dfe7903a5cb92e"
-  integrity sha512-63N075Tn3PsFYcu0NVV7tb367UbiW3gnC+/50ohL4oqOhAG6bmbaWqiRcXQgbzqc0ALBjSAzg7VTfa0Qw4E3hA==
-  dependencies:
-    bytes "3.0.0"
-    content-disposition "0.5.2"
-    fast-url-parser "1.1.3"
-    mime-types "2.1.18"
-    minimatch "3.0.4"
-    path-is-inside "1.0.2"
-    path-to-regexp "2.2.1"
-    range-parser "1.2.0"
-
-serve-handler@^6.0.1:
+serve-handler@6.1.2, serve-handler@^6.0.1:
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/serve-handler/-/serve-handler-6.1.2.tgz#f05b0421a313fff2d257838cba00cbcc512cd2b6"
   integrity sha512-RFh49wX7zJmmOVDcIjiDSJnMH+ItQEvyuYLYuDBVoA/xmQSCuj+uRmk1cmBB5QQlI3qOiWKp6p4DUGY+Z5AB2A==
@@ -11275,10 +11261,10 @@ serve-static@1.14.1:
     parseurl "~1.3.3"
     send "0.17.1"
 
-serve@11.1.0:
-  version "11.1.0"
-  resolved "https://registry.yarnpkg.com/serve/-/serve-11.1.0.tgz#1bfe2f4a08d0130cbf44711cdb7996cb742172e0"
-  integrity sha512-+4wpDtOSS+4ZLyDWMxThutA3iOTawX2+yDovOI8cjOUOmemyvNlHyFAsezBlSgbZKTYChI3tzA1Mh0z6XZ62qA==
+serve@11.3.0:
+  version "11.3.0"
+  resolved "https://registry.yarnpkg.com/serve/-/serve-11.3.0.tgz#1d342e13e310501ecf17b6602f1f35da640d6448"
+  integrity sha512-AU0g50Q1y5EVFX56bl0YX5OtVjUX1N737/Htj93dQGKuHiuLvVB45PD8Muar70W6Kpdlz8aNJfoUqTyAq9EE/A==
   dependencies:
     "@zeit/schemas" "2.6.0"
     ajv "6.5.3"
@@ -11287,7 +11273,7 @@ serve@11.1.0:
     chalk "2.4.1"
     clipboardy "1.2.3"
     compression "1.7.3"
-    serve-handler "6.1.0"
+    serve-handler "6.1.2"
     update-check "1.5.2"
 
 set-blocking@^2.0.0, set-blocking@~2.0.0:

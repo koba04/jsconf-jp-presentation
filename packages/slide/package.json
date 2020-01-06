@@ -10,7 +10,7 @@
     "deploy": "npm run build && npm run pdf"
   },
   "devDependencies": {
-    "@fusuma/task-pdf": "^1.15.0",
+    "@fusuma/task-pdf": "^1.15.1",
     "fusuma": "^1.15.0"
   }
 }

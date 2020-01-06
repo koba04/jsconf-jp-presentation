@@ -11,6 +11,6 @@
   },
   "devDependencies": {
     "@fusuma/task-pdf": "^1.15.1",
-    "fusuma": "^1.15.0"
+    "fusuma": "^1.15.1"
   }
 }

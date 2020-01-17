@@ -17,6 +17,6 @@
   "devDependencies": {
     "@types/react": "^16.9.17",
     "ts-node": "^8.5.4",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.5"
   }
 }

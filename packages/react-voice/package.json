@@ -14,7 +14,7 @@
   "devDependencies": {
     "@types/react": "^16.9.19",
     "@types/react-reconciler": "^0.18.0",
-    "ts-node": "^8.5.4",
+    "ts-node": "^8.6.2",
     "typescript": "^3.7.5"
   }
 }
